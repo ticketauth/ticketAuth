@@ -7,7 +7,9 @@ require('typeface-monoton')
 export default function Home() {
   return (
     <div className={styles.container}>
-
+        <Box position={'sticky'} top={'0'}>
+          
+        </Box>
         <VStack spacing={-8}>
           <Grid h='350px' w='100%' justifyContent='center' alignItems='center' bgGradient="linear(to-t, green.200, teal.500)">
             <VStack>
@@ -20,6 +22,8 @@ export default function Home() {
 
           <Box h='300px' w='100%' bg='blue.200'/>
         </VStack>
+
+        
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
