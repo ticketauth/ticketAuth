@@ -1,5 +1,6 @@
 import { Grid, Text, VStack, Wrap } from '@chakra-ui/react'
 import Searchbar from "../components/Searchbar";
+import ConnectToPhantom from '../components/ConnectToPhantom';
 import Header from '../components/Header';
 import CardsList from '../components/CardsList';
 require('typeface-monoton')
@@ -17,7 +18,7 @@ const Explore = () => {
           </Grid>
 
           <Searchbar/>
-
+          <ConnectToPhantom/>
           <VStack w='100%'>
             <CardsList/>
           </VStack>

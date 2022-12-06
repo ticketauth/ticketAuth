@@ -13,6 +13,8 @@
     "@chakra-ui/react": "^2.4.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@metaplex-foundation/js": "^0.17.8",
+    "@solana/web3.js": "^1.69.0",
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
