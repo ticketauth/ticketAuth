@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Button } from '@chakra-ui/react';
 
 require('@solana/wallet-adapter-react-ui/styles.css');
-export const WalletMulti: FC = props => {
+export const SolanaWalletMulti: FC = props => {
     const { setVisible } = useWalletModal();
 
     return (

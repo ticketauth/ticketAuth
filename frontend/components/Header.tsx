@@ -1,4 +1,5 @@
 import { Button, Flex, HStack, Image, Modal, ModalBody, ModalContent, ModalOverlay, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react"
+import { SolanaWalletMulti } from "./SolanaWalletMulti";
 import ToggleModeButton from "./ToggleModeButton";
 
 const WalletModal = (props: {isOpen: boolean, onClose: ()=>void}) => {
@@ -13,6 +14,7 @@ const WalletModal = (props: {isOpen: boolean, onClose: ()=>void}) => {
         <ModalBody>
           <VStack>
             <Button bg='white' w='100%' h='150px'>fasgf</Button>
+            <SolanaWalletMulti/>
             <Button bg='white' w='100%' h='150px'>
               <VStack>
               <Text>Connect Crypto Wallets</Text>
