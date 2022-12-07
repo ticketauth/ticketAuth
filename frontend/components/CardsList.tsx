@@ -10,8 +10,7 @@ const CardsList = ()=>{
 	},[])
   
   return (
-    <Wrap w='100%' h='100%' padding='10%'>
-			<Text>Featured Events</Text>
+    <Wrap w='100%' h='100%' padding="20px">
     {
       events.map(event=>
         <Card 
