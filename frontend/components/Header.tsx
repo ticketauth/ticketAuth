@@ -1,7 +1,7 @@
 import { Button, Flex, HStack, Spacer } from "@chakra-ui/react"
 import { WalletMulti } from "./WalletMulti"
 
-require('@solana/wallet-adapter-react-ui/styles.css');
+
 const Header = () => {  
 
     return (
