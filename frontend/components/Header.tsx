@@ -1,4 +1,5 @@
 import { Button, Flex, HStack, Spacer } from "@chakra-ui/react"
+import { WalletMulti } from "./WalletMulti"
 
 const Header = () => {  
 
@@ -18,6 +19,7 @@ const Header = () => {
         <HStack spacing='10px'>
           <Button>Create Events</Button>
           <Button>Sign Up</Button>
+          <WalletMulti />
         </HStack>
       </Flex>
     )
