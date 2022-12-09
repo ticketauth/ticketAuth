@@ -2,12 +2,10 @@ import { Grid, Heading, Text, VStack, Wrap } from '@chakra-ui/react'
 import Searchbar from "../components/Searchbar";
 import Header from '../components/Header';
 import CardsList from '../components/CardsList';
-import { useAutoConnect } from '../contexts/AutoConnectProvider';
 
 require('typeface-monoton')
 
 const Explore = () => {
-  const { autoConnect, setAutoConnect } = useAutoConnect();
   return (
     <>
       <Header/>

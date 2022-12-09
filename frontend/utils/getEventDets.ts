@@ -1,7 +1,7 @@
 import { EventData } from "./dataInterfaces";
 
-const getEvents = async (): Promise<Array<EventData>> =>{
-  const data = await fetch('/api/testEvents', {
+const getEventDets = async (eventid:string): Promise<EventData> =>{
+  const data = await fetch(`/api/event/${eventid}`, {
     method: 'GET',
     // headers: {
     //   'Content-Type': 'application/json',
@@ -9,13 +9,13 @@ const getEvents = async (): Promise<Array<EventData>> =>{
     // body: JSON.stringify(data),
   })
   .then((response) => response.json())
-  .then((res) => {
-    console.log(res.data)
-    return res.data
+  .then((data) => {
+    console.log(data)
+    return data
   })
   .catch((error) => {
     console.error('Error:', error);
   });
   return data;
 }
-export default getEvents
+export default getEventDets

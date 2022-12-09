@@ -1,0 +1,18 @@
+{
+  "data":
+  [
+    { 
+      "Name of event": "Elon musk firing party" ,
+      "EventId": "ASDL124Vfrfw3",
+      "organUniqueid": "AD23vfW14",
+      "Start Date": "12-06-2023",
+      "End Date": "12-06-2023 ",
+      "Location Description": "Twitter HQ",
+      "Organizers Email": "elonmusk@gmail.com",
+      "Event Capacity": 2000,
+      "Ticket price": 7.99,
+      "Paid Event": true,
+      "Ticket Image": "https://assets.pandaily.com/uploads/2022/05/%E9%A3%9E%E4%B9%A620220516-220550.jpg"
+    }
+  ]
+}

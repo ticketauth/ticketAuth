@@ -1,11 +1,12 @@
 import { Button, Flex, HStack, Image, Modal, ModalBody, ModalContent, ModalOverlay, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react"
+import { useRouter } from "next/router";
 import { SolanaWalletMulti } from "./SolanaWalletMulti";
 import ToggleModeButton from "./ToggleModeButton";
 
-const WalletModal = (props: {isOpen: boolean, onClose: ()=>void}) => {
-  const {isOpen,onClose} = props;
+const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) => {
+  const {isPaymentOpen,onPaymentClose} = props;
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isPaymentOpen} onClose={onPaymentClose} isCentered>
       <ModalOverlay 
         bg='whiteAlpha.300'
         backdropFilter='blur(10px)'
@@ -13,15 +14,10 @@ const WalletModal = (props: {isOpen: boolean, onClose: ()=>void}) => {
       <ModalContent>
         <ModalBody>
           <VStack>
-            <Button bg='white' w='100%' h='150px'>fasgf</Button>
+            <Button bg='white' w='100%' h='150px'>Torus Wallet</Button>
             <SolanaWalletMulti/>
-            <Button bg='white' w='100%' h='150px'>
-              <VStack>
-              <Text>Connect Crypto Wallets</Text>
-              <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT57neehMfp0s4VqsX8iGb1oB8fBzj3HjrbwUoz9wiUwA&s"/>
-              </VStack>
-            </Button>
-          </VStack>        
+            {/* fiat currency payment*/}
+          </VStack>
         </ModalBody>
       </ModalContent>
     </Modal>
@@ -29,7 +25,9 @@ const WalletModal = (props: {isOpen: boolean, onClose: ()=>void}) => {
 }
 
 const Header = () => {  
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen:isPaymentOpen, onOpen:onPaymentOpen, onClose:onPaymentClose } = useDisclosure()
+  const router = useRouter();
+
   return (
     <Flex
       position='fixed'
@@ -41,12 +39,12 @@ const Header = () => {
       zIndex={4}
       padding='20px'
     >
-      ICON PLACEHOLDER
+      <Text onClick={e=>router.push("/")}>ICON PLACEHOLDER</Text>
       <Spacer/>
       <HStack spacing='10px'>
         <Button>Create Events</Button>
-        <Button onClick={onOpen} >Sign Up</Button>
-        <WalletModal isOpen={isOpen} onClose={onClose}/>
+        <Button onClick={onPaymentOpen} >Sign Up</Button>
+        <WalletModal isPaymentOpen={isPaymentOpen} onPaymentClose={onPaymentClose}/>
         <ToggleModeButton/>
       </HStack>
     </Flex>
