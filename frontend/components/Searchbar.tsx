@@ -1,4 +1,4 @@
-import { Button, Input, InputGroup, InputLeftElement, InputRightElement, Text } from '@chakra-ui/react'
+import { Button, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, InputRightElement, Spacer, Text } from '@chakra-ui/react'
 import { CalendarIcon,SearchIcon } from '@chakra-ui/icons'
 
 export default function Searchbar(){
@@ -13,33 +13,36 @@ export default function Searchbar(){
 			boxShadow='1px 5px 10px rgba(30,30,30,0.5)' 
 		>
 			<Input w='700px' variant='unstyled' placeholder='Search for your events..' />
+			
+			<HStack gap='10px'>
+			<Text>From:</Text>
+			<Input variant='unstyled' type="datetime-local" />
+			<Text>to</Text>
+			<Input variant='unstyled' type="datetime-local" />
+			</HStack>
+
 			<InputGroup>
 				<InputLeftElement
 					h='100%'
 					pointerEvents='none'
-					children={<CalendarIcon color='gray.200' />}
 				/>
-				<Input variant='unstyled' placeholder='Pick a Date' />
+				<Text>$</Text>
+				<Input variant='unstyled' type='number' placeholder='Highest Price' />
 			</InputGroup>
-			<InputGroup>
-				<InputLeftElement
-					h='100%'
-					pointerEvents='none'
-					children={<Text>$</Text>}
-				/>
-				<Input variant='unstyled' placeholder='Price range' />
-			</InputGroup>
+			
 			<InputRightElement alignItems={'flex-end'} h='100%' w='150px'>
-				<Button 
-					leftIcon={<SearchIcon/>}
+				<Button
 					h='100%'
 					w='100%'
 					bg='green.700'
 					borderRadius='40px'
 					color='white'
+					gap='10px'
 					// onClick={handleClick}
 				>
-					Search
+					
+					<SearchIcon/>
+					<Text>Search</Text>
 				</Button>
 			</InputRightElement>
 		</InputGroup>

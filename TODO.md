@@ -1,5 +1,13 @@
-1. The header how
-2. Do we need to make it mobile responsive
-3. set interface for events and user data
-4. fix the overlap modal bug
-5. Ask about the price of crypto
+//ESSENTIAL
+- Date data formatting
+- Add Validation
+- Fix cardslist cards data display
+- Style buttons
+- Skeleton for loading
+- Connect to backend API
+
+//STYLING
+- Scrollbar need to style
+- mobile responsive
+- Sizing and gaps of all pages
+- Fix Dark mode

@@ -15,7 +15,7 @@ const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) 
         <ModalBody>
           <VStack>
             <Button bg='white' w='100%' h='150px'>Torus Wallet</Button>
-            <SolanaWalletMulti/>
+            <SolanaWalletMulti onPaymentClose={onPaymentClose}/>
             {/* fiat currency payment*/}
           </VStack>
         </ModalBody>
@@ -39,10 +39,10 @@ const Header = () => {
       zIndex={4}
       padding='20px'
     >
-      <Text onClick={e=>router.push("/")}>ICON PLACEHOLDER</Text>
+      <Text onClick={e=>router.push("/")}>LOGO PLACEHOLDER</Text>
       <Spacer/>
       <HStack spacing='10px'>
-        <Button>Create Events</Button>
+        <Button onClick={()=>router.push("/create")}>Create Events</Button>
         <Button onClick={onPaymentOpen} >Sign Up</Button>
         <WalletModal isPaymentOpen={isPaymentOpen} onPaymentClose={onPaymentClose}/>
         <ToggleModeButton/>

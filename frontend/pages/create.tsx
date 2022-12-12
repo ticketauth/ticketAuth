@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, HStack, Image, Input, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, HStack, Image, Input, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -78,46 +78,48 @@ const Tab1 = () => {
 
   const isError = input === ''
 	return (
-		<FormControl isInvalid={isError} w='100%'>
-			<VStack>
-				<Flex align='flex-start' w='100%' >
-					<VStack align='flex-start' w='100%'>
+			<Grid gap={4}>
+				<GridItem colSpan={2}>
+				<FormControl w='100%' isInvalid={isError}>
 						<FormLabel>Event Name</FormLabel>
 						<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
 						{isError &&
 						(
 							<FormErrorMessage>Event name is required.</FormErrorMessage>
 						)}
-					</VStack>
-				</Flex>
+				</FormControl>
+				</GridItem>
 
-				<Flex align='flex-start' w='100%' gap='50px'>
-					<VStack align='flex-start' w='100%'>
+				<GridItem colSpan={1}>
+					<FormControl w='100%' isInvalid={isError}>
 						<FormLabel>Date of Event</FormLabel>
 						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
-					</VStack>
-					<VStack align='flex-start' w='100%'>
+					</FormControl>
+				</GridItem>
+				<GridItem colSpan={1}>
+					<FormControl w='100%' isInvalid={isError}>
 						<FormLabel>Event Category</FormLabel>
 						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
-					</VStack>
-				</Flex>
+					</FormControl>
+				</GridItem>
 
-				<Flex align='flex-start' w='100%' gap='50px'>
-					<VStack align='flex-start' w='100%'>
+				<GridItem colSpan={1}>
+					<FormControl w='100%' isInvalid={isError}>
 						<FormLabel>Ticket Price</FormLabel>
 						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
-					</VStack>
-					<VStack align='flex-start' w='100%'>
+					</FormControl>
+				</GridItem>
+				<GridItem colSpan={1}>
+					<FormControl w='100%' isInvalid={isError}>
 						<FormLabel>Number of Available Tickets</FormLabel>
 						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
-					</VStack>
-				</Flex>
-			</VStack>
-    </FormControl>
+					</FormControl>
+				</GridItem>
+			</Grid>
 	)
 }
 
@@ -128,18 +130,14 @@ const Tab2 = () => {
 
   const isError = input === ''
 	return (
-		<VStack w='100%'>
-			<Flex align='flex-start' w='100%' >
-				<VStack align='flex-start' w='100%'>
-					<FormControl isInvalid={isError}>
-					<FormLabel>Short Description</FormLabel>
-					<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
-					{isError&&<FormErrorMessage>Description is required.</FormErrorMessage>}
-					</FormControl>
-					<FormLabel>Long Description</FormLabel>
-					<Textarea placeholder='Here is a sample placeholder' />
-				</VStack>
-			</Flex>
+		<VStack w='100%' align='flex-start'>
+			<FormControl isInvalid={isError}>
+			<FormLabel>Short Description</FormLabel>
+			<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
+			{isError&&<FormErrorMessage>Description is required.</FormErrorMessage>}
+			</FormControl>
+			<FormLabel>Long Description</FormLabel>
+			<Textarea placeholder='Here is a sample placeholder' />
 		</VStack>
 	)
 }

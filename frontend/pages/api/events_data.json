@@ -4,9 +4,10 @@
     { 
       "Name of event": "Elon musk firing party" ,
       "EventId": "ASDL124Vfrfw3",
+      "Event Description": "Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.",
       "organUniqueid": "AD23vfW14",
-      "Start Date": "12-06-2023",
-      "End Date": "12-06-2023 ",
+      "Start Datetime": "12-06-2023",
+      "End Datetime": "12-06-2023 ",
       "Location Description": "Twitter HQ",
       "Organizers Email": "elonmusk@gmail.com",
       "Event Capacity": 2000,

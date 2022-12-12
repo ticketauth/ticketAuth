@@ -9,7 +9,5 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log("FUCK")
-  console.log(events_data)
   res.status(200).json(events_data)
 }

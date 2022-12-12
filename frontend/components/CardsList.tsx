@@ -17,11 +17,12 @@ const CardsList = ()=>{
     <>Skeleton</>:
     <Wrap w='100%' h='100%' padding="20px">
     {
-      events.map(event=>
+      events.map((event,key)=>
         <Card 
 					maxW='sm'
-					boxShadow='1px 5px 10px rgba(30,30,30,0.5)'
+					className='shadow'
           onClick={()=>router.push(`/event/${event.EventId}`)}
+          key={key}
 				>
           <CardBody>
 						<Image
