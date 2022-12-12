@@ -21,20 +21,20 @@ const PORT = process.env.PORT || 5000;
 
 // Database connection url
 const CONNECTION_URL =
-	"mongodb+srv://root:root@cluster0.4uzbbtm.mongodb.net/jobtest?retryWrites=true&w=majority";
+    "mongodb+srv://ticketauth:xyzticketauth@cluster0.yyn3cl5.mongodb.net/?retryWrites=true&w=majority";
 
 // connect to database with mongoose
 mongoose
-	.connect(CONNECTION_URL, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		serverApi: ServerApiVersion.v1,
-	})
-	.then(() => {
-		app.listen(PORT, () => {
-			console.log("Server Running");
-		});
-	})
-	.catch((error) => {
-		console.log(error);
-	});
+    .connect(CONNECTION_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverApi: ServerApiVersion.v1,
+    })
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Server Running");
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    });
