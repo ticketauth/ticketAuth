@@ -29,3 +29,7 @@ a {
   background-color:RGBA(255, 255, 255, 0.16);
   backdrop-filter: blur(10px);
 }
+
+.shadow {
+  box-shadow: '3px 3px 10px rgba(30,30,30,0.2)';
+}

@@ -1,21 +1,28 @@
 import { Card, CardBody, Heading, Wrap, Image, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { EventData } from "../utils/dataInterfaces";
 import getEvents from "../utils/getEvents";
 
 
 const CardsList = ()=>{
-	const [events, setEvents] = useState(Array<{name:String}>)
+	const [events, setEvents] = useState<Array<EventData>>()
+  const router = useRouter()
 	useEffect(()=>{
-		getEvents().then(e=>setEvents(e.data));
+		getEvents().then(data=>setEvents(data));
 	},[])
   
   return (
+    events==undefined?
+    <>Skeleton</>:
     <Wrap w='100%' h='100%' padding="20px">
     {
-      events.map(event=>
+      events.map((event,key)=>
         <Card 
 					maxW='sm'
-					boxShadow='1px 5px 10px rgba(30,30,30,0.5)'
+					className='shadow'
+          onClick={()=>router.push(`/event/${event.EventId}`)}
+          key={key}
 				>
           <CardBody>
 						<Image
@@ -23,7 +30,7 @@ const CardsList = ()=>{
 							alt='Green double couch with wooden legs'
 							borderRadius='lg'
 						/>
-            <Heading>{event?.name}</Heading>
+            <Heading>{event["Name of event"]}</Heading>
 						Closing soon??
           </CardBody>
         </Card>
