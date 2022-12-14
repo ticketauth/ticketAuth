@@ -8,6 +8,5 @@ export default function handler(
   res: NextApiResponse<EventData>
 ) {
   const { query } = req;
-  // console.log("Getting eventid:"+query)
   res.status(200).json(event_dets)
 }

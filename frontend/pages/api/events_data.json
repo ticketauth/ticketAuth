@@ -2,18 +2,21 @@
   "data":
   [
     { 
-      "Name of event": "Elon musk firing party" ,
+      "Name of event": "Metacamp AfterParty" ,
       "EventId": "ASDL124Vfrfw3",
-      "Event Description": "Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.",
-      "organUniqueid": "AD23vfW14",
-      "Start Datetime": "12-06-2023",
-      "End Datetime": "12-06-2023 ",
-      "Location Description": "Twitter HQ",
-      "Organizers Email": "elonmusk@gmail.com",
-      "Event Capacity": 2000,
-      "Ticket price": 7.99,
-      "Paid Event": true,
-      "Ticket Image": "https://assets.pandaily.com/uploads/2022/05/%E9%A3%9E%E4%B9%A620220516-220550.jpg"
+      "Event Description": "Welcome to the afterparty @Metacamp hosted by TicketAuth to celebrate our first release!",
+      "walletaddress": "AD23vfW14",
+      "Start Datetime": "18-12-2022",
+      "End Datetime": "18-12-2023 ",
+      "Location": "Metacamp",
+      "Coordinates": {"lat":1.2833441,"lng":103.8446768},
+      "Organizers Email": "ticketauthxyz@gmail.com",
+      "Event Capacity": 888,
+      "Ticket price": 0,
+      "Ticket Image": "https://uploads-ssl.webflow.com/628b99344f25667e77da83cf/62c3a95fc598e35cf796a1f2_Asset%209%403x.png",
+      "Background Image": "https://cdn.techinasia.com/cloudinary/transformations/wp-content/uploads/2022/11/1668586039_e9b93a7d4095b7a38fc85af8a4f749aa_v1668586039_xlarge.webp",
+      "attendees": ["wallet1","wallet2"],
+      "active": true
     }
   ]
 }

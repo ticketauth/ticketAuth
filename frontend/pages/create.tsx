@@ -1,7 +1,9 @@
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, HStack, Image, Input, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, HStack, Image, Input, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import {  DebounceSearch } from "../components/Maps";
+import { FileInput } from "../components/FileInput";
 
 const CreateEvent:React.FC = () => {
 	const [tabIndex, setTabIndex] = useState(0);
@@ -16,6 +18,7 @@ const CreateEvent:React.FC = () => {
 				</Grid>
 
 				<Tabs variant='unstyled' index={tabIndex} onChange={(tabIndex) => setTabIndex(tabIndex)} w='80%'>
+					
 					<TabList justifyContent='center'>
 						<HStack 
 							h='64px'
@@ -31,30 +34,29 @@ const CreateEvent:React.FC = () => {
 							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ color: 'white', bg: 'green.400' }}>2</Tab>
 						</HStack>
 					</TabList>
+
+
 					<TabPanels>
 						<TabPanel>
 							<HStack>
-								<VStack w='50%'>
+								<VStack w='100%'>
 									<Tab1/>
 									<Flex w='100%' justifyContent='flex-end'>
 										<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
 									</Flex>
 								</VStack>
-								<TicketPreview/>
+								<FileInput/>
 							</HStack>
 						</TabPanel>
+
 						<TabPanel>
-						<HStack>
-								<VStack w='50%'>
-									<Tab2/>
-									<Flex w='100%' justifyContent='flex-end'>
-										<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
-									</Flex>
-								</VStack>
-								<TicketPreview/>
-							</HStack>
+								<Tab2/>
+								<Flex w='100%' justifyContent='flex-end'>
+									<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
+								</Flex>
 						</TabPanel>
 					</TabPanels>
+					
 				</Tabs>
 			</VStack>
 		</>
@@ -78,48 +80,49 @@ const Tab1 = () => {
 
   const isError = input === ''
 	return (
-			<Grid gap={4}>
-				<GridItem colSpan={2}>
+			<SimpleGrid columns={4} spacing={4}>
+				<GridItem colSpan={3}>
 				<FormControl w='100%' isInvalid={isError}>
-						<FormLabel>Event Name</FormLabel>
-						<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
-						{isError &&
-						(
-							<FormErrorMessage>Event name is required.</FormErrorMessage>
-						)}
+					<Input placeholder="Event Name" type='text' value={input} onChange={handleInputChange} w='100%'/>
+					{isError &&
+					(
+						<FormErrorMessage>Event name is required.</FormErrorMessage>
+					)}
 				</FormControl>
 				</GridItem>
-
 				<GridItem colSpan={1}>
 					<FormControl w='100%' isInvalid={isError}>
-						<FormLabel>Date of Event</FormLabel>
-						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
-						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
-					</FormControl>
-				</GridItem>
-				<GridItem colSpan={1}>
-					<FormControl w='100%' isInvalid={isError}>
-						<FormLabel>Event Category</FormLabel>
-						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
+						<Input placeholder="Category" type='search' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 
-				<GridItem colSpan={1}>
+				<GridItem colSpan={2}>
 					<FormControl w='100%' isInvalid={isError}>
-						<FormLabel>Ticket Price</FormLabel>
-						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
+						<Input placeholder="Start Date" type="datetime-local" />
+						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
+					</FormControl>
+				</GridItem>
+				<GridItem colSpan={2}>
+					<FormControl w='100%' isInvalid={isError}>
+						<Input placeholder="End Date" type="datetime-local" />
+						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
+					</FormControl>
+				</GridItem>
+
+				<GridItem colSpan={2}>
+					<FormControl w='100%' isInvalid={isError}>
+						<Input placeholder="Ticket Price" type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
-				<GridItem colSpan={1}>
+				<GridItem colSpan={2}>
 					<FormControl w='100%' isInvalid={isError}>
-						<FormLabel>Number of Available Tickets</FormLabel>
-						<Input type='email' value={input} onChange={handleInputChange} w='100%'/>
+						<Input placeholder="Event Capacity" type='email' value={input} onChange={handleInputChange} w='100%'/>
 						{isError&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
-			</Grid>
+			</SimpleGrid >
 	)
 }
 
@@ -136,8 +139,10 @@ const Tab2 = () => {
 			<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
 			{isError&&<FormErrorMessage>Description is required.</FormErrorMessage>}
 			</FormControl>
-			<FormLabel>Long Description</FormLabel>
-			<Textarea placeholder='Here is a sample placeholder' />
+			<FormControl>
+				<FormLabel>Event Location</FormLabel>
+				<DebounceSearch/>
+			</FormControl>
 		</VStack>
 	)
 }
