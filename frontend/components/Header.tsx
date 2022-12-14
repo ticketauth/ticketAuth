@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { SolanaWalletMulti } from "./SolanaWalletMulti";
 import ToggleModeButton from "./ToggleModeButton";
 import { TorusWallet } from "./TorusWallet";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui"; 
 
 const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) => {
   const {isPaymentOpen,onPaymentClose} = props;
@@ -28,7 +30,7 @@ const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) 
 const Header = () => {  
   const { isOpen:isPaymentOpen, onOpen:onPaymentOpen, onClose:onPaymentClose } = useDisclosure()
   const router = useRouter();
-
+  const { publicKey } = useWallet();
   return (
     <Flex
       position='fixed'
@@ -44,7 +46,16 @@ const Header = () => {
       <Spacer/>
       <HStack spacing='10px'>
         <Button onClick={()=>router.push("/create")}>Create Events</Button>
-        <Button onClick={onPaymentOpen} >Sign Up</Button>
+        {publicKey ? (
+        <>
+          <WalletMultiButton />
+        </>
+        ) : (
+          <>
+            <Button onClick={onPaymentOpen} >Sign Up</Button>
+          </>
+        )
+        }
         <WalletModal isPaymentOpen={isPaymentOpen} onPaymentClose={onPaymentClose}/>
         <ToggleModeButton/>
       </HStack>
