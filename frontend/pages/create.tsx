@@ -67,7 +67,7 @@ const CreateEvent:React.FC = () => {
 							<VStack spacing='10px' w='100%'>
 							<Tab2/>
 							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
+								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(2)}>Next Step</Button>
 							</Flex>
 							</VStack>
 						</TabPanel>
@@ -76,7 +76,7 @@ const CreateEvent:React.FC = () => {
 							<VStack spacing='10px' w='100%'>
 							<Tab3/>
 							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)} bg='brand.3' color='white'>Create Your Event</Button>
+								<Button rightIcon={<ChevronRightIcon/>} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
 							</VStack>
 						</TabPanel>
