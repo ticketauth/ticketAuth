@@ -2,6 +2,7 @@ import { Button, Flex, HStack, Image, Modal, ModalBody, ModalContent, ModalOverl
 import { useRouter } from "next/router";
 import { SolanaWalletMulti } from "./SolanaWalletMulti";
 import ToggleModeButton from "./ToggleModeButton";
+import { TorusWallet } from "./TorusWallet";
 
 const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) => {
   const {isPaymentOpen,onPaymentClose} = props;
@@ -14,7 +15,7 @@ const WalletModal = (props: {isPaymentOpen: boolean, onPaymentClose: ()=>void}) 
       <ModalContent>
         <ModalBody>
           <VStack>
-            <Button bg='white' w='100%' h='150px'>Torus Wallet</Button>
+            <TorusWallet />
             <SolanaWalletMulti onPaymentClose={onPaymentClose}/>
             {/* fiat currency payment*/}
           </VStack>
