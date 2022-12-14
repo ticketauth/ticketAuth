@@ -7,7 +7,6 @@ import {
     SolflareWalletAdapter,
     SolletExtensionWalletAdapter,
     SolletWalletAdapter,
-    TorusWalletAdapter,
  } from '@solana/wallet-adapter-wallets';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { clusterApiUrl } from '@solana/web3.js';
@@ -27,7 +26,6 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
             new SolflareWalletAdapter(),
             new SolletWalletAdapter({ network }),
             new SolletExtensionWalletAdapter({ network }),
-            new TorusWalletAdapter(),
         ],
         [network]
     );

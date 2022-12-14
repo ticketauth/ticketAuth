@@ -1,5 +1,5 @@
 import { Button, HStack, Input, InputGroup, InputLeftElement, InputRightAddon, InputRightElement, Spacer, Text } from '@chakra-ui/react'
-import { CalendarIcon,SearchIcon } from '@chakra-ui/icons'
+import { SearchIcon } from '@chakra-ui/icons'
 
 export default function Searchbar(){
 	return (
@@ -25,8 +25,9 @@ export default function Searchbar(){
 				<InputLeftElement
 					h='100%'
 					pointerEvents='none'
-				/>
+				>
 				<Text>$</Text>
+				</InputLeftElement>
 				<Input variant='unstyled' type='number' placeholder='Highest Price' />
 			</InputGroup>
 			
@@ -37,11 +38,9 @@ export default function Searchbar(){
 					bg='green.700'
 					borderRadius='40px'
 					color='white'
-					gap='10px'
+					leftIcon={<SearchIcon/>}
 					// onClick={handleClick}
-				>
-					
-					<SearchIcon/>
+				>					
 					<Text>Search</Text>
 				</Button>
 			</InputRightElement>

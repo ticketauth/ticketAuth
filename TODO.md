@@ -1,10 +1,13 @@
 //ESSENTIAL
+- Connect to backend API
+  - Fix all fields with usereducer
+  - Add upload image
 - Date data formatting
-- Add Validation
+- Add Validation to account
 - Fix cardslist cards data display
 - Style buttons
 - Skeleton for loading
-- Connect to backend API
+
 
 //STYLING
 - Scrollbar need to style

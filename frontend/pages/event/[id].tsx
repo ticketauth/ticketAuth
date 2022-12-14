@@ -1,15 +1,17 @@
-import { Button, Card, CardBody, Center, Divider, Flex, Heading, HStack, Image, Spacer, Stack, Text, VStack } from '@chakra-ui/react'
+import { Button, Card, CardBody, Center, Divider, Flex, Grid, GridItem, Heading, HStack, Image, Spacer, Stack, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import getEventDets from '../../utils/getEventDets'
 import type {EventData} from '../../utils/dataInterfaces'
 import { HiOutlineTicket } from 'react-icons/hi'
+import { SimpleMap } from '../../components/Maps'
 
 const Event = () => {
   const router = useRouter()
   const { id } = router.query
   const [event, setEvent] = useState<EventData>()
+  const [imgSelected, setImgSelected] = useState('ticket');
 
   useEffect(()=>{
     console.log(id,typeof(id))
@@ -39,16 +41,33 @@ const Event = () => {
             boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
           >
             <CardBody>
-              <HStack h='300px'>
-                <Center w='80%'>
-                  <Image boxSize='300px' src={event['Ticket Image']}/>
-                </Center>
-                <Divider orientation='vertical'/>
-                <VStack align='flex-end'>
-                  <Image boxSize='100px' src={event['Ticket Image']}/>
-                  <Image boxSize='100px' src={event['Ticket Image']}/>
+              <Grid h='300px' templateColumns='repeat(4, 1fr)'>
+                <GridItem colSpan={3} h='100%' w='100%'>
+                  <Center h='100%'>
+                  <Image alignSelf='center' objectFit='cover' src={imgSelected==='ticket'?event['Ticket Image']:event['Background Image']}/>
+                  </Center>
+                </GridItem>
+                <GridItem colSpan={1}>
+                <VStack h='100%' justifyContent='center'>
+                  <Center  w='120px' h='120px' 
+                    onClick={()=>setImgSelected('ticket')} 
+                    border={
+                      imgSelected=='ticket'?
+                      '4px solid rgba(0,180,216,0.96)':''}
+                      >
+                    <Image objectFit='cover' src={event['Ticket Image']}/>
+                  </Center>
+                  <Center  w='120px' h='120px' 
+                    onClick={()=>setImgSelected('bg')} 
+                    border={
+                      imgSelected=='bg'?
+                      '4px solid rgba(0,180,216,0.96)':''}
+                      >
+                    <Image boxSize='100px' src={event['Background Image']}/>
+                  </Center>
                 </VStack>
-              </HStack>
+                </GridItem>
+              </Grid>
             </CardBody>
           </Card>
 
@@ -117,7 +136,7 @@ const Event = () => {
                 <Divider/>
                 <HStack>
                 <HiOutlineTicket/>
-                <Text>{'19/'+event['Event Capacity']}</Text>
+                <Text>{`${event.attendees.length}/${event['Event Capacity']}`}</Text>
                 </HStack>
               </VStack>
             </CardBody>
@@ -126,13 +145,14 @@ const Event = () => {
           <Card 
               direction='row'
               w='100%'
-              h='200px'
+              h='250px'
               boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
             >
             <CardBody>
-              <VStack spacing='5px' align='flex-start'>
-                <Text fontSize='lg'>Location</Text>
-                <Text>{event['Location Description']}</Text>
+              <VStack spacing='5px' align='flex-start' h='100%'>
+                <Heading size='sm'>Location</Heading>
+                <Text fontSize='sm' color='blue'>{event.Location}</Text>
+                <SimpleMap lat={event.Coordinates.lat} lng={event.Coordinates.lng}/>
               </VStack>
             </CardBody>
           </Card>
