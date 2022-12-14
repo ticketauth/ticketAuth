@@ -1,16 +1,14 @@
+TODO 
 //ESSENTIAL
-- Connect to backend API
-  - Fix all fields with usereducer
-  - Add upload image
 - Date data formatting
-- Add Validation to account
+- Drop-down for categories
 - Fix cardslist cards data display
 - Style buttons
 - Skeleton for loading
-
+- Connect to backend API
 
 //STYLING
 - Scrollbar need to style
 - mobile responsive
 - Sizing and gaps of all pages
-- Fix Dark mode
+- Fix Dark mode 
