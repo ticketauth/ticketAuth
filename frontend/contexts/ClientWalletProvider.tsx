@@ -12,7 +12,7 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { clusterApiUrl } from '@solana/web3.js';
 import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
 
-const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
+export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const { autoConnect } = useAutoConnect();
 
     // Can be set to 'Devnet', 'Testnet' or 'mainnet-beta'
@@ -38,11 +38,3 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
         </ConnectionProvider>
     );
 };
-
-export const ContextProvider: FC<{ children: ReactNode}> = ({ children }) => {
-    return (
-        <AutoConnectProvider>
-            <WalletContextProvider>{children}</WalletContextProvider>
-        </AutoConnectProvider>
-    )
-}

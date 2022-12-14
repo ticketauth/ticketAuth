@@ -13,7 +13,8 @@ export interface EventData {
   'Ticket Image': string, //a url? or a Base64 string as img
   'Background Image': string,
   'attendees': string[] //list of all wallets
-  'active': boolean //if event is currently active
+  'active': boolean //if event is currently active,
+  'candyMachineId' : string
 }
 
 export interface UserData {
