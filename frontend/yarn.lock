@@ -3066,6 +3066,7 @@
   version "3.50.5"
   resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.50.5.tgz"
   integrity sha512-RuZf1MJtctGlpW+Gd4a/eGtAufUDjMf+eyN1l+B3fbe2YLScJbg8KEljJfb+6vnSPFAeM1/48geVIEg3vqOkxw==
+<<<<<<< HEAD
 
 "@types/hoist-non-react-statics@*":
   version "3.3.1"
@@ -3074,6 +3075,8 @@
   dependencies:
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
+=======
+>>>>>>> 60d217b62c61bdd35c133db6649658cb2b4b7c4e
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -5941,7 +5944,11 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
+<<<<<<< HEAD
 hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1:
+=======
+hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.3.1:
+>>>>>>> 60d217b62c61bdd35c133db6649658cb2b4b7c4e
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
   integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
