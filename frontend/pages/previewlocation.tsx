@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 
-export default function map(){
+export default function Map(){
   const router = useRouter()
   const {lat,lng} = router.query;
   return (
