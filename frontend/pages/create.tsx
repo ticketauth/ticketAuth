@@ -9,14 +9,17 @@ import { EventData } from "../utils/dataInterfaces";
 const CreateEvent:React.FC = () => {
 
 	const initialValues = {
-		'Name of Event': '',
-		'Event Description': '',
-		'walletAddress': '',
-		'Start Datetime': '',
-		'End Datetime': '',
-		'Location': '',
-		'Coordinates': '',
-		'Organizers Email': '',
+		'Name of Event': String,
+		'Event Description': String,
+		'walletAddress': String,
+		'Start Datetime': String,
+		'End Datetime': String,
+		'Location': String,
+		'Coordinates': String,
+		'Organizers Email': String,
+		'Capacity': 0,
+		'price': String,
+		
 	}
 
 	const [tabIndex, setTabIndex] = useState(0);

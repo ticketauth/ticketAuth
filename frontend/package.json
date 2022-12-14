@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@bedrock-foundation/react-sdk": "^0.0.15",
     "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
@@ -38,6 +39,7 @@
     "react-google-autocomplete": "^2.7.1",
     "react-google-places-autocomplete": "^3.4.0",
     "react-icons": "^4.7.1",
+    "react-qr-code": "^2.0.11",
     "typeface-monoton": "^1.1.13",
     "typescript": "4.9.3"
   }

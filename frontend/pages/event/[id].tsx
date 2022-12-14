@@ -6,6 +6,7 @@ import getEventDets from '../../utils/getEventDets'
 import type {EventData} from '../../utils/dataInterfaces'
 import { HiOutlineTicket } from 'react-icons/hi'
 import { SimpleMap } from '../../components/Maps'
+import { QRcodeButton } from '../../components/QRcodeButton'
 
 const Event = () => {
   const router = useRouter()
@@ -31,6 +32,7 @@ const Event = () => {
         </VStack>
         <Spacer/>
         <Button variant='outline' bg='red' color='white'>Register</Button>
+        {/* <QRcodeButton/> */}
       </HStack>
 
       <HStack w='100%' align='flex-start'>
