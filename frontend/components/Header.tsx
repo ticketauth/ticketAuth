@@ -42,7 +42,7 @@ const Header = () => {
       zIndex={4}
       padding='20px 50px'
     >
-      <Image cursor='pointer' src='/logo.png'/>
+      <Image cursor='pointer' onClick={()=>router.push('/')} src='/logo.png'/>
       <Spacer/>
       <HStack spacing='10px'>
         <Button onClick={()=>router.push("/create")}>Create Events</Button>
