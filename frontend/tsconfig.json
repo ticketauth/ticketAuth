@@ -15,6 +15,10 @@
     "jsx": "preserve",
     "incremental": true
   },
+<<<<<<< Updated upstream
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "types"],
+=======
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/mongodb.js", "pages/api/createUser.js", "pages/api/getEvent/[id].js"],
+>>>>>>> Stashed changes
   "exclude": ["node_modules"]
 }
