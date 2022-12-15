@@ -40,9 +40,9 @@ const Header = () => {
       className="blur"
       boxShadow='1px 1px 3px rgba(30,30,30,0.2)'
       zIndex={4}
-      padding='20px'
+      padding='20px 50px'
     >
-      <Text onClick={e=>router.push("/")}>LOGO PLACEHOLDER</Text>
+      <Image cursor='pointer' src='/logo.png'/>
       <Spacer/>
       <HStack spacing='10px'>
         <Button onClick={()=>router.push("/create")}>Create Events</Button>

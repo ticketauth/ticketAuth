@@ -208,41 +208,6 @@ const Event = () => {
           <Text>{event['Start Datetime']}</Text>
         </VStack>
         <Spacer/>
-        {/* <QRcodeButton/> */}
-        {!guardStates.isStarted ? (
-          <h1>You are not allowed to purchase ticket yet. Come back on <>{guards.startTime}</></h1>
-        ) : !wallet?.publicKey ? (
-          <WalletMultiButton> Connect Wallet </WalletMultiButton>
-        ) : (
-          <>
-            <>
-              {!!candyMachineV3.items.remaining &&
-              guardStates.hasGatekeeper &&
-              wallet.publicKey &&
-              wallet.signTransaction ? (
-                <GatewayProvider
-                  wallet={{
-                    publicKey: wallet.publicKey,
-                    //@ts-ignore
-                    signTransaction: wallet.signTransaction,
-                  }}
-                  gatekeeperNetwork={guards.gatekeeperNetwork}
-                  connection={connection}
-                  cluster={
-                    process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"
-                  }
-                  options={{ autoShowModal: false }}
-                >
-                  <MintButton
-                    gatekeeperNetwork={guards.gatekeeperNetwork}
-                  />
-                </GatewayProvider>
-              ) : (
-                <MintButton />
-              )}
-            </>
-          </>
-        )}
       </HStack>
 
       <HStack w='100%' align='flex-start'>
