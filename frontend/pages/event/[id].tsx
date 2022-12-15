@@ -1,18 +1,194 @@
 import { Button, Card, CardBody, Center, Divider, Flex, Grid, GridItem, Heading, HStack, Image, Spacer, Stack, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Header from '../../components/Header'
 import getEventDets from '../../utils/getEventDets'
 import type {EventData} from '../../utils/dataInterfaces'
 import { HiOutlineTicket } from 'react-icons/hi'
 import { SimpleMap } from '../../components/Maps'
 import { QRcodeButton } from '../../components/QRcodeButton'
+import { MultiMintButton } from '../../components/NftBuyButton'
+import useCandyMachineV3 from "../../hooks/useCandyMachineV3";
+import { GatewayProvider } from "@civic/solana-gateway-react";
+import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import {
+  CustomCandyGuardMintSettings,
+  NftPaymentMintSettings,
+  ParsedPricesForUI,
+} from "../../hooks/type";
+import { guardToLimitUtil } from "../../hooks/utils";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
+import { Nft } from '@metaplex-foundation/js';
+import { AlertState } from '../../alertUtils'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
 const Event = () => {
   const router = useRouter()
   const { id } = router.query
   const [event, setEvent] = useState<EventData>()
   const [imgSelected, setImgSelected] = useState('ticket');
+
+  const { connection } = useConnection();
+  const wallet = useWallet();
+  
+  const candyMachineV3 = useCandyMachineV3(
+    event?.candyMachineId ||  "",
+  );
+
+  const [balance, setBalance] = useState<number>();
+  const [mintedItems, setMintedItems] = useState<Nft[]>();
+
+  const [alertState, setAlertState] = useState<AlertState>({
+    open: false,
+    message: "",
+    severity: undefined,
+  });
+
+  const {guards, guardStates, prices } = useMemo(() => {
+    return {
+      guards:
+        candyMachineV3.guards.default ||
+        {},
+      guardStates: 
+        candyMachineV3.guardStates.default || {
+          isStarted: true,
+          isEnded: false,
+          isLimitReached: false,
+          canPayFor: 10,
+          messages: [],
+          isWalletWhitelisted: true,
+          hasGatekeeper: false,
+        },
+      prices: 
+        candyMachineV3.prices.default || {
+          payment: [],
+          burn: [],
+          gate: [],
+        },
+    };
+  }, [
+    candyMachineV3.guards,
+    candyMachineV3.guardStates,
+    candyMachineV3.prices,
+  ]);
+
+  useEffect(() => {
+    (async () => {
+      if (wallet?.publicKey) {
+        const balance = await connection.getBalance(wallet.publicKey);
+        setBalance(balance / LAMPORTS_PER_SOL);
+      }
+    })();
+  }, [wallet, connection]);
+
+  const totalPrice = prices.payment
+                    .filter(({ kind }) => kind === "sol")
+                    .reduce((a, { price }) => a + price, 0)
+
+  const startMint = useCallback(
+    async (quantityString: number = 1) => {
+      const nftGuards: NftPaymentMintSettings[] = Array(quantityString)
+        .fill(undefined)
+        .map((_, i) => {
+          return {
+            burn: guards.burn?.nfts?.length
+              ? {
+                  mint: guards.burn.nfts[i]?.mintAddress,
+                }
+              : undefined,  
+            payment: guards.payment?.nfts?.length
+              ? {
+                  mint: guards.payment.nfts[i]?.mintAddress,
+                }
+              : undefined,
+            gate: guards.gate?.nfts?.length
+              ? {
+                  mint: guards.gate.nfts[i]?.mintAddress,
+                }
+              : undefined,
+          };
+        });
+
+      console.log({ nftGuards });
+      // debugger;
+      candyMachineV3
+        .mint(quantityString, {
+          nftGuards,
+        })
+        .then((items) => {
+          setMintedItems(items as any);
+        })
+        .catch((e) =>
+          setAlertState({
+            open: true,
+            message: e.message,
+            severity: "error",
+          })
+        );
+    },
+    [candyMachineV3.mint, guards]
+  );
+
+  const BuyTicketButton = () => {
+
+    return (
+      <>
+      {!guardStates.isStarted ? (
+        <h1>You are not allowed to purchase ticket yet. Come back on <>{guards.startTime}</></h1>
+      ) : !wallet?.publicKey ? (
+        <WalletMultiButton> Connect Wallet </WalletMultiButton>
+      ) : (
+        <>
+          <>
+            {!!candyMachineV3.items.remaining &&
+            guardStates.hasGatekeeper &&
+            wallet.publicKey &&
+            wallet.signTransaction ? (
+              <GatewayProvider
+                wallet={{
+                  publicKey: wallet.publicKey,
+                  //@ts-ignore
+                  signTransaction: wallet.signTransaction,
+                }}
+                gatekeeperNetwork={guards.gatekeeperNetwork}
+                connection={connection}
+                cluster={
+                  process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"
+                }
+                options={{ autoShowModal: false }}
+              >
+                <MintButton
+                  gatekeeperNetwork={guards.gatekeeperNetwork}
+                />
+              </GatewayProvider>
+            ) : (
+              <MintButton />
+            )}
+          </>
+        </>
+      )}
+      </>
+    )
+  }
+  
+  const MintButton = ({
+      gatekeeperNetwork,
+  }: {
+      gatekeeperNetwork?: PublicKey;
+  }) => (
+    <MultiMintButton
+      candyMachine={candyMachineV3.candyMachine}
+      gatekeeperNetwork={gatekeeperNetwork}
+      isMinting={candyMachineV3.status.minting}
+      setIsMinting={() => {}}
+      isActive={!!candyMachineV3.items.remaining}
+      isEnded={guardStates.isEnded}
+      isSoldOut={!candyMachineV3.items.remaining}
+      guardStates={guardStates}
+      onMint={startMint}
+      prices={prices}
+    />
+  );
 
   useEffect(()=>{
     console.log(id,typeof(id))
@@ -31,7 +207,6 @@ const Event = () => {
           <Text>{event['Start Datetime']}</Text>
         </VStack>
         <Spacer/>
-        <Button variant='outline' bg='red' color='white'>Register</Button>
         {/* <QRcodeButton/> */}
       </HStack>
 
@@ -138,8 +313,21 @@ const Event = () => {
                 <Divider/>
                 <HStack>
                 <HiOutlineTicket/>
-                <Text>{`${event.attendees.length}/${event['Event Capacity']}`}</Text>
+                <Text>{`6/${event['Event Capacity']}`}</Text>
                 </HStack>
+              </VStack>
+            </CardBody>
+          </Card>
+          
+          <Card 
+              direction='row'
+              w='100%'
+              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+            >
+            <CardBody>
+              <VStack spacing='5px' w='100%' h='100%'>
+              <Text fontSize='xs'>Get your ticket to the event!</Text>
+              <BuyTicketButton/>
               </VStack>
             </CardBody>
           </Card>

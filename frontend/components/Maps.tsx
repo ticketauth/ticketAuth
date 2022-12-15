@@ -6,10 +6,11 @@ import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteServic
 import { HiLocationMarker } from "react-icons/hi";
 import GoogleMapReact from 'google-map-react';
 import Geocode from "react-geocode";
+import { FormInputData } from "../utils/dataInterfaces";
 
 const ApiKey:string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
-export const DebounceSearch = () => {
+export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string,value:any)=>void}> = ({data,handleData}) => {
   const {
     placePredictions,
     getPlacePredictions,
@@ -27,8 +28,7 @@ export const DebounceSearch = () => {
     Geocode.fromAddress(description).then(
       (response) => {
         const { lat, lng } = response.results[0].geometry.location;
-        setLocation({lat:lat,lng:lng})
-        console.log(location)
+        handleData("Coordinates",{lat:lat,lng:lng})
       },
       (error) => {
         console.error(error);
@@ -48,17 +48,28 @@ export const DebounceSearch = () => {
             setValue(evt.target.value);
             setHidden(false);
           }}
+          isInvalid={value==''}
         />
         <InputRightElement>{
           isPlacePredictionsLoading?
           <Spinner/>:
-          <Button onClick={()=>window.open(location&&`/previewlocation?lat=${location.lat}&lng=${location.lng}`,'_blank')}><SearchIcon/></Button>
+          <Button 
+            onClick={()=>
+            window.open(
+              data.Coordinates&&
+              `/previewlocation?lat=${data.Coordinates.lat}&lng=${data.Coordinates.lng}`,
+              '_blank'
+            )}>
+              <SearchIcon/>
+            </Button>
         }
         </InputRightElement>
       </InputGroup>
       
       <Box w='100%'>
-        {!isPlacePredictionsLoading && !hidden &&
+        {value==''?
+        <Text color='red'>Event Location is required</Text> :
+        !isPlacePredictionsLoading && !hidden &&
             placePredictions.map((item,key)=>
               <Box 
                 borderWidth='2px' 

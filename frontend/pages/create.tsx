@@ -1,25 +1,48 @@
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, HStack, Image, Input, SimpleGrid, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, HStack, Image, Input, SimpleGrid, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import {  DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
-import { EventData } from "../utils/dataInterfaces";
+import { EventData,FormInputData } from "../utils/dataInterfaces";
+import { useWallet } from "@solana/wallet-adapter-react";
+
 
 const CreateEvent:React.FC = () => {
+	// let wallet;
+	// useEffect(()=>{
+	// 	wallet = useWallet();
+	// 	wallet
+	// },[])
+	// wallet?.publicKey.toString()
 
-	const initialValues = {
-		'Name of Event': String,
-		'Event Description': String,
-		'walletAddress': String,
-		'Start Datetime': String,
-		'End Datetime': String,
-		'Location': String,
-		'Coordinates': String,
-		'Organizers Email': String,
-		'Capacity': 0,
-		'price': String,
-		
+	const [data, setData] = useState<FormInputData>(
+	{
+		'Name of event': '',
+		'Category': '',
+		'Event Description': '',
+		'walletAddress': '',
+		'Start Datetime': '',
+		'End Datetime': '',
+		'Location': '',
+		'Coordinates': {lat:1.2833441,lng:103.8446768},
+		'Organizers Email': '',
+		'Event Capacity': 1,
+		'Ticket price': 0,
+		'Ticket Image': '',
+		'Background Image': '',
+	}
+	);
+
+	const handleData = (type:string,value:any) => {
+		setData(prev=>({
+			...prev,
+			[type]:value,
+		}))
+	}
+
+	const createEvent = () => {
+		console.log(data)
 	}
 
 	const [tabIndex, setTabIndex] = useState(0);
@@ -55,28 +78,39 @@ const CreateEvent:React.FC = () => {
 
 					<TabPanels>
 						<TabPanel>
+							<HStack>
+								<VStack spacing='10px' w='45%'>
+								<Tab1 data={data} handleData={handleData}/>
+								<Flex w='100%' justifyContent='flex-end'>
+									<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
+								</Flex>
+								</VStack>
+
+								<Spacer/>
+
+								<Center h='100%' w='45%'>
+									<VStack align='flex-start'>
+									<Text>Ticket Example:</Text>
+									<Image h='100%' w='100%' src='/tickets/Card 2.jpg'/>
+									</VStack>
+								</Center>
+							</HStack>
+						</TabPanel>
+
+						<TabPanel>
 							<VStack spacing='10px' w='100%'>
-							<Tab1/>
+							<Tab2 data={data} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
+								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(2)}>Next Step</Button>
 							</Flex>
 							</VStack>
 						</TabPanel>
 
 						<TabPanel>
 							<VStack spacing='10px' w='100%'>
-							<Tab2/>
+							<Tab3 data={data} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)}>Next Step</Button>
-							</Flex>
-							</VStack>
-						</TabPanel>
-
-						<TabPanel>
-							<VStack spacing='10px' w='100%'>
-							<Tab3/>
-							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={e=>setTabIndex(1)} bg='brand.3' color='white'>Create Your Event</Button>
+								<Button rightIcon={<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
 							</VStack>
 						</TabPanel>
@@ -89,96 +123,95 @@ const CreateEvent:React.FC = () => {
 }
 
 
-const Tab1 = () => {
-	const [input, setInput] = useState('')
-
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>):void => setInput(e.currentTarget.value)
-
-  const isError = input === ''
+const Tab1:React.FC<{data:FormInputData,handleData:(type:string,value:string|number)=>void}> = ({data,handleData}) => {
 	return (
 			<SimpleGrid columns={6} spacing={4} w='100%'>
 				<GridItem colSpan={4}>
-				<FormControl w='100%' isInvalid={isError}>
-					<Input placeholder="Event Name" type='text' value={input} onChange={handleInputChange} w='100%'/>
-					{isError &&
-					(
-						<FormErrorMessage>Event name is required.</FormErrorMessage>
-					)}
-				</FormControl>
+					<FormControl w='100%' isInvalid={data['Name of event']==''}>
+						<FormLabel>Event Name</FormLabel>
+						<Input variant='flushed' placeholder="Event Name" type='text' value={data['Name of event']} 
+							onChange={(e)=>handleData("Name of event",e.currentTarget.value)} w='100%'/>
+						{data['Name of event']=='' &&
+						(
+							<FormErrorMessage>Event name is required.</FormErrorMessage>
+						)}
+					</FormControl>
 				</GridItem>
 				<GridItem colSpan={2}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="Category" type='search' value={input} onChange={handleInputChange} w='100%'/>
-						{isError&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data.Category==''}>
+						<FormLabel>Event Category</FormLabel>
+						<Input variant='flushed' placeholder="Category" type='text' value={data.Category} 
+							onChange={(e)=>handleData("Category",e.currentTarget.value)} w='100%'/>
+						{data.Category==''&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 
 				<GridItem colSpan={3}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="Start Date" type="datetime-local" />
-						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data["Start Datetime"]==''}>
+						<FormLabel>Start Date & Time</FormLabel>
+						<Input variant='flushed' placeholder="Start Date" type="datetime-local" value={data["Start Datetime"]} onChange={(e)=>handleData("Start Datetime",e.currentTarget.value)}/>
+						{data["Start Datetime"]==''&&<FormErrorMessage>Date is required.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 				<GridItem colSpan={3}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="End Date" type="datetime-local" />
-						{isError&&<FormErrorMessage>Date is required.</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data["End Datetime"]==''}>
+						<FormLabel>End Date & Time</FormLabel>
+						<Input variant='flushed' placeholder="End Date" type="datetime-local" value={data["End Datetime"]} onChange={(e)=>handleData("End Datetime",e.currentTarget.value)}/>
+						{data["End Datetime"]==''&&<FormErrorMessage>Date is required.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 
 				<GridItem colSpan={2}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="Ticket Price" type='email' value={input} onChange={handleInputChange} w='100%'/>
-						{isError&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data['Ticket price'].toString()==''}>
+						<FormLabel>Ticket Price</FormLabel>
+						<Input variant='flushed' placeholder="Ticket Price" type='number' value={data['Ticket price']} onChange={(e)=>handleData("Ticket price",e.currentTarget.value)} w='100%'/>
+						{data['Ticket price'].toString()==''&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 				<GridItem colSpan={2}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="Event Capacity" type='email' value={input} onChange={handleInputChange} w='100%'/>
-						{isError&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data['Event Capacity'].toString()==''}>
+						<FormLabel>Event Capacity</FormLabel>
+						<Input variant='flushed' placeholder="Event Capacity" type='number' value={data['Event Capacity']} onChange={(e)=>handleData("Event Capacity",e.currentTarget.value)} w='100%'/>
+						{data['Event Capacity'].toString()&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 				<GridItem colSpan={2}>
-					<FormControl w='100%' isInvalid={isError}>
-						<Input placeholder="Organiser email" type='email' value={input} onChange={handleInputChange} w='100%'/>
-						{isError&&<FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>}
+					<FormControl w='100%' isInvalid={data['Organizers Email']==''}>
+						<FormLabel>Organizers Email</FormLabel>
+						<Input variant='flushed' placeholder="Organiser email" type='email' value={data['Organizers Email']} onChange={(e)=>handleData("Organizers Email",e.currentTarget.value)} w='100%'/>
+						{data['Organizers Email']==''&&<FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 			</SimpleGrid >
 	)
 }
 
-const Tab2 = () => {
-	const [input, setInput] = useState('')
-
-  const handleInputChange = (e: React.FormEvent<HTMLInputElement>):void => setInput(e.currentTarget.value)
-
-  const isError = input === ''
+const Tab2:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void}> = ({data,handleData}) => {
 	return (
 		<VStack w='100%' align='flex-start'>
-			<FormControl isInvalid={isError}>
-			<FormLabel>Short Description</FormLabel>
-			<Input type='text' value={input} onChange={handleInputChange} w='100%'/>
-			{isError&&<FormErrorMessage>Description is required.</FormErrorMessage>}
+			<FormControl isInvalid={data["Event Description"]==''}>
+			<FormLabel>Event Description</FormLabel>
+			<Textarea h='200px' value={data["Event Description"]} onChange={(e)=>handleData("Event Description",e.currentTarget.value)} w='100%'/>
+			{data["Event Description"]==''&&<FormErrorMessage>Description is required.</FormErrorMessage>}
 			</FormControl>
 			<FormControl>
 				<FormLabel>Event Location</FormLabel>
-				<DebounceSearch/>
+				<DebounceSearch data={data} handleData={handleData}/>
 			</FormControl>
 		</VStack>
 	)
 }
 
-const Tab3 = () => {
+const Tab3:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void}> = ({data,handleData}) => {
 	return (
 		<HStack w='100%' h='400px' gap='10px'>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Event Banner Image</Heading>
-			<ImageInput/>
+			<ImageInput data={data} handleData={handleData} imgtype="Background Image"/>
 			</VStack>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Ticket Image</Heading>
-			<ImageInput/>
+			<ImageInput data={data} handleData={handleData} imgtype="Ticket Image"/>
 			</VStack>
 		</HStack>
 )

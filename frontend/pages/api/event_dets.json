@@ -13,5 +13,7 @@
   "Ticket Image": "https://uploads-ssl.webflow.com/628b99344f25667e77da83cf/62c3a95fc598e35cf796a1f2_Asset%209%403x.png",
   "Background Image": "https://cdn.techinasia.com/cloudinary/transformations/wp-content/uploads/2022/11/1668586039_e9b93a7d4095b7a38fc85af8a4f749aa_v1668586039_xlarge.webp",
   "attendees": ["wallet1","wallet2"],
-  "active": true
+  "active": true,
+  "candyMachineId": "CZMmqenuYspLnCr5pnCAv4SLX4azgRRM6xDHp1aCNdWF",
+  "collectionId": "BSsSkuHGnB2e4PXpeaWUBQWsv2rYNo9211Jo8ntrSUMF"
 }
