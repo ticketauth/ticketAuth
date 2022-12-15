@@ -34,7 +34,7 @@ const Event = () => {
   const wallet = useWallet();
   
   const candyMachineV3 = useCandyMachineV3(
-    event?.candyMachineId ||  "",
+    event?.CandyMachineId ||  "",
   );
 
   const [balance, setBalance] = useState<number>();

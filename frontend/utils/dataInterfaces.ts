@@ -14,8 +14,8 @@ export interface EventData {
 	"Background Image": string;
 	attendees: string[]; //list of all wallets
 	active: boolean; //if event is currently active
-	CollectionId: String;
-	CandyMachineId: String;
+	CollectionId: string;
+	CandyMachineId: string;
 }
 
 export interface UserData {
