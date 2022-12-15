@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 //import { CircularProgress } from "@material-ui/core";
 //import Button from "@material-ui/core/Button";
 
 
+=======
+>>>>>>> feat-BackendIntegration
 import { CandyMachine } from "@metaplex-foundation/js";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
@@ -9,6 +12,7 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { GatewayStatus, useGateway } from "@civic/solana-gateway-react";
 import { GuardGroupStates, ParsedPricesForUI, PaymentRequired } from "../hooks/type";
+<<<<<<< HEAD
 import { Button, Spinner } from "@chakra-ui/react";
 
 export const Minus = styled.button`
@@ -75,6 +79,11 @@ export const NumericField = styled.input`
     -webkit-appearance: none;
   }
 `;
+=======
+import { Button, HStack, Input, Spinner, Text, VStack } from "@chakra-ui/react";
+
+
+>>>>>>> feat-BackendIntegration
 function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T>();
   useEffect(() => {
@@ -176,6 +185,7 @@ export const MultiMintButton = ({
     }
   }, [waitForActiveToken, gatewayStatus, onMint, mintCount]);
 
+<<<<<<< HEAD
   function incrementValue() {
     var numericField = document.querySelector(".mint-qty") as HTMLInputElement;
     if (numericField) {
@@ -218,6 +228,8 @@ export const MultiMintButton = ({
     setMintCount(qty);
     // setTotalCost(Math.round(qty * (price + 0.012) * 1000) / 1000); // 0.012 = approx of account creation fees
   }
+=======
+>>>>>>> feat-BackendIntegration
   const disabled = useMemo(
     () =>
       loading ||
@@ -229,6 +241,7 @@ export const MultiMintButton = ({
     [loading, isSoldOut, isMinting, isEnded, !isActive]
   );
   return (
+<<<<<<< HEAD
     <div>
       <div>
         <Minus
@@ -256,6 +269,38 @@ export const MultiMintButton = ({
 
         <br />
         <Button
+=======
+        <VStack h='50px'>
+        <HStack h='100%' >
+        <Button
+          disabled={disabled || mintCount <= 1}
+          onClick={() =>setMintCount(prev=>prev-1)}
+          h='100%'
+        >
+          -
+        </Button>
+        <Input
+          disabled={disabled}
+          type='number'
+          value={mintCount}
+          onChange={(e) => setMintCount(e.target.value as any)}
+          h='100%'
+          w='50px'
+          alignItems='center'
+          
+        />
+        <Button
+          disabled={disabled || limit <= mintCount}
+          onClick={() => setMintCount(prev=>prev+1)}
+          h='100%'
+        >
+          +
+        </Button>
+    </HStack>
+    <Button
+          h='100%'
+          w='100%'
+>>>>>>> feat-BackendIntegration
           disabled={disabled}
           onClick={async () => {
             console.log("isActive gatekeeperNetwork", {
@@ -273,8 +318,15 @@ export const MultiMintButton = ({
               await onMint(mintCount);
             }
           }}
+<<<<<<< HEAD
           variant="contained"
         >
+=======
+          bg='brand.1'
+          color='white'
+        >
+          <Text fontSize='xs'>
+>>>>>>> feat-BackendIntegration
           {!candyMachine ? (
             "CONNECTING..."
           ) : isSoldOut ? (
@@ -292,11 +344,17 @@ export const MultiMintButton = ({
           ) : (
             "UNAVAILABLE"
           )}
+<<<<<<< HEAD
         </Button>
       </div>
         {guardStates.messages?.map((m, i) => (
           <p key={i}>{m}</p>
         ))}
     </div>
+=======
+          </Text>
+        </Button>
+    </VStack>
+>>>>>>> feat-BackendIntegration
   );
 };

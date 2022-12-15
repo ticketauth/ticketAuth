@@ -22,8 +22,6 @@ import { Nft } from '@metaplex-foundation/js';
 import { AlertState } from '../../alertUtils'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
-
-
 const Event = () => {
   const router = useRouter()
   const { id } = router.query
@@ -34,7 +32,7 @@ const Event = () => {
   const wallet = useWallet();
   
   const candyMachineV3 = useCandyMachineV3(
-    event?.CandyMachineId ||  "",
+    event?.candyMachineId ||  "",
   );
 
   const [balance, setBalance] = useState<number>();
@@ -130,6 +128,48 @@ const Event = () => {
     },
     [candyMachineV3.mint, guards]
   );
+
+  const BuyTicketButton = () => {
+
+    return (
+      <>
+      {!guardStates.isStarted ? (
+        <h1>You are not allowed to purchase ticket yet. Come back on <>{guards.startTime}</></h1>
+      ) : !wallet?.publicKey ? (
+        <WalletMultiButton> Connect Wallet </WalletMultiButton>
+      ) : (
+        <>
+          <>
+            {!!candyMachineV3.items.remaining &&
+            guardStates.hasGatekeeper &&
+            wallet.publicKey &&
+            wallet.signTransaction ? (
+              <GatewayProvider
+                wallet={{
+                  publicKey: wallet.publicKey,
+                  //@ts-ignore
+                  signTransaction: wallet.signTransaction,
+                }}
+                gatekeeperNetwork={guards.gatekeeperNetwork}
+                connection={connection}
+                cluster={
+                  process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"
+                }
+                options={{ autoShowModal: false }}
+              >
+                <MintButton
+                  gatekeeperNetwork={guards.gatekeeperNetwork}
+                />
+              </GatewayProvider>
+            ) : (
+              <MintButton />
+            )}
+          </>
+        </>
+      )}
+      </>
+    )
+  }
   
   const MintButton = ({
       gatekeeperNetwork,
@@ -310,6 +350,19 @@ const Event = () => {
                 <HiOutlineTicket/>
                 <Text>{`${candyMachineV3.items.redeemed}/${candyMachineV3.items.available}`}</Text>
                 </HStack>
+              </VStack>
+            </CardBody>
+          </Card>
+          
+          <Card 
+              direction='row'
+              w='100%'
+              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+            >
+            <CardBody>
+              <VStack spacing='5px' w='100%' h='100%'>
+              <Text fontSize='xs'>Get your ticket to the event!</Text>
+              <BuyTicketButton/>
               </VStack>
             </CardBody>
           </Card>
