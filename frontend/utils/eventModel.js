@@ -15,7 +15,6 @@ const eventSchema = new Schema({
 	"Ticket price": Number,
 	"Ticket Image": String,
 	"Background Image": String,
-	attendees: [String], //list of all wallets
 	active: Boolean, //if event is currently active
 	CollectionId: String,
 	CandyMachineId: String,

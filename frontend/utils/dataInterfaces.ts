@@ -12,7 +12,6 @@ export interface EventData {
 	"Ticket price": number; //7.99
 	"Ticket Image": string; //a url? or a Base64 string as img
 	"Background Image": string;
-	attendees: string[]; //list of all wallets
 	active: boolean; //if event is currently active
 	CollectionId: String;
 	CandyMachineId: String;
