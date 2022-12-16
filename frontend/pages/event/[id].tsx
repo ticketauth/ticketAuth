@@ -227,7 +227,7 @@ const Event = () => {
           >
             <CardBody>
               <Grid h='300px' templateColumns='repeat(4, 1fr)'>
-                <GridItem colSpan={3} h='100%' w='100%'>
+                <GridItem colSpan={3} h='100%' w='100%' overflow='hidden'>
                   <Center h='100%'>
                   <Image alignSelf='center' objectFit='cover' src={imgSelected==='ticket'?event['Ticket Image']:event['Background Image']}/>
                   </Center>
