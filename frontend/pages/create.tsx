@@ -40,9 +40,19 @@ const CreateEvent:React.FC = () => {
 			[type]:value,
 		}))
 	}
+	function _base64ToArrayBuffer(base64): ArrayBuffer {
+		var binary_string = window.atob(base64);
+		var len = binary_string.length;
+		var bytes = new Uint8Array(len);
+		for (var i = 0; i < len; i++) {
+			bytes[i] = binary_string.charCodeAt(i);
+    	}
+    	return bytes.buffer;
+	}	
 
 	const createEvent = () => {
-		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], data["Ticket Image"], wallet);
+		const imageBuffer = _base64ToArrayBuffer(data["Ticket Image"]);
+		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], imageBuffer, wallet);
 	}
 
 	const [tabIndex, setTabIndex] = useState(0);

@@ -17,7 +17,7 @@ export const ImageInput:React.FC<{data:FormInputData,handleData:(type:string,val
     if (e.target.files){
       setPreviewImage(URL.createObjectURL(e.target.files[0]))
       FileToUrl(e.target.files[0])
-      .then(fileurl=>fileurl.replace(/(\r\n|\n|\r)/gm, ""))
+      //.then(fileurl=>fileurl.replace(/(\r\n|\n|\r)/gm, ""))
       .then(fileurl=>handleData(imgtype,fileurl))
     }
   }
