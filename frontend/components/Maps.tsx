@@ -4,7 +4,6 @@ import {Box, Input, VStack, InputRightAddon, Spinner, Text, InputRightElement, I
 import { useState } from "react";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { HiLocationMarker } from "react-icons/hi";
-import GoogleMapReact from 'google-map-react';
 import { FormInputData } from "../utils/dataInterfaces";
 
 const ApiKey:string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -14,11 +13,9 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
     placePredictions,
     getPlacePredictions,
     isPlacePredictionsLoading,
-  } = (ApiKey!=='')?
-  useGoogle({
+  } =  useGoogle({
     apiKey: ApiKey,
-  }) :
-  {placePredictions:[],getPlacePredictions:()=>{},isPlacePredictionsLoading:false}
+  }) 
   const [value, setValue] = useState("");
   const [hidden, setHidden] = useState(false);
   const handleClick = (description:string) => {
