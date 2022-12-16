@@ -52,7 +52,7 @@ const CreateEvent:React.FC = () => {
 
 	const createEvent = () => {
 		const imageBuffer = _base64ToArrayBuffer(data["Ticket Image"]);
-		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], imageBuffer, wallet);
+		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], data["Ticket Image"], wallet);
 	}
 
 	const [tabIndex, setTabIndex] = useState(0);
