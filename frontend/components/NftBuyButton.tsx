@@ -1,7 +1,3 @@
-//import { CircularProgress } from "@material-ui/core";
-//import Button from "@material-ui/core/Button";
-
-
 import { CandyMachine } from "@metaplex-foundation/js";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
@@ -9,72 +5,9 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { GatewayStatus, useGateway } from "@civic/solana-gateway-react";
 import { GuardGroupStates, ParsedPricesForUI, PaymentRequired } from "../hooks/type";
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button, HStack, Input, Spinner, Text, VStack } from "@chakra-ui/react";
 
-export const Minus = styled.button`
-  font-size: 2em;
-  padding: 25px 35px;
-  font-weight: bold;
-  line-height: 0.5px;
-  color: #000;
-  background: #fff;
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
-    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
-  border: 0;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-family: "Patrick Hand", cursive;
-  vertical-align: middle;
-  transition: all linear 0.3s;
 
-  :hover {
-    border: none;
-    outline: none !important;
-    background: #d09a69;
-  }
-  :not(disabled) {
-    cursor: pointer;
-  }
-
-  :not(disabled):hover {
-    outline: 1px solid var(--title-text-color);
-  }
-`;
-
-export const Plus = styled(Minus)`
-  margin-left: 0;
-`;
-
-export const NumericField = styled.input`
-  font-size: 2em !important;
-  padding: 0;
-  vertical-align: middle;
-  background-color: var(--main-text-color);
-  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
-    0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
-  box-sizing: border-box;
-  font-family: "Patrick Hand", cursive;
-  font-weight: 500;
-  line-height: 1px;
-  border: none;
-  text-align: center;
-  border-radius: 5px;
-  transition: all 0.4s ease;
-  -moz-appearance: textfield;
-  -webkit-appearance: none;
-  margin: 0 10px;
-
-  :hover,
-  :focus {
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 40%),
-      0px 6px 10px 0px rgb(0 0 0 / 34%), 0px 1px 18px 0px rgb(0 0 0 / 32%);
-  }
-
-  ::-webkit-outer-spin-button,
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
 function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T>();
   useEffect(() => {
@@ -176,48 +109,6 @@ export const MultiMintButton = ({
     }
   }, [waitForActiveToken, gatewayStatus, onMint, mintCount]);
 
-  function incrementValue() {
-    var numericField = document.querySelector(".mint-qty") as HTMLInputElement;
-    if (numericField) {
-      var value = parseInt(numericField.value);
-      if (!isNaN(value) && value < 10) {
-        value++;
-        numericField.value = "" + value;
-        updateAmounts(value);
-      }
-    }
-  }
-
-  function decrementValue() {
-    var numericField = document.querySelector(".mint-qty") as HTMLInputElement;
-    if (numericField) {
-      var value = parseInt(numericField.value);
-      if (!isNaN(value) && value > 1) {
-        value--;
-        numericField.value = "" + value;
-        updateAmounts(value);
-      }
-    }
-  }
-
-  function updateMintCount(target: any) {
-    var value = parseInt(target.value);
-    if (!isNaN(value)) {
-      if (value > 10) {
-        value = 10;
-        target.value = "" + value;
-      } else if (value < 1) {
-        value = 1;
-        target.value = "" + value;
-      }
-      updateAmounts(value);
-    }
-  }
-
-  function updateAmounts(qty: number) {
-    setMintCount(qty);
-    // setTotalCost(Math.round(qty * (price + 0.012) * 1000) / 1000); // 0.012 = approx of account creation fees
-  }
   const disabled = useMemo(
     () =>
       loading ||
@@ -229,33 +120,36 @@ export const MultiMintButton = ({
     [loading, isSoldOut, isMinting, isEnded, !isActive]
   );
   return (
-    <div>
-      <div>
-        <Minus
+        <VStack h='50px'>
+        <HStack h='100%' >
+        <Button
           disabled={disabled || mintCount <= 1}
-          onClick={() => decrementValue()}
+          onClick={() =>setMintCount(prev=>prev-1)}
+          h='100%'
         >
-          <span style={{ marginTop: "-5px !important" }}>-</span>
-        </Minus>
-        <NumericField
+          -
+        </Button>
+        <Input
           disabled={disabled}
-          type="number"
-          className="mint-qty"
-          step={1}
-          min={1}
-          max={Math.min(limit, 10)}
+          type='number'
           value={mintCount}
-          onChange={(e) => updateMintCount(e.target as any)}
+          onChange={(e) => setMintCount(e.target.value as any)}
+          h='100%'
+          w='50px'
+          alignItems='center'
+          
         />
-        <Plus
+        <Button
           disabled={disabled || limit <= mintCount}
-          onClick={() => incrementValue()}
+          onClick={() => setMintCount(prev=>prev+1)}
+          h='100%'
         >
           +
-        </Plus>
-
-        <br />
-        <Button
+        </Button>
+    </HStack>
+    <Button
+          h='100%'
+          w='100%'
           disabled={disabled}
           onClick={async () => {
             console.log("isActive gatekeeperNetwork", {
@@ -273,8 +167,10 @@ export const MultiMintButton = ({
               await onMint(mintCount);
             }
           }}
-          variant="contained"
+          bg='brand.1'
+          color='white'
         >
+          <Text fontSize='xs'>
           {!candyMachine ? (
             "CONNECTING..."
           ) : isSoldOut ? (
@@ -292,11 +188,8 @@ export const MultiMintButton = ({
           ) : (
             "UNAVAILABLE"
           )}
+          </Text>
         </Button>
-      </div>
-        {guardStates.messages?.map((m, i) => (
-          <p key={i}>{m}</p>
-        ))}
-    </div>
+    </VStack>
   );
 };

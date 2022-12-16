@@ -130,7 +130,7 @@ export default function useCandyMachineV3(
   }, [candyMachineId]);
 
   const refresh = React.useCallback(async () => {
-    if (!wallet.publicKey) throw new Error("Wallet not loaded yet!");
+    //if (!wallet.publicKey) throw new Error("Wallet not loaded yet!");
 
     setStatus((x) => ({ ...x, candyMachine: true }));
     await fetchCandyMachine()
@@ -339,7 +339,7 @@ export default function useCandyMachineV3(
 
   React.useEffect(() => {
     const walletAddress = wallet.publicKey;
-    if (!walletAddress || !candyMachine) return;
+    if ( !candyMachine) return;
     console.log(
       "useEffact([mx, wallet, nftHoldings, proofMemo, candyMachine])"
     );

@@ -13,7 +13,7 @@ const Explore = () => {
 
     async function getdb() {
       // const result = await fetch("")
-    }
+    } 
 
   })
 

@@ -12,13 +12,29 @@ export interface EventData {
 	"Ticket price": number; //7.99
 	"Ticket Image": string; //a url? or a Base64 string as img
 	"Background Image": string;
-	active: boolean; //if event is currently active
-	CollectionId: String;
-	CandyMachineId: String;
+	active: boolean; //if event is currently active,
+	candyMachineId: string;
+	collectionId: string;
 }
 
 export interface UserData {
 	walletAddress: string;
 	eventAttends: [string];
-	eventCreated: [string];
+	ecentCreated: [string];
+}
+
+export interface FormInputData {
+	"Name of event": string;
+	Category: string;
+	"Event Description": string;
+	walletAddress: string;
+	"Start Datetime": string;
+	"End Datetime": string;
+	Location: string;
+	Coordinates: { lat: number; lng: number };
+	"Organizers Email": string;
+	"Event Capacity": number;
+	"Ticket price": number;
+	"Ticket Image": string;
+	"Background Image": string;
 }

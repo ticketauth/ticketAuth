@@ -15,7 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  // "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src", "types"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/mongodb.js", "pages/api/createUser.js", "pages/api/getEvent/[id].js"],
   "exclude": ["node_modules"]
 }
