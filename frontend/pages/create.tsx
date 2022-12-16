@@ -150,6 +150,9 @@ const Tab1:React.FC<{data:FormInputData,handleData:(type:string,value:string|num
 				<GridItem colSpan={2}>
 					<FormControl w='100%' isInvalid={data.Category==''}>
 						<FormLabel>Event Category</FormLabel>
+						{/* <Select placeholder='Select option'>
+							<option value='option1'>Option 1</option>
+						</Select> */}
 						<Input variant='flushed' placeholder="Category" type='text' value={data.Category} 
 							onChange={(e)=>handleData("Category",e.currentTarget.value)} w='100%'/>
 						{data.Category==''&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
