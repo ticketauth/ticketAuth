@@ -120,7 +120,7 @@ export const MultiMintButton = ({
     [loading, isSoldOut, isMinting, isEnded, !isActive]
   );
   return (
-        <VStack h='50px'>
+      <VStack>
         <HStack h='100%' >
         <Button
           disabled={disabled || mintCount <= 1}
@@ -150,6 +150,7 @@ export const MultiMintButton = ({
     <Button
           h='100%'
           w='100%'
+          padding='10px'
           disabled={disabled}
           onClick={async () => {
             console.log("isActive gatekeeperNetwork", {
@@ -167,7 +168,7 @@ export const MultiMintButton = ({
               await onMint(mintCount);
             }
           }}
-          bg='brand.1'
+          bg='brand.3'
           color='white'
         >
           <Text fontSize='xs'>

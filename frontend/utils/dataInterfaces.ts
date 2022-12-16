@@ -6,8 +6,8 @@ export interface EventData {
   'Start Datetime': string, //idk what format string or date in mongodb, this will include start time also
   'End Datetime': string, //same as start, with time also
   'Location': string, //Maybe postal code or some other identifiers as fields might be better
-  'Coordinates': {lat:number,lng:number}, //coords
   'Organizers Email': string, //elonmusk@gmail.com
+  'Organizer': string,
   'Event Capacity': number, //2000
   'Ticket price': number, //7.99
   'Ticket Image': string, //a url? or a Base64 string as img
@@ -18,24 +18,23 @@ export interface EventData {
 }
 
 export interface UserData {
-  'walletAddress' : string,
-  'eventAttends' : [string],
-  'ecentCreated' : [string],
+	walletAddress: string;
+	eventAttends: [string];
+	ecentCreated: [string];
 }
 
-export interface FormInputData
-{
-	'Name of event': string,
-	'Category': string,
-	'Event Description': string,
-	'walletAddress': string,
-	'Start Datetime': string,
-	'End Datetime': string,
-	'Location': string,
-	'Coordinates': {lat:number,lng:number},
-	'Organizers Email': string,
-	'Event Capacity': number,
-	'Ticket price': number,
-	'Ticket Image': string,
-	'Background Image': string,
+export interface FormInputData {
+	"Name of event": string;
+	Category: string;
+	"Event Description": string;
+	walletAddress: string;
+	"Start Datetime": string;
+	"End Datetime": string;
+	Location: string;
+	Coordinates: { lat: number; lng: number };
+	"Organizers Email": string;
+	"Event Capacity": number;
+	"Ticket price": number;
+	"Ticket Image": string;
+	"Background Image": string;
 }

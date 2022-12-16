@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 	try {
 		await dbConnect();
 
-		// const data = req.data;
+		// const data = .data;
 		const data = {
 			walletAddress: "222",
 		};

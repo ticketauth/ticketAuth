@@ -1,12 +1,10 @@
-import { Button, Card, CardBody, Center, Divider, Flex, Grid, GridItem, Heading, HStack, Image, Spacer, Stack, Text, VStack } from '@chakra-ui/react'
+import { AspectRatio, Button, Card, CardBody, Center, Divider, Flex, Grid, GridItem, Heading, HStack, Image, Spacer, Stack, Text, VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Header from '../../components/Header'
 import getEventDets from '../../utils/getEventDets'
 import type {EventData} from '../../utils/dataInterfaces'
 import { HiOutlineTicket } from 'react-icons/hi'
-import { SimpleMap } from '../../components/Maps'
-import { QRcodeButton } from '../../components/QRcodeButton'
 import { MultiMintButton } from '../../components/NftBuyButton'
 import useCandyMachineV3 from "../../hooks/useCandyMachineV3";
 import { GatewayProvider } from "@civic/solana-gateway-react";
@@ -21,12 +19,17 @@ import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { Nft } from '@metaplex-foundation/js';
 import { AlertState } from '../../alertUtils'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import "../../styles/Event.module.css";
+import DateCard from '../../components/DateCard'
+import { dateConvertr } from '../../utils/dateConvertr'
 
 const Event = () => {
   const router = useRouter()
   const { id } = router.query
   const [event, setEvent] = useState<EventData>()
   const [imgSelected, setImgSelected] = useState('ticket');
+  const [startdate, setStartDate] = useState({});
+  const [endate, setEndDate] = useState({});
 
   const { connection } = useConnection();
   const wallet = useWallet();
@@ -192,7 +195,11 @@ const Event = () => {
 
   useEffect(()=>{
     console.log(id,typeof(id))
-    getEventDets("fake").then(event=>setEvent(event))
+    getEventDets("fake").then(event=>{
+      setEvent(event)
+      setStartDate(dateConvertr(event['Start Datetime']))
+      setEndDate(dateConvertr(event['End Datetime']))
+    })
   },[])
 
   return (
@@ -205,7 +212,8 @@ const Event = () => {
       <HStack w='100%'>
         <VStack w='75%' align='flex-start'>
           <Heading size='lg'>Event: {event['Name of event']}</Heading>
-          <Text>{event['Start Datetime']}</Text>
+          {// @ts-ignore
+          startdate&&endate&&<Text>{startdate?.day}, {startdate?.date} {startdate?.month} {startdate?.year}, {startdate?.time} to {endate?.day}, {endate?.date} {endate?.month} {endate?.year}, {endate?.time}</Text>}
         </VStack>
         <Spacer/>
       </HStack>
@@ -215,7 +223,7 @@ const Event = () => {
           <Card 
             direction='row'
             w='100%'
-            boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+            boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
           >
             <CardBody>
               <Grid h='300px' templateColumns='repeat(4, 1fr)'>
@@ -252,7 +260,7 @@ const Event = () => {
             direction='row'
             w='100%'
             h='200px'
-            boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+            boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
           >
             <CardBody>
               <VStack spacing='5px' align='flex-start'>
@@ -269,7 +277,7 @@ const Event = () => {
           <Card 
               w='100%'
               h='120px'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
               <VStack spacing='5px'>
@@ -287,17 +295,10 @@ const Event = () => {
               direction='row'
               h='120px'
               w='100%'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
-              <VStack spacing='5px'>
-                <Text fontSize='xs'>Event Date</Text>
-                <Divider/>
-                <Flex  h='20px'>
-                  NOV
-                </Flex>
-                <Text>19</Text>
-              </VStack>
+              <DateCard datestr={event['Start Datetime']} fontsize='xs'/>
             </CardBody>
           </Card>
           </HStack>
@@ -305,7 +306,7 @@ const Event = () => {
           <Card 
               direction='row'
               w='100%'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
               <VStack spacing='5px'>
@@ -322,7 +323,7 @@ const Event = () => {
           <Card 
               direction='row'
               w='100%'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
               <VStack spacing='5px' w='100%' h='100%'>
@@ -336,13 +337,17 @@ const Event = () => {
               direction='row'
               w='100%'
               h='250px'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
               <VStack spacing='5px' align='flex-start' h='100%'>
                 <Heading size='sm'>Location</Heading>
                 <Text fontSize='sm' color='blue'>{event.Location}</Text>
-                <SimpleMap lat={event.Coordinates.lat} lng={event.Coordinates.lng}/>
+                <AspectRatio w='100%'>
+                <iframe 
+                  src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${event.Location.replace(/\s/g, "+")}`}
+                />
+                </AspectRatio>
               </VStack>
             </CardBody>
           </Card>
@@ -350,7 +355,7 @@ const Event = () => {
           <Card 
               direction='row'
               w='100%'
-              boxShadow='1px 1px 10px rgba(30,30,30,0.2)'
+              boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
               <VStack spacing='5px' align='flex-start'>

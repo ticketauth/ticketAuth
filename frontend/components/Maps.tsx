@@ -1,11 +1,10 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import React, { useMemo } from "react";
-import {Box, Input, VStack, InputRightAddon, Spinner, Text, InputRightElement, InputGroup, Flex, Icon, Center, Button } from "@chakra-ui/react";
+import {Box, Input, VStack, InputRightAddon, Spinner, Text, InputRightElement, InputGroup, Flex, Icon, Center, Button, Stack, Spacer, AspectRatio } from "@chakra-ui/react";
 import { useState } from "react";
 import useGoogle from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 import { HiLocationMarker } from "react-icons/hi";
 import GoogleMapReact from 'google-map-react';
-import Geocode from "react-geocode";
 import { FormInputData } from "../utils/dataInterfaces";
 
 const ApiKey:string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -15,29 +14,21 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
     placePredictions,
     getPlacePredictions,
     isPlacePredictionsLoading,
-  } = useGoogle({
+  } = (ApiKey!=='')?
+  useGoogle({
     apiKey: ApiKey,
-  });
+  }) :
+  {placePredictions:[],getPlacePredictions:()=>{},isPlacePredictionsLoading:false}
   const [value, setValue] = useState("");
   const [hidden, setHidden] = useState(false);
-  const [location, setLocation] = useState<{lat:Number,lng:Number}>()
   const handleClick = (description:string) => {
     setValue(description);
     setHidden(true);
-    Geocode.setApiKey(ApiKey);
-    Geocode.fromAddress(description).then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        handleData("Coordinates",{lat:lat,lng:lng})
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    handleData("Location",value)
   }
   return (
     <Flex>
-    <VStack w='100%' spacing='0'>
+    <VStack w='100%'>
       <InputGroup>
         <Input
           style={{ color: "black" }}
@@ -53,15 +44,9 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
         <InputRightElement>{
           isPlacePredictionsLoading?
           <Spinner/>:
-          <Button 
-            onClick={()=>
-            window.open(
-              data.Coordinates&&
-              `/previewlocation?lat=${data.Coordinates.lat}&lng=${data.Coordinates.lng}`,
-              '_blank'
-            )}>
-              <SearchIcon/>
-            </Button>
+          <Button>
+            <SearchIcon/>
+          </Button>
         }
         </InputRightElement>
       </InputGroup>
@@ -84,6 +69,18 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
         }
       </Box>
     </VStack>
+
+    <Spacer w='20px' bg='blue'/>
+
+    <Stack w='100%'>
+    {value&&
+    <AspectRatio>
+    <iframe 
+      src={`https://www.google.com/maps/embed/v1/place?key=${ApiKey}&q=${value.replace(/\s/g, "+")}`}
+    />
+    </AspectRatio>
+    }
+    </Stack>
     </Flex>
   );
 };
@@ -94,36 +91,3 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
     <HiLocationMarker size={20}/>
   )
 }
-
-const defaultMap =
-  { 
-    lat: 1.3542343864869617, 
-    lng: 103.81999172489604 
-  }
-
-interface Coords 
-{
-  lat: number,
-  lng: number
-}
-
-export const SimpleMap = ({lat,lng}:Coords) => {
-  const MapInfo = useMemo(() => lat||lng?{lat,lng}:defaultMap, [lat,lng])
-  return (
-    // Important! Always set the container height explicitly
-    <Box h='100%' w='100%'>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: ApiKey }}
-        center = {MapInfo}
-        defaultZoom={14}
-      >
-        <Marker
-          lat={MapInfo.lat}
-          lng={MapInfo.lng}
-          text="Event Location"
-        />
-      </GoogleMapReact>
-    </Box>
-  );
-}
-SimpleMap.defaultProps = defaultMap;

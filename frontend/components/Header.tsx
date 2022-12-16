@@ -44,16 +44,12 @@ const Header = () => {
     >
       <Image cursor='pointer' onClick={()=>router.push('/')} src='/logo.png'/>
       <Spacer/>
-      <HStack spacing='10px'>
+      <HStack spacing='20px'>
         <Button onClick={()=>router.push("/create")}>Create Events</Button>
         {publicKey ? (
-        <>
-          <WalletMultiButton />
-        </>
+          <WalletMultiButton style={{height:'40px',borderRadius:'7px', backgroundColor:'#7B2CBF'}}/>
         ) : (
-          <>
             <Button onClick={onPaymentOpen} >Sign Up</Button>
-          </>
         )
         }
         <WalletModal isPaymentOpen={isPaymentOpen} onPaymentClose={onPaymentClose}/>

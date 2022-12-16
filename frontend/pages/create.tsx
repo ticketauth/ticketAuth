@@ -6,6 +6,8 @@ import {  DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
 import { EventData,FormInputData } from "../utils/dataInterfaces";
 import { useWallet } from "@solana/wallet-adapter-react";
+import useScript from "../hooks/useScript";
+import { useRouter } from "next/router";
 
 
 const CreateEvent:React.FC = () => {
