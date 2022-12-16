@@ -5,18 +5,16 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import {  DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
 import { EventData,FormInputData } from "../utils/dataInterfaces";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import useScript from "../hooks/useScript";
 import { useRouter } from "next/router";
+import createCandyMachine from "../utils/createCandyMachine";
 
 
 const CreateEvent:React.FC = () => {
-	// let wallet;
-	// useEffect(()=>{
-	// 	wallet = useWallet();
-	// 	wallet
-	// },[])
-	// wallet?.publicKey.toString()
+	
+	let wallet = useWallet();
+
 
 	const [data, setData] = useState<FormInputData>(
 	{
@@ -44,7 +42,7 @@ const CreateEvent:React.FC = () => {
 	}
 
 	const createEvent = () => {
-		console.log(data)
+		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], data["Ticket Image"], wallet);
 	}
 
 	const [tabIndex, setTabIndex] = useState(0);
