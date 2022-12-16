@@ -11,9 +11,11 @@ const FileToUrl = (file:File) => new Promise<string>((resolve, reject) => {
 
 export const ImageInput:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void,imgtype:string}> = ({data,handleData,imgtype}) => {
   const styles = useMultiStyleConfig("Button", { variant: "outline" });
+  const [previewImage, setPreviewImage] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>)=>{
     if (e.target.files){
+      setPreviewImage(URL.createObjectURL(e.target.files[0]))
       FileToUrl(e.target.files[0])
       .then(fileurl=>fileurl.replace(/(\r\n|\n|\r)/gm, ""))
       .then(fileurl=>handleData(imgtype,fileurl))
@@ -36,7 +38,7 @@ export const ImageInput:React.FC<{data:FormInputData,handleData:(type:string,val
       onChange={handleChange}
     />
     <Flex w='100%' h='90%'>
-      {imgtype=="Ticket Image"?data["Ticket Image"]:data["Background Image"]&&<Image fit='contain' src={imgtype=="Ticket Image"?data["Ticket Image"]:data["Background Image"]}/>}
+      {previewImage!==""&&<Image fit='contain' src={previewImage}/>}
     </Flex>
     </VStack>
   );
