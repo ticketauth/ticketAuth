@@ -4,6 +4,7 @@ import { clusterApiUrl, Connection } from "@solana/web3.js";
 
 
 async function uploadImage(ticketImage : string, eventName : string,  metaplex: Metaplex): Promise<string> {
+    console.log(metaplex.identity());
     const imgMetaplexFile = toMetaplexFile(ticketImage,eventName);
     //const image = toMetaplexFileFromBrowser()
     const imgUri = await metaplex.storage().upload(imgMetaplexFile);
@@ -41,14 +42,14 @@ async function createCollectionNft(metadataUri: string, name: string, metaplex :
             sellerFeeBasisPoints: 0,
             updateAuthority: metaplex.identity(), 
             isCollection: true,
-    }, {commitment : "finalized"});
+    });
     console.log(`✅ - Minted Collection NFT: ${collectionNft.address.toBase58()}`);
     console.log(`     https://explorer.solana.com/address/${collectionNft.address.toBase58()}?cluster=devnet`);
 
     return collectionNft.address;
 }
 
-async function generateCandyMachine(totalTickets: number, ticketPrice : number , collectionAddress : PublicKey, collectionSymbol: string, metaplex: Metaplex) {
+async function generateCandyMachine(totalTickets: number, ticketPrice : number , collectionAddress : PublicKey, collectionSymbol: string, metaplex: Metaplex, wallet: WalletContextState) {
     const candyMachineSettings: CreateCandyMachineInput<DefaultCandyGuardSettings> =
         {
             authority: metaplex.identity(),
@@ -58,7 +59,7 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
             maxEditionSupply: toBigNumber(0), // 0 reproductions of each NFT allowed
             isMutable: true,
             creators: [
-                { address: metaplex.identity().publicKey, share: 100 },
+                { address: collectionAddress, share: 100 },
             ],
             collection: {
                 address: collectionAddress,
@@ -75,7 +76,7 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
             guards: {
                 solPayment: {
                 amount: sol(ticketPrice),
-                destination: metaplex.identity().publicKey,
+                destination: collectionAddress,
                 },
                 redeemedAmount: {
                 maximum: toBigNumber(totalTickets),
@@ -85,8 +86,7 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
                 //     expireOnUse: true
                 // }
                 
-            },
-            
+            }, 
         };
     
     const { candyMachine } = await metaplex.candyMachines().create(candyMachineSettings, {commitment : "finalized"});
@@ -127,7 +127,7 @@ async function addItems(candyMachineID: PublicKey, uri : string, totalTickets : 
   return response.signature;
 }
 
-async function createNFT (eventName: string, eventDescription: string, startDate : string, endDate : string, eventCapacity: number, ticketPrice: number, ticketImage : string, metaplex : Metaplex, creatorPubKey: PublicKey): Promise<[string, string, string]> {
+async function createNFT (eventName: string, eventDescription: string, startDate : string, endDate : string, eventCapacity: number, ticketPrice: number, ticketImage : string, metaplex : Metaplex, creatorPubKey: PublicKey, wallet: WalletContextState): Promise<[string, string, string]> {
     //Step 1 - Upload Image
     const imgUri = await uploadImage(ticketImage, eventName,  metaplex );
     //Step 2 - Upload Metadata
@@ -135,7 +135,7 @@ async function createNFT (eventName: string, eventDescription: string, startDate
     //Step 3 - Minting CollectionNFT
     const collectionAddress = await createCollectionNft(metadataUri, eventName, metaplex);
     //Step 4 - Create Candy Machine
-    const candyMachine = await generateCandyMachine(eventCapacity, ticketPrice,  creatorPubKey, "tktAuth", metaplex)
+    const candyMachine = await generateCandyMachine(eventCapacity, ticketPrice,  creatorPubKey, "tktAuth", metaplex, wallet)
     const candyMachineID = candyMachine.address;
     //Step 5 - Adding items to Candy Machine
     const uriData = metadataUri.split("/");
@@ -162,10 +162,15 @@ export default function createCandyMachine(
         .use(bundlrStorage({
             address:'https://devnet.bundlr.network',
     }));
-    createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet.publicKey)
+    try{
+        createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet.publicKey, wallet)
         .then(data => {
             console.log(data);
-    })
+        })
+    } catch(e){
+        console.log(e.message);
+    }
+    
     
 }
 
