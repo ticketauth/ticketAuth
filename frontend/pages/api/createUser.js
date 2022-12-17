@@ -9,21 +9,23 @@ export default async function handler(req, res) {
 	try {
 		await dbConnect();
 
-		const testWallet = "1323";
+		const walletAddress = req.body.walletAddress;
 
-		const exists = await user.exists({ walletAddress: testWallet });
+		const exists = await user.exists({ walletAddress: walletAddress });
 
-		if (exists) {
+		if (!exists) {
 			const result = await user.create({
-				walletAddress: testWallet,
+				walletAddress: walletAddress,
 				eventAttends: [],
 				eventCreated: [],
 			});
+
+			res.json(true);
+		} else {
+			res.status(200).json(false);
 		}
 
 		// console.log(result);
-
-		res.status(200);
 	} catch (error) {
 		console.log(error);
 	}

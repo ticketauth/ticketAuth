@@ -25,7 +25,4 @@ a {
   }
 }
 
-.blur {
-  background-color:RGBA(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-}
+

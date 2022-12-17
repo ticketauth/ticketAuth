@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import event from "../../utils/eventModel";
+import user from "../../utils/userModel";
 
 import dbConnect from "../../utils/mongodb";
 
@@ -8,9 +9,12 @@ export default async function handler(req, res) {
 	try {
 		await dbConnect();
 
-		let eventIdList = req.body;
+		let walletAddress = req.body.walletAddress;
 
-		eventIdList = ["2221", "2223"];
+		let userInfo = await user.findOne({ walletAddress: walletAddress });
+		// console.log(userInfo.eventCreated);
+
+		let eventIdList = userInfo.eventCreated;
 
 		let allPromises = [];
 
@@ -21,10 +25,9 @@ export default async function handler(req, res) {
 
 		let eventList = await Promise.all(allPromises);
 
-		// const allEvents = await event.find({ walletAddress: query.walletAddress });
-		// console.log(allEvents);
+		console.log(eventList);
 
-		res.status(200).json(eventList);
+		res.status(200).send(eventList);
 	} catch (error) {
 		console.log(error);
 	}

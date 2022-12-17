@@ -38,6 +38,7 @@
 
 import mongoose from "mongoose";
 
+mongoose.set('strictQuery', false);
 const connection = {
 	isConnected: false,
 }; /* creating connection object*/
@@ -47,8 +48,7 @@ async function dbConnect() {
 	if (connection.isConnected) {
 		return;
 	}
-
-	const uri = process.env.MONGODB_URI;
+	const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
 
 	/* connecting to our database */
 	const db = await mongoose.connect(uri);
