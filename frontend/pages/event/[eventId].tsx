@@ -148,6 +148,7 @@ const Event = () => {
   const CrossMint = () => {
         return (
             <CrossmintPayButton
+                style={{height:'40px'}}
                 clientId="53789912-6a27-4034-8329-d0acb95e23da"
                 mintConfig={{"type":"candy-machine"}}
                 
@@ -226,7 +227,7 @@ const Event = () => {
       <HStack w='100%'>
         <VStack w='75%' align='flex-start'>
           <Heading size='lg'>Event: {eventDets['Name of event']}</Heading>
-          <Text>by {eventDets.Organizer}</Text>
+          <Text color='blue'>by {eventDets.Organizer}</Text>
           {// @ts-ignore
           startdate&&endate&&<Text>{startdate?.day}, {startdate?.date} {startdate?.month} {startdate?.year}, {startdate?.time} to {endate?.day}, {endate?.date} {endate?.month} {endate?.year}, {endate?.time}</Text>}
         </VStack>

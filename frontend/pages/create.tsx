@@ -1,4 +1,4 @@
-import { Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, HStack, Image, Input, SimpleGrid, Spacer, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
+import { Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, HStack, Image, Input, SimpleGrid, Spacer, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -17,6 +17,7 @@ const CreateEvent:React.FC = () => {
 	let wallet = useWallet();
 	const router = useRouter();
 	const [ticketFile, setTicketFile] = useState();
+	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState<FormInputData>(
 	{
 		'Name of event': '',
@@ -44,6 +45,7 @@ const CreateEvent:React.FC = () => {
 
 	const createEvent = async () => {
 		// console.log("DATATO BE SENT",data)
+		setLoading(true)
 		createCandyMachine(
 			data["Name of event"], 
 			data["Event Description"], 
@@ -66,7 +68,7 @@ const CreateEvent:React.FC = () => {
 		<>
 			<Header/>
 			<VStack spacing={-8}>
-				<Grid h='250px' w='100%' justifyContent='center' alignItems='center' bgGradient="linear(to-t, green.200, teal.500)">
+				<Grid h='250px' w='100%' justifyContent='center' alignItems='center' className="backdrop">
 					<VStack>
 						<Text fontSize={'60px'} fontFamily={'monoton'} color='white'> Create Event</Text>
 					</VStack>
@@ -85,9 +87,9 @@ const CreateEvent:React.FC = () => {
 							boxShadow='1px 5px 10px rgba(30,30,30,0.5)'
 							align='center'
 						>
-							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ color: 'white', bg: 'blue.500' }}>1</Tab>
-							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ color: 'white', bg: 'green.400' }}>2</Tab>
-							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ color: 'white', bg: 'green.400' }}>3</Tab>
+							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ bg: 'brand.1' }}>1</Tab>
+							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ bg: 'brand.2' }}>2</Tab>
+							<Tab borderStyle='solid' borderWidth='2px' borderRadius='100%' _selected={{ bg: 'brand.3' }}>3</Tab>
 						</HStack>
 					</TabList>
 
@@ -126,7 +128,7 @@ const CreateEvent:React.FC = () => {
 							<VStack spacing='10px' w='100%'>
 							<Tab3 data={data} setTicketFile={setTicketFile} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
-								<Button rightIcon={<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
+								<Button rightIcon={loading?<Spinner/>:<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
 							</VStack>
 						</TabPanel>
