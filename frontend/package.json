@@ -14,6 +14,7 @@
     "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/react": "^2.4.3",
     "@civic/solana-gateway-react": "^0.11.0",
+    "@crossmint/client-sdk-react-ui": "^0.2.1-alpha.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@metaplex-foundation/js": "^0.17.5",

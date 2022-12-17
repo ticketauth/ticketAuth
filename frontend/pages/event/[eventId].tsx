@@ -23,6 +23,7 @@ import "../../styles/Event.module.css";
 import DateCard from '../../components/DateCard'
 import { dateConvertr } from '../../utils/dateConvertr'
 import { getEventById } from '../../utils/eventController'
+import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 
 const Event = () => {
   const router = useRouter()
@@ -38,6 +39,7 @@ const Event = () => {
   useEffect(()=>{
     if (!eventId) return
     getEventById(eventId).then(event=>{
+      console.log(event);
       setEvent(event)
       setStartDate(dateConvertr(event['Start Datetime']))
       setEndDate(dateConvertr(event['End Datetime']))
@@ -141,7 +143,17 @@ const Event = () => {
     },
     [candyMachineV3.mint, guards]
   );
-
+  
+    
+  const CrossMint = () => {
+        return (
+            <CrossmintPayButton
+                clientId="53789912-6a27-4034-8329-d0acb95e23da"
+                mintConfig={{"type":"candy-machine"}}
+                
+            />
+        );
+    }
   const BuyTicketButton = () => {
 
     return (
@@ -331,6 +343,8 @@ const Event = () => {
               <VStack spacing='5px' w='100%' h='100%'>
               <Text fontSize='xs'>Get your ticket to the event!</Text>
               <BuyTicketButton/>
+              <Text fontSize='xs'>or </Text>
+              <CrossMint />
               </VStack>
             </CardBody>
           </Card>
