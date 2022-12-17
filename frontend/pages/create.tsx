@@ -15,7 +15,7 @@ import { createNewEvent } from "../utils/eventController";
 const CreateEvent:React.FC = () => {
 	
 	let wallet = useWallet();
-
+	const router = useRouter();
 	const [ticketFile, setTicketFile] = useState();
 	const [data, setData] = useState<FormInputData>(
 	{
@@ -57,9 +57,9 @@ const CreateEvent:React.FC = () => {
 			([collectionAddress,candyMachineID,transactionSignature])=>{
 				console.log("TEINSEOTIJ SIU TSHT", collectionAddress, candyMachineID)
 				createNewEvent({...data,candyMachineId:candyMachineID,collectionId:collectionAddress})
+				router.push('/')
 			}
 		)
-
 	}
 	const [tabIndex, setTabIndex] = useState(0);
   return (
