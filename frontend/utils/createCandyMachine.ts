@@ -153,7 +153,7 @@ export default async function createCandyMachine(
     wallet : WalletContextState,
 ) {
     const SESSION_HASH = 'QNDEMO'+Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
-    const SOLANA_CONNECTION = new Connection(clusterApiUrl("mainnet-beta"), { commitment: 'finalized'});
+    const SOLANA_CONNECTION = new Connection(clusterApiUrl("devnet"), { commitment: 'finalized'});
     const metaplex = new Metaplex(SOLANA_CONNECTION)
         .use(walletAdapterIdentity(wallet)) // Will prompt the user 
         //.use(keypairIdentity(accountFromSecret))
