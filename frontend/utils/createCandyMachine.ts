@@ -129,7 +129,7 @@ async function createNFT (eventName: string, eventDescription: string, startDate
     //Step 1 - Upload Image
     const imgUri = await uploadImage(ticketImage, metaplex );
     //Step 2 - Upload Metadata
-    const metadataUri = await uploadMetadata(imgUri, "image/png", eventName, eventDescription, metaplex); 
+    const metadataUri = await uploadMetadata(imgUri, "video/mp4", eventName, eventDescription, metaplex); 
     //Step 3 - Minting CollectionNFT
     const collectionAddress = await createCollectionNft(metadataUri, eventName, metaplex);
     //Step 4 - Create Candy Machine
