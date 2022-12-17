@@ -16,8 +16,8 @@ const eventSchema = new Schema({
 	"Ticket Image": String,
 	"Background Image": String,
 	active: Boolean, //if event is currently active
-	CollectionId: String,
-	CandyMachineId: String,
+	collectionId: String,
+	candyMachineId: String,
 });
 
 module.exports = mongoose.models.event || mongoose.model("event", eventSchema);
