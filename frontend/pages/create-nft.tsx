@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Metaplex, toMetaplexFileFromBrowser, walletAdapterIdentity } from "@metaplex-foundation/js";
 import { Connection, clusterApiUrl } from "@solana/web3.js";
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
-const connection = new Connection(clusterApiUrl("devnet"));
+const { connection } = useConnection();
 const metaplex = new Metaplex(connection);
 
 

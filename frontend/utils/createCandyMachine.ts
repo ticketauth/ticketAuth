@@ -152,8 +152,9 @@ export default async function createCandyMachine(
     ticketImage : File,
     wallet : WalletContextState,
 ) {
+    const quicknode_rpc = "https://frequent-neat-glade.solana-mainnet.discover.quiknode.pro/33167d2fffcd3045644f1c7616d69fecea8f77e7/"
     const SESSION_HASH = 'QNDEMO'+Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
-    const SOLANA_CONNECTION = new Connection(clusterApiUrl("mainnet-beta"), { commitment: 'finalized'});
+    const SOLANA_CONNECTION = new Connection(quicknode_rpc);
     const metaplex = new Metaplex(SOLANA_CONNECTION)
         .use(walletAdapterIdentity(wallet)) // Will prompt the user 
         //.use(keypairIdentity(accountFromSecret))
