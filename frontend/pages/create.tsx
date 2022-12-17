@@ -40,15 +40,6 @@ const CreateEvent:React.FC = () => {
 			[type]:value,
 		}))
 	}
-	// function _base64ToArrayBuffer(base64): ArrayBuffer {
-	// 	var binary_string = window.atob(base64);
-	// 	var len = binary_string.length;
-	// 	var bytes = new Uint8Array(len);
-	// 	for (var i = 0; i < len; i++) {
-	// 		bytes[i] = binary_string.charCodeAt(i);
-    // 	}
-    // 	return bytes.buffer;
-	// }	
 
 	const createEvent = () => {
 		ticketFile //this is the file object
@@ -117,7 +108,7 @@ const CreateEvent:React.FC = () => {
 
 						<TabPanel>
 							<VStack spacing='10px' w='100%'>
-							<Tab3 setTicketFile={setTicketFile} handleData={handleData}/>
+							<Tab3 data={data} setTicketFile={setTicketFile} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
 								<Button rightIcon={<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
@@ -214,16 +205,16 @@ const Tab2:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>v
 	)
 }
 
-const Tab3:React.FC<{handleData:(type:string,value:string)=>void,setTicketFile:(File)=>void}> = ({handleData,setTicketFile}) => {
+const Tab3:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void,setTicketFile:(File)=>void}> = ({data,handleData,setTicketFile}) => {
 	return (
 		<HStack w='100%' h='400px' gap='10px'>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Event Banner Image</Heading>
-			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Background Image"/>
+			<ImageInput data={data} setTicketFile={setTicketFile} handleData={handleData} imgtype="Background Image"/>
 			</VStack>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Ticket Image</Heading>
-			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Ticket Image"/>
+			<ImageInput data={data} setTicketFile={setTicketFile} handleData={handleData} imgtype="Ticket Image"/>
 			</VStack>
 		</HStack>
 )
