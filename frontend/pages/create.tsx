@@ -15,7 +15,7 @@ const CreateEvent:React.FC = () => {
 	
 	let wallet = useWallet();
 
-
+	const [ticketFile, setTicketFile] = useState();
 	const [data, setData] = useState<FormInputData>(
 	{
 		'Name of event': '',
@@ -51,10 +51,9 @@ const CreateEvent:React.FC = () => {
 	// }	
 
 	const createEvent = () => {
-		//const imageBuffer = _base64ToArrayBuffer(data["Ticket Image"]);
-		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], data["Ticket Image"], wallet);
+		ticketFile //this is the file object
+		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], ticketFile, wallet);
 	}
-
 	const [tabIndex, setTabIndex] = useState(0);
   return (
 		<>
@@ -118,7 +117,7 @@ const CreateEvent:React.FC = () => {
 
 						<TabPanel>
 							<VStack spacing='10px' w='100%'>
-							<Tab3 data={data} handleData={handleData}/>
+							<Tab3 setTicketFile={setTicketFile} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
 								<Button rightIcon={<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
@@ -150,6 +149,9 @@ const Tab1:React.FC<{data:FormInputData,handleData:(type:string,value:string|num
 				<GridItem colSpan={2}>
 					<FormControl w='100%' isInvalid={data.Category==''}>
 						<FormLabel>Event Category</FormLabel>
+						{/* <Select placeholder='Select option'>
+							<option value='option1'>Option 1</option>
+						</Select> */}
 						<Input variant='flushed' placeholder="Category" type='text' value={data.Category} 
 							onChange={(e)=>handleData("Category",e.currentTarget.value)} w='100%'/>
 						{data.Category==''&&<FormErrorMessage>Enter the event category.</FormErrorMessage>}
@@ -212,16 +214,16 @@ const Tab2:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>v
 	)
 }
 
-const Tab3:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void}> = ({data,handleData}) => {
+const Tab3:React.FC<{handleData:(type:string,value:string)=>void,setTicketFile:(File)=>void}> = ({handleData,setTicketFile}) => {
 	return (
 		<HStack w='100%' h='400px' gap='10px'>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Event Banner Image</Heading>
-			<ImageInput data={data} handleData={handleData} imgtype="Background Image"/>
+			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Background Image"/>
 			</VStack>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Ticket Image</Heading>
-			<ImageInput data={data} handleData={handleData} imgtype="Ticket Image"/>
+			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Ticket Image"/>
 			</VStack>
 		</HStack>
 )
