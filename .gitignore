@@ -1,5 +1,2 @@
-./TODO.md
-yarn.lock
-/node_modules
-.vercel
 .env
+.env.*

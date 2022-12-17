@@ -9,7 +9,6 @@ export const dateConvertr = (datestr:string) => {
     year: curdate.getUTCFullYear(),
     time: curdate.getUTCHours()+':'+(curdate.getUTCMinutes()<10?'0':'')+curdate.getUTCMinutes(),
   }
-  console.log(r)
   return r
 
 }

@@ -81,10 +81,3 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
     </Flex>
   );
 };
-
- const Marker = (props:any) => {
-  const {text} = props;
-  return (
-    <HiLocationMarker size={20}/>
-  )
-}

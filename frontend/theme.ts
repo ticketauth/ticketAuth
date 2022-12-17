@@ -13,11 +13,20 @@ const colors = {
   
 }
 
-const config: ThemeConfig = {
-  initialColorMode: 'light',
-  useSystemColorMode: true,
+const styles = {
+  global: {
+    ".blur": {
+      backgroundColor: 'RGBA(255, 255, 255, 0.16)',
+      backdropFilter: 'blur(10px)'
+    }
+  }
 }
 
-const theme = extendTheme({ colors, config })
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
+}
+
+const theme = extendTheme({ styles, colors, config })
 
 export default theme
