@@ -9,16 +9,13 @@ const FileToUrl = (file:File) => new Promise<string>((resolve, reject) => {
   reader.onerror = error => reject(error);
 });
 
-export const ImageInput:React.FC<{handleData:(type:string,value:string)=>void,imgtype:string,setTicketFile:(File)=>void}> = ({handleData,imgtype,setTicketFile}) => {
+export const ImageInput:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void,imgtype:string,setTicketFile:(File)=>void}> = ({data,handleData,imgtype,setTicketFile}) => {
   const styles = useMultiStyleConfig("Button", { variant: "outline" });
-  const [previewImage, setPreviewImage] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>)=>{
     if (e.target.files){
-      setPreviewImage(URL.createObjectURL(e.target.files[0]))
-      imgtype&&setTicketFile(e.target.files[0])
+      imgtype=="Ticket Image"&&setTicketFile(e.target.files[0])
       FileToUrl(e.target.files[0])
-      //.then(fileurl=>fileurl.replace(/(\r\n|\n|\r)/gm, ""))
       .then(fileurl=>handleData(imgtype,fileurl))
     }
   }
@@ -38,8 +35,8 @@ export const ImageInput:React.FC<{handleData:(type:string,value:string)=>void,im
       }}
       onChange={handleChange}
     />
-    <Flex w='100%' h='90%'>
-      {previewImage!==""&&<Image fit='contain' src={previewImage}/>}
+    <Flex w='100%' h='300px'>
+      {data[imgtype]!==""&&<Image fit='contain' src={data[imgtype]}/>}
     </Flex>
     </VStack>
   );

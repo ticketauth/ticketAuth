@@ -9,6 +9,7 @@ import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import useScript from "../hooks/useScript";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
+import { createNewEvent } from "../utils/eventController";
 
 
 const CreateEvent:React.FC = () => {
@@ -30,7 +31,7 @@ const CreateEvent:React.FC = () => {
 		'Event Capacity': 1,
 		'Ticket price': 0,
 		'Ticket Image': '',
-		'Background Image': '',
+		'Background Image': ''
 	}
 	);
 
@@ -40,19 +41,20 @@ const CreateEvent:React.FC = () => {
 			[type]:value,
 		}))
 	}
-	// function _base64ToArrayBuffer(base64): ArrayBuffer {
-	// 	var binary_string = window.atob(base64);
-	// 	var len = binary_string.length;
-	// 	var bytes = new Uint8Array(len);
-	// 	for (var i = 0; i < len; i++) {
-	// 		bytes[i] = binary_string.charCodeAt(i);
-    // 	}
-    // 	return bytes.buffer;
-	// }	
 
 	const createEvent = () => {
 		ticketFile //this is the file object
-		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], ticketFile, wallet);
+		const [collectionAddress,candyMachineID,transactionSignature] = createCandyMachine(
+			data["Name of event"], 
+			data["Event Description"], 
+			data["Start Datetime"], 
+			data["End Datetime"], 
+			data["Event Capacity"], 
+			data["Ticket price"], 
+			ticketFile, 
+			wallet
+		)
+		createNewEvent({...data,candyMachineID:candyMachineID,collectionAddress:collectionAddress})
 	}
 	const [tabIndex, setTabIndex] = useState(0);
   return (
@@ -117,7 +119,7 @@ const CreateEvent:React.FC = () => {
 
 						<TabPanel>
 							<VStack spacing='10px' w='100%'>
-							<Tab3 setTicketFile={setTicketFile} handleData={handleData}/>
+							<Tab3 data={data} setTicketFile={setTicketFile} handleData={handleData}/>
 							<Flex w='100%' justifyContent='flex-end'>
 								<Button rightIcon={<ChevronRightIcon/>} onClick={()=>createEvent()} bg='brand.3' color='white'>Create Your Event</Button>
 							</Flex>
@@ -173,18 +175,25 @@ const Tab1:React.FC<{data:FormInputData,handleData:(type:string,value:string|num
 					</FormControl>
 				</GridItem>
 
-				<GridItem colSpan={2}>
+				<GridItem colSpan={1}>
 					<FormControl w='100%' isInvalid={data['Ticket price'].toString()==''}>
 						<FormLabel>Ticket Price</FormLabel>
 						<Input variant='flushed' placeholder="Ticket Price" type='number' value={data['Ticket price']} onChange={(e)=>handleData("Ticket price",e.currentTarget.value)} w='100%'/>
 						{data['Ticket price'].toString()==''&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
-				<GridItem colSpan={2}>
+				<GridItem colSpan={1}>
 					<FormControl w='100%' isInvalid={data['Event Capacity'].toString()==''}>
-						<FormLabel>Event Capacity</FormLabel>
+						<FormLabel>Capacity</FormLabel>
 						<Input variant='flushed' placeholder="Event Capacity" type='number' value={data['Event Capacity']} onChange={(e)=>handleData("Event Capacity",e.currentTarget.value)} w='100%'/>
 						{data['Event Capacity'].toString()&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
+					</FormControl>
+				</GridItem>
+				<GridItem colSpan={2}>
+					<FormControl w='100%' isInvalid={data.Organizer==''}>
+						<FormLabel>Organizer Name</FormLabel>
+						<Input variant='flushed' placeholder="Organizer" type='text' value={data.Organizer} onChange={(e)=>handleData("Organizer",e.currentTarget.value)} w='100%'/>
+						{data.Organizer==''&&<FormErrorMessage>Enter your Organizer name</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 				<GridItem colSpan={2}>
@@ -214,16 +223,16 @@ const Tab2:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>v
 	)
 }
 
-const Tab3:React.FC<{handleData:(type:string,value:string)=>void,setTicketFile:(File)=>void}> = ({handleData,setTicketFile}) => {
+const Tab3:React.FC<{data:FormInputData,handleData:(type:string,value:string)=>void,setTicketFile:(File)=>void}> = ({data,handleData,setTicketFile}) => {
 	return (
 		<HStack w='100%' h='400px' gap='10px'>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Event Banner Image</Heading>
-			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Background Image"/>
+			<ImageInput data={data} setTicketFile={setTicketFile} handleData={handleData} imgtype="Background Image"/>
 			</VStack>
 			<VStack h='100%' w='100%' align='flex-start'>
 			<Heading size='md'>Ticket Image</Heading>
-			<ImageInput setTicketFile={setTicketFile} handleData={handleData} imgtype="Ticket Image"/>
+			<ImageInput data={data} setTicketFile={setTicketFile} handleData={handleData} imgtype="Ticket Image"/>
 			</VStack>
 		</HStack>
 )
