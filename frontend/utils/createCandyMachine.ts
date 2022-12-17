@@ -163,7 +163,7 @@ export default function createCandyMachine(
     try{
         createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet.publicKey)
         .then(data => {
-            console.log(data);
+            return data
         })
     } catch(e : unknown){
         if(typeof e === "string") {
@@ -172,6 +172,7 @@ export default function createCandyMachine(
             console.log(e.message);
         }
     }
+    return []
     
     
 }

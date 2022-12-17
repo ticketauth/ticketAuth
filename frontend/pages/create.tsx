@@ -9,6 +9,7 @@ import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import useScript from "../hooks/useScript";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
+import { createNewEvent } from "../utils/eventController";
 
 
 const CreateEvent:React.FC = () => {
@@ -30,7 +31,7 @@ const CreateEvent:React.FC = () => {
 		'Event Capacity': 1,
 		'Ticket price': 0,
 		'Ticket Image': '',
-		'Background Image': '',
+		'Background Image': ''
 	}
 	);
 
@@ -43,7 +44,17 @@ const CreateEvent:React.FC = () => {
 
 	const createEvent = () => {
 		ticketFile //this is the file object
-		createCandyMachine(data["Name of event"], data["Event Description"], data["Start Datetime"], data["End Datetime"], data["Event Capacity"], data["Ticket price"], ticketFile, wallet);
+		const [collectionAddress,candyMachineID,transactionSignature] = createCandyMachine(
+			data["Name of event"], 
+			data["Event Description"], 
+			data["Start Datetime"], 
+			data["End Datetime"], 
+			data["Event Capacity"], 
+			data["Ticket price"], 
+			ticketFile, 
+			wallet
+		)
+		createNewEvent({...data,candyMachineID:candyMachineID,collectionAddress:collectionAddress})
 	}
 	const [tabIndex, setTabIndex] = useState(0);
   return (
@@ -164,18 +175,25 @@ const Tab1:React.FC<{data:FormInputData,handleData:(type:string,value:string|num
 					</FormControl>
 				</GridItem>
 
-				<GridItem colSpan={2}>
+				<GridItem colSpan={1}>
 					<FormControl w='100%' isInvalid={data['Ticket price'].toString()==''}>
 						<FormLabel>Ticket Price</FormLabel>
 						<Input variant='flushed' placeholder="Ticket Price" type='number' value={data['Ticket price']} onChange={(e)=>handleData("Ticket price",e.currentTarget.value)} w='100%'/>
 						{data['Ticket price'].toString()==''&&<FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
-				<GridItem colSpan={2}>
+				<GridItem colSpan={1}>
 					<FormControl w='100%' isInvalid={data['Event Capacity'].toString()==''}>
-						<FormLabel>Event Capacity</FormLabel>
+						<FormLabel>Capacity</FormLabel>
 						<Input variant='flushed' placeholder="Event Capacity" type='number' value={data['Event Capacity']} onChange={(e)=>handleData("Event Capacity",e.currentTarget.value)} w='100%'/>
 						{data['Event Capacity'].toString()&&<FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>}
+					</FormControl>
+				</GridItem>
+				<GridItem colSpan={2}>
+					<FormControl w='100%' isInvalid={data.Organizer==''}>
+						<FormLabel>Organizer Name</FormLabel>
+						<Input variant='flushed' placeholder="Organizer" type='text' value={data.Organizer} onChange={(e)=>handleData("Organizer",e.currentTarget.value)} w='100%'/>
+						{data.Organizer==''&&<FormErrorMessage>Enter your Organizer name</FormErrorMessage>}
 					</FormControl>
 				</GridItem>
 				<GridItem colSpan={2}>

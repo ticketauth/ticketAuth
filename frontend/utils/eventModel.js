@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
 	"Name of event": String,
-	EventId: String,
 	"Event Description": String,
 	walletAddress: String,
 	"Start Datetime": String,

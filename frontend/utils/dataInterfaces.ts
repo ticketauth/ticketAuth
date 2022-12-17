@@ -40,6 +40,4 @@ export interface FormInputData {
 	"Background Image": string;
 	// EventId: string; //ASDL124Vfrfw3
 	// active: boolean; //if event is currently active,
-	// candyMachineId: string;
-	// collectionId: string;
 }
