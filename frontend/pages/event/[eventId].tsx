@@ -22,20 +22,30 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import "../../styles/Event.module.css";
 import DateCard from '../../components/DateCard'
 import { dateConvertr } from '../../utils/dateConvertr'
+import { getEventById } from '../../utils/eventController'
 
 const Event = () => {
   const router = useRouter()
-  const { id } = router.query
-  const [event, setEvent] = useState<EventData>()
-  const [imgSelected, setImgSelected] = useState('ticket');
+  const { eventId } = router.query
+  const [eventDets, setEvent] = useState<EventData>()
+  const [imgSelected, setImgSelected] = useState('Ticket Image');
   const [startdate, setStartDate] = useState({});
   const [endate, setEndDate] = useState({});
 
   const { connection } = useConnection();
   const wallet = useWallet();
+
+  useEffect(()=>{
+    if (!eventId) return
+    getEventById(eventId).then(event=>{
+      setEvent(event)
+      setStartDate(dateConvertr(event['Start Datetime']))
+      setEndDate(dateConvertr(event['End Datetime']))
+    })
+  },[eventId])
   
   const candyMachineV3 = useCandyMachineV3(
-    event?.candyMachineId ||  "",
+    eventDets?.candyMachineId ||  "",
   );
 
   const [balance, setBalance] = useState<number>();
@@ -193,17 +203,9 @@ const Event = () => {
     />
   );
 
-  useEffect(()=>{
-    console.log(id,typeof(id))
-    getEventDets("fake").then(event=>{
-      setEvent(event)
-      setStartDate(dateConvertr(event['Start Datetime']))
-      setEndDate(dateConvertr(event['End Datetime']))
-    })
-  },[])
 
   return (
-    event==undefined?
+    eventDets==undefined?
     <>Skeleton</>
     :
     <>
@@ -211,7 +213,8 @@ const Event = () => {
       <VStack w='100%' padding='100px 15%' spacing='5px'>
       <HStack w='100%'>
         <VStack w='75%' align='flex-start'>
-          <Heading size='lg'>Event: {event['Name of event']}</Heading>
+          <Heading size='lg'>Event: {eventDets['Name of event']}</Heading>
+          <Text>by {eventDets.Organizer}</Text>
           {// @ts-ignore
           startdate&&endate&&<Text>{startdate?.day}, {startdate?.date} {startdate?.month} {startdate?.year}, {startdate?.time} to {endate?.day}, {endate?.date} {endate?.month} {endate?.year}, {endate?.time}</Text>}
         </VStack>
@@ -229,26 +232,26 @@ const Event = () => {
               <Grid h='300px' templateColumns='repeat(4, 1fr)'>
                 <GridItem colSpan={3} h='100%' w='100%' overflow='hidden'>
                   <Center h='100%'>
-                  <Image alignSelf='center' objectFit='cover' src={imgSelected==='ticket'?event['Ticket Image']:event['Background Image']}/>
+                  <Image alignSelf='center' objectFit='cover' src={eventDets[imgSelected]}/>
                   </Center>
                 </GridItem>
                 <GridItem colSpan={1}>
                 <VStack h='100%' justifyContent='center'>
                   <Center  w='120px' h='120px' 
-                    onClick={()=>setImgSelected('ticket')} 
+                    onClick={()=>setImgSelected('Ticket Image')} 
                     border={
-                      imgSelected=='ticket'?
+                      imgSelected=='Ticket Image'?
                       '4px solid rgba(0,180,216,0.96)':''}
                       >
-                    <Image objectFit='cover' src={event['Ticket Image']}/>
+                    <Image objectFit='cover' src={eventDets['Ticket Image']}/>
                   </Center>
                   <Center  w='120px' h='120px' 
-                    onClick={()=>setImgSelected('bg')} 
+                    onClick={()=>setImgSelected('Background Image')} 
                     border={
-                      imgSelected=='bg'?
+                      imgSelected=='Background Image'?
                       '4px solid rgba(0,180,216,0.96)':''}
                       >
-                    <Image boxSize='100px' src={event['Background Image']}/>
+                    <Image boxSize='100px' src={eventDets['Background Image']}/>
                   </Center>
                 </VStack>
                 </GridItem>
@@ -264,8 +267,8 @@ const Event = () => {
           >
             <CardBody>
               <VStack spacing='5px' align='flex-start'>
-                <Heading size='sm' textDecoration='underline'>Event Descripton</Heading>
-                <Text>{event['Event Description']}</Text>
+                <Heading size='sm' textDecoration='underline'>Event Description</Heading>
+                <Text>{eventDets['Event Description']}</Text>
               </VStack>
             </CardBody>
           </Card>
@@ -297,7 +300,7 @@ const Event = () => {
               boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
-              <DateCard datestr={event['Start Datetime']} fontsize='xs'/>
+              <DateCard datestr={eventDets['Start Datetime']} fontsize='xs'/>
             </CardBody>
           </Card>
           </HStack>
@@ -341,10 +344,10 @@ const Event = () => {
             <CardBody>
               <VStack spacing='5px' align='flex-start' h='100%'>
                 <Heading size='sm'>Location</Heading>
-                <Text fontSize='sm' color='blue'>{event.Location}</Text>
+                <Text fontSize='sm' color='blue'>{eventDets.Location}</Text>
                 <AspectRatio w='100%'>
                 <iframe 
-                  src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${event.Location.replace(/\s/g, "+")}`}
+                  src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${eventDets.Location.replace(/\s/g, "+")}`}
                 />
                 </AspectRatio>
               </VStack>
@@ -359,7 +362,7 @@ const Event = () => {
             <CardBody>
               <VStack spacing='5px' align='flex-start'>
                 <Text fontSize='xs'>Organisers Email</Text>
-                <Text>{event['Organizers Email']}</Text>
+                <Text>{eventDets['Organizers Email']}</Text>
               </VStack>
             </CardBody>
           </Card>
