@@ -32,11 +32,7 @@ const Explore = () => {
     // }).then((data) => {
     //   console.log(data)
     // })
-    getAllEvents().then(data => console.log(data));
     getAllEvents().then(data => setEvents(data));
-
-
-
   }, [])
 
   return (
@@ -59,7 +55,7 @@ const Explore = () => {
               <>Skeleton</> :
               <Wrap w='100%' h='100%' padding="20px">
                 {
-                  events?.map((event, key) =>
+                  [...events,...events,...events,...events]?.map((event, key) =>
                     <EventCard
                       key={key}
                       EventId={event.EventId}
