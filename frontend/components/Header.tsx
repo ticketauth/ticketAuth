@@ -38,7 +38,7 @@ const Header = () => {
       w='100%' 
       h='80px' 
       className="blur"
-      boxShadow='1px 1px 3px rgba(30,30,30,0.2)'
+      // boxShadow='1px 1px 3px rgba(30,30,30,0.2)'
       zIndex={4}
       padding='20px 50px'
     >

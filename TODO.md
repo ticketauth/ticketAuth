@@ -1,10 +1,6 @@
 TODO 
 //ESSENTIAL
-- fix data input on event creation page
-- fix yarn build bug
-- Date data formatting
 - Drop-down for categories
-- Fix cardslist cards data display
 - Style buttons
 - Connect to backend API
 
