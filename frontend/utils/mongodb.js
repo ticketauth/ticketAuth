@@ -38,7 +38,7 @@
 
 import mongoose from "mongoose";
 
-mongoose.set('strictQuery', false);
+mongoose.set("strictQuery", false);
 const connection = {
 	isConnected: false,
 }; /* creating connection object*/
