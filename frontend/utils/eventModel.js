@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const eventSchema = new Schema({
 	"Name of event": String, //Elon musk firing party
 	"Event Description": String, //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
-	Category: Sting,
+	Category: String,
 	walletAddress: String, //AD23vfW14
 	"Start Datetime": String, //idk what format String or date in mongodb, this will include start time also
 	"End Datetime": String, //same as start, with time also
