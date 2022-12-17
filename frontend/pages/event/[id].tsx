@@ -275,12 +275,12 @@ const Event = () => {
         <VStack w='25%' padding='10px'>
           <HStack w='100%'>
           <Card 
+              minHeight='120px'
               w='100%'
-              h='120px'
               boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>
-              <VStack spacing='5px'>
+              <VStack spacing='5px' w='100%'>
                 <Text fontSize='xs'>Ticket Price</Text>
                 <Divider/>
                 <Flex  h='20px'>
@@ -292,8 +292,7 @@ const Event = () => {
           </Card>
 
           <Card 
-              direction='row'
-              h='120px'
+              minHeight='120px'
               w='100%'
               boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
@@ -336,7 +335,7 @@ const Event = () => {
           <Card 
               direction='row'
               w='100%'
-              h='250px'
+              minHeight='250px'
               boxShadow='1px 1px 24px rgba(30,30,30,0.1)'
             >
             <CardBody>

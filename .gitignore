@@ -1,8 +1,5 @@
 ./TODO.md
-<<<<<<< Updated upstream
-node_modules
 yarn.lock
-=======
 /node_modules
->>>>>>> Stashed changes
 .vercel
+.env
