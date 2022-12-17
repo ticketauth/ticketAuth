@@ -138,11 +138,11 @@ async function createNFT (eventName: string, eventDescription: string, startDate
     //Step 5 - Adding items to Candy Machine
     const uriData = metadataUri.split("/");
     const transactionSignature = await addItems(candyMachineID, uriData[3], eventCapacity, metaplex); 
-
+    console.log("Ending createNFT function");
     return [collectionAddress.toBase58(), candyMachineID.toBase58(), transactionSignature];
 }
 
-export default function createCandyMachine(
+export default async function createCandyMachine(
     eventName : string,
     eventDescription : string,
     startDate : string,
@@ -153,18 +153,15 @@ export default function createCandyMachine(
     wallet : WalletContextState,
 ) {
     const SESSION_HASH = 'QNDEMO'+Math.ceil(Math.random() * 1e9); // Random unique identifier for your session
-    const SOLANA_CONNECTION = new Connection(clusterApiUrl("devnet"), { commitment: 'finalized'});
+    const SOLANA_CONNECTION = new Connection(clusterApiUrl("mainnet-beta"), { commitment: 'finalized'});
     const metaplex = new Metaplex(SOLANA_CONNECTION)
         .use(walletAdapterIdentity(wallet)) // Will prompt the user 
         //.use(keypairIdentity(accountFromSecret))
-        .use(bundlrStorage({
-            address:'https://devnet.bundlr.network',
-    }));
+        .use(bundlrStorage());
     try{
-        createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet.publicKey)
-        .then(data => {
-            return data
-        })
+        const data = await createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet.publicKey);
+        console.log("Createcandymachine ending");
+        return data;
     } catch(e : unknown){
         if(typeof e === "string") {
             console.log(e.toUpperCase());
@@ -172,6 +169,7 @@ export default function createCandyMachine(
             console.log(e.message);
         }
     }
+    console.log("Something")
     return []
     
     

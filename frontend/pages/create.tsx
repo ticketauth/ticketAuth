@@ -42,9 +42,9 @@ const CreateEvent:React.FC = () => {
 		}))
 	}
 
-	const createEvent = () => {
-		ticketFile //this is the file object
-		const [collectionAddress,candyMachineID,transactionSignature] = createCandyMachine(
+	const createEvent = async () => {
+		// console.log("DATATO BE SENT",data)
+		createCandyMachine(
 			data["Name of event"], 
 			data["Event Description"], 
 			data["Start Datetime"], 
@@ -53,8 +53,13 @@ const CreateEvent:React.FC = () => {
 			data["Ticket price"], 
 			ticketFile, 
 			wallet
+		).then(
+			([collectionAddress,candyMachineID,transactionSignature])=>{
+				console.log("TEINSEOTIJ SIU TSHT", collectionAddress, candyMachineID)
+				createNewEvent({...data,candyMachineId:candyMachineID,collectionId:collectionAddress})
+			}
 		)
-		createNewEvent({...data,candyMachineID:candyMachineID,collectionAddress:collectionAddress})
+
 	}
 	const [tabIndex, setTabIndex] = useState(0);
   return (

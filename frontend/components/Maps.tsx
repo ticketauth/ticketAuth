@@ -33,7 +33,7 @@ export const DebounceSearch:React.FC<{data:FormInputData,handleData:(type:string
           placeholder="Search location"
           onChange={(evt) => {
             getPlacePredictions({ input: evt.target.value });
-            setValue(evt.target.value);
+            setValue(evt.currentTarget.value);
             setHidden(false);
           }}
           isInvalid={value==''}

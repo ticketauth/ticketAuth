@@ -55,7 +55,7 @@ const Explore = () => {
               <>Skeleton</> :
               <Wrap w='100%' h='100%' padding="20px">
                 {
-                  [...events,...events,...events,...events]?.map((event, key) =>
+                  events?.map((event, key) =>
                     <EventCard
                       key={key}
                       EventId={event.EventId}

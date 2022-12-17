@@ -35,6 +35,7 @@ export async function createUser(walletAddress) {
 }
 
 export async function createNewEvent(eventDetails) {
+	console.log(eventDetails);
 	await axios.post(`${API}/createNewEvent`, {
 		eventDetails,
 	});
