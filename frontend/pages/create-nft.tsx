@@ -3,8 +3,9 @@ import { Metaplex, toMetaplexFileFromBrowser, walletAdapterIdentity } from "@met
 import { Connection, clusterApiUrl } from "@solana/web3.js";
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
-const { connection } = useConnection();
-const metaplex = new Metaplex(connection);
+
+
+// const metaplex = new Metaplex(SOLANA_CONNECTION);
 
 
 const CreateNFT = () => {

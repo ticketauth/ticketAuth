@@ -16,7 +16,8 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
     const { autoConnect } = useAutoConnect();
 
     // Can be set to 'Devnet', 'Testnet' or 'mainnet-beta'
-    const network = WalletAdapterNetwork.Devnet;
+    const network  = (process.env.NEXT_PUBLIC_SOLANA_NETWORK ||
+  WalletAdapterNetwork.Devnet) as WalletAdapterNetwork;
 
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
