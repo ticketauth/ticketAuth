@@ -35,7 +35,7 @@ export default function Searchbar(){
 				<Button
 					h='100%'
 					w='100%'
-					bg='green.700'
+					bg='brand.4'
 					borderRadius='40px'
 					color='white'
 					leftIcon={<SearchIcon/>}

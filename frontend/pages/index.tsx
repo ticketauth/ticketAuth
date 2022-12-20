@@ -39,7 +39,7 @@ const Explore = () => {
     <>
       <Header />
       <VStack spacing={-8}>
-        <Grid h='350px' w='100%' justifyContent='center' alignItems='center' bgGradient="linear(to-t, green.200, teal.500)">
+        <Grid h='350px' w='100%' justifyContent='center' alignItems='center' className='backdrop'>
           <VStack>
             <Text fontSize={'60px'} fontFamily={'monoton'} color='white'> TicketAuth</Text>
             <Text fontSize={'25px'} color='white'>Buy or sell NFT tickets to anything!</Text>
