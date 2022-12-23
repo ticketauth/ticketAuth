@@ -58,8 +58,8 @@ const CreateEvent:React.FC = () => {
 		).then(
 			([collectionAddress,candyMachineID,transactionSignature])=>{
 				console.log("TEINSEOTIJ SIU TSHT", collectionAddress, candyMachineID)
-				createNewEvent({...data,candyMachineId:candyMachineID,collectionId:collectionAddress})
-				router.push('/')
+				//createNewEvent({...data,candyMachineId:candyMachineID,collectionId:collectionAddress})
+				//router.push('/')
 			}
 		)
 	}
