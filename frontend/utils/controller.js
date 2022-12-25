@@ -55,4 +55,16 @@ export async function createUser(userDetails) {
 
 // Write --------------------------------------
 
+// Read--------
+
+export async function getUserByWalletAddress(walletAddress) {
+	const user = await axios.post(`${API}/getUserByWalletAddress`, {
+		walletAddress,
+	});
+
+	return user.data;
+}
+
+// Read -----
+
 // User -----------------------------------------------------------------
