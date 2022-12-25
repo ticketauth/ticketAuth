@@ -3,7 +3,7 @@ import Searchbar from "../components/Searchbar";
 import EventCard from '../components/EventCard';
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
-import { getUserEventsList, createUser, getEventById, getAllEvents, createNewEvent, getEventByWalletAddress } from "../utils/eventController"
+import { getUserEventsList, createUser, getEventById, getAllEvents, createNewEvent, getEventByWalletAddress } from "../utils/controller"
 import { EventData } from '../utils/dataInterfaces';
 
 

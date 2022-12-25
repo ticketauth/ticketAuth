@@ -2,6 +2,9 @@ import axios from "axios";
 
 const API = "../api/";
 
+// Event -----------------------------------------------------------------
+// Read----------------------------------------------
+
 export async function getAllEvents() {
 	const events = await axios.get(API + "getEvent");
 	return events.data;
@@ -28,15 +31,28 @@ export async function getEventByWalletAddress(walletAddress) {
 	return events.data;
 }
 
-export async function createUser(walletAddress) {
-	await axios.post(`${API}/createUser`, {
-		walletAddress,
-	});
-}
+// Read ----------------------------------------------
 
+// Write -----------------------------------------
 export async function createNewEvent(eventDetails) {
 	console.log(eventDetails);
 	await axios.post(`${API}/createNewEvent`, {
 		eventDetails,
 	});
 }
+
+// Write --------------------------------------------
+
+// Event -------------------------------------------------------------------------------------
+
+// User -----------------------------------------------------------------
+// Write --------------------------------------
+export async function createUser(userDetails) {
+	await axios.post(`${API}/createUser`, {
+		userDetails,
+	});
+}
+
+// Write --------------------------------------
+
+// User -----------------------------------------------------------------
