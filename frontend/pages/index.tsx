@@ -35,10 +35,10 @@ const Explore = () => {
     //   console.log(data)
     // })
 
-    (async function () {
-      const data = await getNftByEventId("q232")
-      console.log(data)
-    })();
+    // (async function () {
+    //   const data = await getNftByEventId("q232")
+    //   console.log(data)
+    // })();
 
   }, [])
 

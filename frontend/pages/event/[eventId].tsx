@@ -22,7 +22,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import "../../styles/Event.module.css";
 import DateCard from '../../components/DateCard'
 import { dateConvertr } from '../../utils/dateConvertr'
-import { getEventById } from '../../utils/controller'
+import { getEventById } from '../../utils/controller/event'
 import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
 
 const Event = () => {
