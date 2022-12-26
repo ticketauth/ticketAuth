@@ -9,8 +9,8 @@ import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import useScript from "../hooks/useScript";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
-import { createNewEvent } from "../utils/controller";
-
+import { createNewEvent } from "../utils/controller/event";
+import { createNft } from "../utils/controller/nft"
 
 const CreateEvent: React.FC = () => {
 
