@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import event from "../../../../utils/eventModel";
+import event from "../../../../utils/dataModel/eventModel";
 
 import dbConnect from "../../../../utils/mongodb";
 
@@ -11,6 +11,7 @@ export default async function handler(req, res) {
 		await dbConnect();
 
 		const allEvents = await event.find({});
+		console.log(allEvents);
 
 		res.status(200).json(allEvents);
 	} catch (error) {

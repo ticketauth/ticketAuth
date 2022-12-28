@@ -6,7 +6,8 @@ const API = "../../api/event";
 // Read----------------------------------------------
 
 export async function getAllEvents() {
-	const events = await axios.get(API + "getEvent");
+	const events = await axios.get(API + "/getEvent");
+	console.log(events.data);
 	return events.data;
 }
 
