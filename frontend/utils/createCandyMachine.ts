@@ -10,11 +10,12 @@ const endpoint = process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || "https://api.devn
 
 
 async function uploadImage(ticketImage : File,  metaplex: Metaplex): Promise<string> {
-    const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
-    const imgUri = await metaplex.storage().upload(imgMetaplexFile);
-    console.log(`Image URI:`,imgUri);
-    return imgUri;
-    //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk"
+    // const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
+    // const imgUri = await metaplex.storage().upload(imgMetaplexFile);
+    // console.log(`Image URI:`,imgUri);
+    // return imgUri;
+    //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk" // devnet
+    return " https://arweave.net/xc-TivvovA5SQlf1Uz389KiV1MvewUF_-l4D-Y3vcgY" //mainnet-beta
 }
 
 async function uploadMetadata(imgUri: string, imgType: string, nftName: string, description: string, metaplex : Metaplex) {
@@ -36,7 +37,8 @@ async function uploadMetadata(imgUri: string, imgType: string, nftName: string, 
     console.log('Metadata URI:',uri);
     
     return uri;  
-    //return "https://arweave.net/GJQk6xMZhJnTkA_XdXJMlkrahGcMNAZitcr_k45-YKw"
+    //return "https://arweave.net/GJQk6xMZhJnTkA_XdXJMlkrahGcMNAZitcr_k45-YKw" //devnet
+    //return "https://arweave.net/iNiBgdJy1KLQBAB0JtCL-NgiHD9ZMz9vDmCgfaLwe4o" //mainnet-beta
 }
 
 async function createCollectionNft(metadataUri: string, name: string, metaplex : Metaplex) {
@@ -53,6 +55,7 @@ async function createCollectionNft(metadataUri: string, name: string, metaplex :
     console.log(`https://explorer.solana.com/address/${collectionNft.address.toBase58()}?cluster=${network}`);
 
     return collectionNft.address;
+    //return new PublicKey("6NCaf74QuUjvCp6U8WzCpWecpccDVN77Tb7j6psFXMeX"); //mainnet-beta
 }
 
 async function generateCandyMachine(totalTickets: number, ticketPrice : number , collectionAddress : PublicKey, collectionSymbol: string, metaplex: Metaplex) {
@@ -87,10 +90,10 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
                 redeemedAmount: {
                 maximum: toBigNumber(totalTickets),
                 },
-                // gatekeeper: {
-                //     network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
-                //     expireOnUse: true
-                // }
+                gatekeeper: {
+                    network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
+                    expireOnUse: false
+                }
                 
             }, 
         };
@@ -100,6 +103,7 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
     console.log(`     https://explorer.solana.com/address/${candyMachine.address.toBase58()}?cluster=${network}`);
         
     return candyMachine;
+    //candymachine address = "BN7Kje2n24325EqDZDUt2SgDDqF43Z6RQAEyhmEx9Nt1" //mainnet-beta 
 }
 async function createInstruction(candyMachineID: PublicKey, uri : string, totalTickets : number, metaplex : Metaplex, wallet: WalletContextState, connection: Connection) {
     const candyMachine = await metaplex
