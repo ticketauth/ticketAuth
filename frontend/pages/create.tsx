@@ -56,9 +56,8 @@ const CreateEvent: React.FC = () => {
 			ticketFile,
 			wallet
 		).then(
-			([collectionAddress, candyMachineID, transactionSignature]) => {
-				console.log("TEINSEOTIJ SIU TSHT", collectionAddress, candyMachineID)
-				createNewEvent({ ...data, candyMachineId: candyMachineID, collectionId: collectionAddress })
+			([collectionAddress,candyMachineID])=>{
+				createNewEvent({...data,candyMachineId:candyMachineID,collectionId:collectionAddress})
 				router.push('/')
 			}
 		)
