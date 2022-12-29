@@ -12,16 +12,16 @@ const CreateNFT = () => {
     const [inputFile, setInputFile] = useState<File | undefined>();
 
     const handleChange = (files: FileList | null) => {
-        setInputFile(files? files[0] : undefined);
+        setInputFile(files ? files[0] : undefined);
     }
 
-        return (
-            <div>
-                <input type="file" onChange={(e) => handleChange(e.target.files)} />
-            </div>
-            
-        )
-    
+    return (
+        <div>
+            <input type="file" onChange={(e) => handleChange(e.target.files)} />
+        </div>
+
+    )
+
 }
 
 export default CreateNFT;

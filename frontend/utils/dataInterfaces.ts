@@ -21,7 +21,10 @@ export interface EventData {
 export interface UserData {
 	walletAddress: string;
 	eventAttends: [string];
-	ecentCreated: [string];
+	eventCreated: [string];
+	firstName: string;
+	lastName: string;
+	email: string;
 }
 
 export interface FormInputData {

@@ -3,8 +3,10 @@ import Searchbar from "../components/Searchbar";
 import EventCard from '../components/EventCard';
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
-import { getUserEventsList, createUser, getEventById, getAllEvents, createNewEvent, getEventByWalletAddress } from "../utils/eventController"
+import { getUserEventsList, getEventById, getAllEvents, createNewEvent, getEventByWalletAddress } from "../utils/controller/event"
 import { EventData } from '../utils/dataInterfaces';
+
+import { createNft, getNftByEventId } from "../utils/controller/nft"
 
 
 
@@ -32,7 +34,12 @@ const Explore = () => {
     // }).then((data) => {
     //   console.log(data)
     // })
-    getAllEvents().then(data => setEvents(data));
+
+    (async function () {
+      const data = await getNftByEventId("q232")
+      console.log(await getAllEvents())
+    })();
+
   }, [])
 
   return (
