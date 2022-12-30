@@ -1,8 +1,8 @@
 TODO 
 //ESSENTIAL
-- Connect to backend API
-- Drop-down for categories
-- Style buttons
+- Delete api
+- Link for user to the nft they minted
+- Add popup for use to sign up
 - 
 
 //STYLING
