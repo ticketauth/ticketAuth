@@ -20,8 +20,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"utils/mongodb.js",
-		"pages/api/user/createUser.tsx",
+		"pages/api/user/createUser.js",
 		"pages/api/event/getEvent/[id].js[id].js"
-, "pages/api/event/createNewEvent.js", "pages/api/event/getEvent/index.js", "pages/api/event/getEvent/[eventid].js", "pages/api/event/deleteEvent.js", "pages/api/event/getEventByWalletAddress.js", "pages/api/event/updateEvent.js", "pages/api/event/getUserEventsList.js"	],
+, "pages/api/event/createNewEvent.js", "pages/api/event/getEvent/index.js", "pages/api/event/getEvent/[eventid].js", "pages/api/event/deleteEvent.js", "pages/api/event/getEventByWalletAddress.js", "pages/api/event/updateEvent.js", "pages/api/event/getUserEventsList.js", "pages/api/user/getUserByWalletAddress.js", "pages/api/nft/getNftByEventId.js", "pages/api/nft/createNft.js"	],
 	"exclude": ["node_modules"]
 }

@@ -228,7 +228,7 @@ const Event = () => {
 	) : (
 		<>
 			<Header />
-			<SimpleGrid columns={6} w="100%" padding="100px 15%" spacing="5px">
+			<SimpleGrid columns={6} w="100%" padding="100px 15%" spacing="10px">
 				<GridItem colSpan={6}>
 					<VStack w="75%" align="flex-start">
 						<Heading size="lg">Event: {eventDets["Name of event"]}</Heading>
@@ -322,11 +322,12 @@ const Event = () => {
 				</GridItem>
 
 				<GridItem colSpan={[6,2]}>
-          <SimpleGrid columns={2}>
+          <SimpleGrid columns={2} spacing="10px">
           <GridItem colSpan={1}>
 						<Card
 							minHeight="120px"
 							w="100%"
+							h="100%"
 							boxShadow="1px 1px 24px rgba(30,30,30,0.1)"
 						>
 							<CardBody>
@@ -356,7 +357,7 @@ const Event = () => {
           </GridItem>
           </Show>
 
-          <GridItem colSpan={1}>
+          <GridItem colSpan={[1,2]}>
 					<Card
 						direction="row"
 						w="100%"

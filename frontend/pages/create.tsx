@@ -23,8 +23,10 @@ const CreateEvent: React.FC = () => {
 			'Category': '',
 			'Event Description': '',
 			'walletAddress': '',
-			'Start Datetime': '',
-			'End Datetime': '',
+			'Start Event Datetime': '',
+			'End Event Datetime': '',
+			'Start Sale Datetime': '',
+			'End Sale Datetime': '',
 			'Location': '',
 			'Organizers Email': '',
 			'Organizer': '',
@@ -43,13 +45,14 @@ const CreateEvent: React.FC = () => {
 	}
 
 	const createEvent = async () => {
-		// console.log("DATATO BE SENT",data)
 		setLoading(true)
 		createCandyMachine(
 			data["Name of event"],
 			data["Event Description"],
-			data["Start Datetime"],
-			data["End Datetime"],
+			data["Start Event Datetime"],
+			data["End Event Datetime"],
+			data["Start Sale Datetime"],
+			data["End Sale Datetime"],
 			data["Event Capacity"],
 			data["Ticket price"],
 			ticketFile,
