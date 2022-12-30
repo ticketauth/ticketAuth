@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
-import { EventData, FormInputData } from "../utils/dataInterfaces";
+import { FormInputData } from "../utils/dataInterfaces";
 import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
