@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import event from "../../../utils/dataModel/eventModel";
 
-import user from "../../utils/dataModel/userModel";
+import user from "../../../utils/dataModel/userModel";
 
 import dbConnect from "../../../utils/mongodb";
 

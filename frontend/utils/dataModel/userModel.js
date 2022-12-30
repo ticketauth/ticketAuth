@@ -11,4 +11,4 @@ const UserSchema = new Schema({
 	email: String,
 });
 
-module.exports = mongoose.models.User || mongoose.model("User", UserSchema);
+export default mongoose.model("User", UserSchema);
