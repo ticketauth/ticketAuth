@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-import event from "../../utils/eventModel";
+import event from "../../../utils/dataModel/eventModel";
+
 import user from "../../utils/userModel";
 
 import dbConnect from "../../utils/mongodb";
