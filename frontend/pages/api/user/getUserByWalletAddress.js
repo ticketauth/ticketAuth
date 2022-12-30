@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 import user from "../../../utils/dataModel/userModel";
 
-import dbConnect from "../../utils/mongodb";
+import dbConnect from "../../../utils/mongodb";
 
 export default async function handler(req, res) {
 	try {

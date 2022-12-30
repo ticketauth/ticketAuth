@@ -19,4 +19,4 @@ const eventSchema = new Schema({
 	collectionId: String,
 });
 
-export default mongoose.model("event", eventSchema);
+export default mongoose.models.event || mongoose.model("event", eventSchema);
