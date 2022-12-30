@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import event from "../../../utils/dataModel/eventModel";
 
 
-import dbConnect from "../../utils/mongodb";
+import dbConnect from "../../../utils/mongodb";
 
 // const walletAddress = "222";
 
