@@ -49,19 +49,21 @@ const Event = () => {
 	const { eventId } = router.query;
 	const [eventDets, setEvent] = useState<EventData>();
 	const [imgSelected, setImgSelected] = useState("Ticket Image");
-	const [startdate, setStartDate] = useState<{day,date,month,year,time}>();
-	const [endate, setEndDate] = useState<{day,date,month,year,time}>();
+	const [eventstartdate, setStartDate] = useState<{day,date,month,year,time}>();
+	const [eventendate, setEndDate] = useState<{day,date,month,year,time}>();
+	const [salestartdate, setSaleStartDate] = useState<{day,date,month,year,time}>();
+	const [saleenddate, setSaleEndDate] = useState<{day,date,month,year,time}>();
+
 
 	const { connection } = useConnection();
 	const wallet = useWallet();
 
 	useEffect(() => {
 		if (!eventId) return;
-		getEventById(eventId).then((event) => {
-			console.log(event);
+		getEventById(eventId).then((event:EventData) => {
 			setEvent(event);
-			setStartDate(dateConvertr(event["Start Datetime"]));
-			setEndDate(dateConvertr(event["End Datetime"]));
+			setStartDate(dateConvertr(event["Start Event Datetime"]));
+			setEndDate(dateConvertr(event["End Event Datetime"]));
 		});
 	}, [eventId]);
 
@@ -234,11 +236,11 @@ const Event = () => {
 						<Heading size="lg">Event: {eventDets["Name of event"]}</Heading>
 						<Text color="blue">by {eventDets.Organizer}</Text>
 						{
-							startdate && endate && (
+							eventstartdate && eventendate && (
 								<Text>
-									{startdate?.day}, {startdate?.date} {startdate?.month}{" "}
-									{startdate?.year}, {startdate?.time} to {endate?.day},{" "}
-									{endate?.date} {endate?.month} {endate?.year}, {endate?.time}
+									{eventstartdate?.day}, {eventstartdate?.date} {eventstartdate?.month}{" "}
+									{eventstartdate?.year}, {eventstartdate?.time} to {eventendate?.day},{" "}
+									{eventendate?.date} {eventendate?.month} {eventendate?.year}, {eventendate?.time}
 								</Text>
 							)
 						}
