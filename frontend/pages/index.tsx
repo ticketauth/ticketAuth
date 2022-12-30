@@ -5,12 +5,11 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import {
 	getUserEventsList,
-	createUser,
 	getEventById,
 	getAllEvents,
 	createNewEvent,
 	getEventByWalletAddress,
-} from "../utils/eventController";
+} from "../utils/controller/event";
 import { EventData } from "../utils/dataInterfaces";
 import { Backdrop } from "../components/Backdrop";
 

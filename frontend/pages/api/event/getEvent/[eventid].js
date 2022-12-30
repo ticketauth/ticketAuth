@@ -4,7 +4,7 @@ import { EventData } from "../../../../utils/dataInterfaces";
 import event_dets from "../../dont_delete/event_dets.json";
 import mongoose from "mongoose";
 
-import event from "../../../../utils/eventModel";
+import event from "../../../../utils/dataModel/eventModel";
 
 import dbConnect from "../../../../utils/mongodb";
 

@@ -8,7 +8,7 @@ import { EventData, FormInputData } from "../utils/dataInterfaces";
 import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
-import { createNewEvent } from "../utils/eventController";
+import { createNewEvent } from "../utils/controller/event";
 import { Backdrop } from "../components/Backdrop";
 
 const CreateEvent: React.FC = () => {
