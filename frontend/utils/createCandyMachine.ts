@@ -2,14 +2,11 @@ import { bundlrStorage, CreateCandyMachineInput, DefaultCandyGuardSettings, Meta
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { ConnectionContext, useConnection, useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { clusterApiUrl, Connection, Transaction } from "@solana/web3.js";
+import { bundlrAddress, network, rpcHost } from "../config";
 import { CandyMachineData } from "./dataInterfaces";
+import React from "react";
 
-const network = (process.env.NEXT_PUBLIC_SOLANA_NETWORK ||
-  WalletAdapterNetwork.Devnet) as WalletAdapterNetwork;
 console.log(network);
-const endpoint = process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || "https://api.devnet.solana.com"
-
-
 async function uploadImage(ticketImage : File,  metaplex: Metaplex): Promise<string> {
     const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
     const imgUri = await metaplex.storage().upload(imgMetaplexFile);
@@ -175,16 +172,21 @@ async function createNFT (eventName: string, eventDescription: string, startDate
 export default async function createCandyMachine(
     candyMachineData : CandyMachineData
 ) {
-    const connection = new Connection(endpoint, {commitment: "finalized"});
-    console.log("Data from candyMachinedata is " + candyMachineData["Event Description"]);
-    const metaplex = new Metaplex(connection)
+    const { connection } = useConnection();
+
+    const metaplex = React.useMemo(
+        () => connection && Metaplex.make(connection),
+        [connection]
+    );
+    
+    metaplex
         .use(walletAdapterIdentity(candyMachineData.wallet)) // Will prompt the user 
-        //.use(keypairIdentity(accountFromSecret))
         .use(bundlrStorage({
-            address: process.env.NEXT_PUBLIC_BUNDLR_ADDRESS || 'https://devnet.bundlr.network',
-            providerUrl: process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || 'https://api.devnet.solana.com',
+            address: bundlrAddress,
+            providerUrl: rpcHost,
             timeout:60000,
         }));
+
     try{
         const data = await createNFT(candyMachineData["Name of event"], candyMachineData["Event Description"], candyMachineData["Start Sale Datetime"], candyMachineData["End Sale Datetime"], candyMachineData["Event Capacity"], candyMachineData["Ticket price"], candyMachineData.ticketFile, metaplex, candyMachineData.wallet, connection);
         console.log("Createcandymachine ending");

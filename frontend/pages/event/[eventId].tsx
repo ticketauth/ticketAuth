@@ -43,6 +43,7 @@ import DateCard from "../../components/DateCard";
 import { dateConvertr } from "../../utils/dateConvertr";
 import { getEventById } from "../../utils/controller/event";
 import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
+import { network } from "../../config";
 
 const Event = () => {
 	const router = useRouter();
@@ -192,7 +193,7 @@ const Event = () => {
                 }}
                 gatekeeperNetwork={guards.gatekeeperNetwork}
                 connection={connection}
-                cluster={process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"}
+                cluster={network}
                 options={{ autoShowModal: false }}
               >
                 <MintButton gatekeeperNetwork={guards.gatekeeperNetwork} />
