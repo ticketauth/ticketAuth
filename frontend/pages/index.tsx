@@ -12,8 +12,7 @@ import {
 } from '../utils/controller/event';
 import { EventData } from '../utils/dataInterfaces';
 import { Backdrop } from '../components/Backdrop';
-
-require('typeface-monoton');
+import "@fontsource/monoton"
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
@@ -26,7 +25,7 @@ const Explore = () => {
       <Header />
       <VStack spacing={-8} w="100%">
         <Backdrop>
-          <Text fontSize={['5xl', '6xl']} fontFamily={'monoton'} color="white">
+          <Text fontSize={['5xl', '6xl']} fontFamily={'Monoton'} color="white">
             {' '}
             TicketAuth
           </Text>

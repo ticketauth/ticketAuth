@@ -36,6 +36,7 @@ import { useRouter } from 'next/router';
 import createCandyMachine from '../utils/createCandyMachine';
 import { createNewEvent } from '../utils/controller/event';
 import { Backdrop } from '../components/Backdrop';
+import "@fontsource/monoton"
 
 const CreateEvent: React.FC = () => {
   let wallet = useWallet();
@@ -95,7 +96,7 @@ const CreateEvent: React.FC = () => {
       <Header />
       <VStack spacing={-8}>
         <Backdrop>
-          <Text fontSize={['5xl', '6xl']} fontFamily={'monoton'} color="white">
+          <Text fontSize={['5xl', '6xl']} fontFamily={'Monoton'} color="white">
             Create Event
           </Text>
         </Backdrop>

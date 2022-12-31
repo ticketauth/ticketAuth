@@ -21,7 +21,6 @@ import {
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Header from '../../components/Header';
-import getEventDets from '../../utils/getEventDets';
 import type { EventData } from '../../utils/dataInterfaces';
 import { HiOutlineTicket } from 'react-icons/hi';
 import { MultiMintButton } from '../../components/NftBuyButton';
