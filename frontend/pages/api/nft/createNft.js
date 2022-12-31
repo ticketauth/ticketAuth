@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 		console.log(details);
 		const result = await model.create(details);
 
-		res.json(true);
+		res.status(200).json(true);
 
 		// console.log(result);
 	} catch (error) {
