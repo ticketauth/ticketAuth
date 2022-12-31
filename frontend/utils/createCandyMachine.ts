@@ -2,6 +2,7 @@ import { bundlrStorage, CreateCandyMachineInput, DefaultCandyGuardSettings, Meta
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { ConnectionContext, useConnection, useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { clusterApiUrl, Connection, Transaction } from "@solana/web3.js";
+import { CandyMachineData } from "./dataInterfaces";
 
 const network = (process.env.NEXT_PUBLIC_SOLANA_NETWORK ||
   WalletAdapterNetwork.Devnet) as WalletAdapterNetwork;
@@ -10,12 +11,12 @@ const endpoint = process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || "https://api.devn
 
 
 async function uploadImage(ticketImage : File,  metaplex: Metaplex): Promise<string> {
-    // const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
-    // const imgUri = await metaplex.storage().upload(imgMetaplexFile);
-    // console.log(`Image URI:`,imgUri);
-    // return imgUri;
+    const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
+    const imgUri = await metaplex.storage().upload(imgMetaplexFile);
+    console.log(`Image URI:`,imgUri);
+    return imgUri;
     //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk" // devnet
-    return " https://arweave.net/xc-TivvovA5SQlf1Uz389KiV1MvewUF_-l4D-Y3vcgY" //mainnet-beta
+    //return " https://arweave.net/xc-TivvovA5SQlf1Uz389KiV1MvewUF_-l4D-Y3vcgY" //mainnet-beta
 }
 
 async function uploadMetadata(imgUri: string, imgType: string, nftName: string, description: string, metaplex : Metaplex) {
@@ -153,43 +154,6 @@ async function createInstruction(candyMachineID: PublicKey, uri : string, totalT
     }
 }
 
-async function addItems(candyMachineID: PublicKey, uri : string, totalTickets : number, metaplex : Metaplex, wallet: WalletContextState) {
-    const candyMachine = await metaplex
-    .candyMachines()
-    .findByAddress({ address: candyMachineID });
-    const items = [];
-    for (let i = 0; i < 9; i++) {
-        //Adding max of 10 items per instruction
-        items.push({
-        name: "",
-        uri: uri,
-    });
-    }
-    let response: InsertCandyMachineItemsOutput;
-
-    for(let j = 0; j < totalTickets/10; j++){
-        let index = j == 0 ? 0 :  (j*10 - 1 );
-        response = await metaplex.candyMachines().insertItems(
-            {
-            candyMachine,
-            index: index , //just to set the index of the items to be added into the candy machine 
-            items: items,
-            },
-        );
-
-        console.log(response);
-    }
-
-
-    console.log(
-    `✅ - Items added to Candy Machine: ${candyMachineID.toString()}`
-    );
-    console.log(
-    `https://explorer.solana.com/tx/${response.response.signature}?cluster=${network}`
-    );
-    return response.response.signature
-}
-
 async function createNFT (eventName: string, eventDescription: string, startDate : string, endDate : string, eventCapacity: number, ticketPrice: number, ticketImage : File, metaplex : Metaplex, wallet: WalletContextState, connection: Connection): Promise<[string, string]> {
     //Step 1 - Upload Image
     const imgUri = await uploadImage(ticketImage, metaplex);
@@ -209,20 +173,12 @@ async function createNFT (eventName: string, eventDescription: string, startDate
 }
 
 export default async function createCandyMachine(
-    eventName : string,
-    eventDescription : string,
-    startDate : string,
-    endDate : string,
-    eventCapacity: number,
-    ticketPrice : number,
-    ticketImage : File,
-    wallet : WalletContextState,
+    candyMachineData : CandyMachineData
 ) {
-
     const connection = new Connection(endpoint, {commitment: "finalized"});
-    
+    console.log("Data from candyMachinedata is " + candyMachineData["Event Description"]);
     const metaplex = new Metaplex(connection)
-        .use(walletAdapterIdentity(wallet)) // Will prompt the user 
+        .use(walletAdapterIdentity(candyMachineData.wallet)) // Will prompt the user 
         //.use(keypairIdentity(accountFromSecret))
         .use(bundlrStorage({
             address: process.env.NEXT_PUBLIC_BUNDLR_ADDRESS || 'https://devnet.bundlr.network',
@@ -230,7 +186,7 @@ export default async function createCandyMachine(
             timeout:60000,
         }));
     try{
-        const data = await createNFT(eventName, eventDescription, startDate, endDate, eventCapacity, ticketPrice, ticketImage, metaplex, wallet, connection);
+        const data = await createNFT(candyMachineData["Name of event"], candyMachineData["Event Description"], candyMachineData["Start Sale Datetime"], candyMachineData["End Sale Datetime"], candyMachineData["Event Capacity"], candyMachineData["Ticket price"], candyMachineData.ticketFile, metaplex, candyMachineData.wallet, connection);
         console.log("Createcandymachine ending");
         return data;
     } catch(e : unknown){

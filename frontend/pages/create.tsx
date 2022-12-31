@@ -30,7 +30,7 @@ import Header from "../components/Header";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
-import { FormInputData } from "../utils/dataInterfaces";
+import { CandyMachineData, FormInputData } from "../utils/dataInterfaces";
 import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
@@ -38,9 +38,9 @@ import { createNewEvent } from "../utils/controller/event";
 import { Backdrop } from "../components/Backdrop";
 
 const CreateEvent: React.FC = () => {
-	let wallet = useWallet();
+	const wallet = useWallet();
 	const router = useRouter();
-	const [ticketFile, setTicketFile] = useState();
+	const [ticketFile, setTicketFile] = useState<File>();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState<FormInputData>({
 		"Name of event": "",
@@ -60,27 +60,41 @@ const CreateEvent: React.FC = () => {
 		"Background Image": "",
 	});
 
+	const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
+		"Name of event" : "",
+		"Event Description" : "",
+		"Start Event Datetime" : "",
+		"End Event Datetime" : "",
+		"Start Sale Datetime" : "",
+		"End Sale Datetime" :  "",
+		"Event Capacity" : 0,
+		"Ticket price" : 0,
+		ticketFile : null,
+		wallet : wallet,
+	})
+	
+	//Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
+	useEffect(() => {
+	  candyMachineData.ticketFile = ticketFile;
+	}, [ticketFile])
+	
+
 	const handleData = (type: string, value: any) => {
 		setData((prev) => ({
 			...prev,
 			[type]: value,
 		}));
+		setCandyMachineData((prev) => ({
+			...prev,
+			[type]: value,
+		}));
+		data.walletAddress = wallet.publicKey.toString();
 	};
 
 	const createEvent = async () => {
 		setLoading(true);
-		createCandyMachine(
-			data["Name of event"],
-			data["Event Description"],
-			data["Start Event Datetime"],
-			data["End Event Datetime"],
-			data["Start Sale Datetime"],
-			data["End Sale Datetime"],
-			data["Event Capacity"],
-			data["Ticket price"],
-			ticketFile,
-			wallet
-		).then(([collectionAddress, candyMachineID]) => {
+		createCandyMachine(candyMachineData)
+		.then(([collectionAddress, candyMachineID]) => {
 			createNewEvent({
 				...data,
 				candyMachineId: candyMachineID,
