@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
-import event from "../../utils/eventModel";
-import user from "../../utils/userModel";
+import event from "../../../utils/dataModel/eventModel";
 
-import dbConnect from "../../utils/mongodb";
+import user from "../../../utils/dataModel/userModel";
+
+import dbConnect from "../../../utils/mongodb";
 
 export default async function handler(req, res) {
 	try {

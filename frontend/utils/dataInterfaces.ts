@@ -3,8 +3,10 @@ export interface EventData {
 	"Event Description": string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
 	Category: string;
 	walletAddress: string; //AD23vfW14
-	"Start Datetime": string; //idk what format string or date in mongodb, this will include start time also
-	"End Datetime": string; //same as start, with time also
+	"Start Event Datetime": string; //idk what format string or date in mongodb, this will include start time also
+	"End Event Datetime": string; //same as start, with time also
+	"Start Sale Datetime": string;
+	"End Sale Datetime": string;
 	Location: string; //Maybe postal code or some other identifiers as fields might be better
 	"Organizers Email": string; //elonmusk@gmail.com
 	Organizer: string;
@@ -32,8 +34,10 @@ export interface FormInputData {
 	"Event Description": string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
 	Category: string;
 	walletAddress: string; //AD23vfW14
-	"Start Datetime": string; //idk what format string or date in mongodb, this will include start time also
-	"End Datetime": string; //same as start, with time also
+	"Start Event Datetime": string; //idk what format string or date in mongodb, this will include start time also
+	"End Event Datetime": string; //same as start, with time also
+	"Start Sale Datetime": string;
+	"End Sale Datetime": string;
 	Location: string; //Maybe postal code or some other identifiers as fields might be better
 	"Organizers Email": string; //elonmusk@gmail.com
 	Organizer: string;

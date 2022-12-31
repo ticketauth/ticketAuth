@@ -5,8 +5,10 @@ const eventSchema = new Schema({
 	"Name of event": String,
 	"Event Description": String,
 	walletAddress: String,
-	"Start Datetime": String,
-	"End Datetime": String,
+	"Start Event Datetime": String,
+	"End Event Datetime": String,
+	"Start Sale Datetime": String,
+	"End Sale Datetime": String,
 	Location: String,
 	"Organizers Email": String,
 	"Event Capacity": Number,
@@ -19,4 +21,4 @@ const eventSchema = new Schema({
 	collectionId: String,
 });
 
-module.exports = mongoose.models.event || mongoose.model("event", eventSchema);
+export default mongoose.models.event || mongoose.model("event", eventSchema);

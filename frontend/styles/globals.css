@@ -20,6 +20,7 @@ a {
     color-scheme: dark;
   }
   body {
+    min-height: 100vh;
     color: white;
     background: black;
   }

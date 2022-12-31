@@ -1,0 +1,56 @@
+
+----- events ----
+
+
+--write
+
+createNewEvent(details) *
+
+
+
+
+
+--read
+
+getAllEvents() *
+
+
+
+getEventById(EventId:string) *
+
+
+
+
+getUserEventsList(walletAddress:string) *
+
+
+
+getEventByWalletAddress(walletAddress:string) *
+
+
+
+--update
+
+
+
+
+---delete
+
+
+
+
+
+
+
+------ user -----
+
+
+--write
+
+createUser(walletAddress:string) *
+
+
+
+
+
+

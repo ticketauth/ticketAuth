@@ -8,4 +8,4 @@ const schema = new Schema({
 	nft: [Buffer],
 });
 
-module.exports = mongoose.models.nft || mongoose.model("nft", schema);
+export default mongoose.models.nft || mongoose.model("nft", schema);
