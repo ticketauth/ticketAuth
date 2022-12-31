@@ -36,7 +36,7 @@ import { useRouter } from 'next/router';
 import createCandyMachine from '../utils/createCandyMachine';
 import { createNewEvent } from '../utils/controller/event';
 import { Backdrop } from '../components/Backdrop';
-import "@fontsource/monoton"
+import '@fontsource/monoton';
 
 const CreateEvent: React.FC = () => {
   let wallet = useWallet();
@@ -248,7 +248,7 @@ const Tab1: React.FC<{
           <FormLabel>Start Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="Start Date"
+            placeholder="Start Event Date"
             type="datetime-local"
             value={data['Start Event Datetime']}
             onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
@@ -263,7 +263,7 @@ const Tab1: React.FC<{
           <FormLabel>End Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="End Date"
+            placeholder="End Event Date"
             type="datetime-local"
             value={data['End Event Datetime']}
             onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
@@ -279,7 +279,7 @@ const Tab1: React.FC<{
           <FormLabel>Start Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="Start Date"
+            placeholder="Start Ticket Sale Date"
             type="datetime-local"
             value={data['Start Event Datetime']}
             onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
@@ -294,7 +294,7 @@ const Tab1: React.FC<{
           <FormLabel>End Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="End Date"
+            placeholder="End Ticket Sale Date"
             type="datetime-local"
             value={data['End Event Datetime']}
             onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}

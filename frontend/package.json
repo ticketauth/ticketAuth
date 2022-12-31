@@ -7,21 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier:fix": "prettier --write **/*.{ts,tsx,js,jsx}",
-    "prettier:check": "prettier **/*.{ts,tsx,js,jsx}",
-    "patch": "next"
-  },
-  "lint-staged": {
-    "**/*.{ts,tsx}": [
-      "yarn prettier:fix",
-      "yarn lint",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "patch": "next",
+    "prepare": "cd .. && husky install frontend/.husky"
   },
   "dependencies": {
     "@bedrock-foundation/react-sdk": "^0.0.15",

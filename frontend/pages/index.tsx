@@ -12,7 +12,7 @@ import {
 } from '../utils/controller/event';
 import { EventData } from '../utils/dataInterfaces';
 import { Backdrop } from '../components/Backdrop';
-import "@fontsource/monoton"
+import '@fontsource/monoton';
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();

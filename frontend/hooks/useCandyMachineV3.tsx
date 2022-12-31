@@ -299,7 +299,6 @@ export default function useCandyMachineV3(
       })
       .then((x) => setNftHoldings(x.filter((a) => a.model == 'metadata') as any))
       .catch((e) => console.error('Failed to fetch wallet nft holdings', e));
-
     (async (walletAddress: PublicKey): Promise<Token[]> => {
       const tokenAccounts = (
         await connection.getParsedTokenAccountsByOwner(walletAddress, {
@@ -323,7 +322,6 @@ export default function useCandyMachineV3(
     const walletAddress = wallet.publicKey;
     if (!candyMachine) return;
     console.log('useEffact([mx, wallet, nftHoldings, proofMemo, candyMachine])');
-
     (async () => {
       const guards = {
         default: await parseGuardGroup(
