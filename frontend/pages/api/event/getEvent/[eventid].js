@@ -1,9 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { EventData } from "../../../../utils/dataInterfaces";
-import event_dets from "../../dont_delete/event_dets.json";
-import mongoose from "mongoose";
-
 import event from "../../../../utils/dataModel/eventModel";
 
 import dbConnect from "../../../../utils/mongodb";
