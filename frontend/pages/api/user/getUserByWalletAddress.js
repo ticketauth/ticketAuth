@@ -1,20 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-import user from "../../../utils/dataModel/userModel";
+import user from '../../../utils/dataModel/userModel';
 
-import dbConnect from "../../../utils/mongodb";
+import dbConnect from '../../../utils/mongodb';
 
 export default async function handler(req, res) {
-	try {
-		await dbConnect();
+  try {
+    await dbConnect();
 
-		let walletAddress = req.body.walletAddress;
+    let walletAddress = req.body.walletAddress;
 
-		const userDetails = await user.find({ walletAddress: walletAddress });
-		// console.log(allEvents);
+    const userDetails = await user.find({ walletAddress: walletAddress });
+    // console.log(allEvents);
 
-		res.status(200).json(userDetails);
-	} catch (error) {
-		console.log(error);
-	}
+    res.status(200).json(userDetails);
+  } catch (error) {
+    console.log(error);
+  }
 }
