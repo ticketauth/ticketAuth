@@ -1,19 +1,20 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-import event from "../../../utils/dataModel/eventModel";
+import event from '../../../utils/dataModel/eventModel';
 
-import dbConnect from "../../../utils/mongodb";
+import dbConnect from '../../../utils/mongodb';
 
 export default async function handler(req, res) {
-	try {
-		await dbConnect();
+  try {
+    await dbConnect();
 
-		let EventId = req.body;
+    let EventId = req.body;
 
 		const allEvents = await event.deleteOne({ EventId: EventId });
 
-		res.status(200).json(allEvents);
-	} catch (error) {
-		console.log(error);
-	}
+
+    res.status(200).json(allEvents);
+  } catch (error) {
+    console.log(error);
+  }
 }

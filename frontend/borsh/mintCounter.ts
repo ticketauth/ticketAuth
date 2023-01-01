@@ -1,5 +1,5 @@
-import { MintCounterArgs } from "@metaplex-foundation/mpl-candy-guard";
-import { deserialize } from "borsh";
+import { MintCounterArgs } from '@metaplex-foundation/mpl-candy-guard';
+import { deserialize } from 'borsh';
 
 export class MintCounterBorsh implements MintCounterArgs {
   count: number;
@@ -10,10 +10,10 @@ export class MintCounterBorsh implements MintCounterArgs {
     [
       MintCounterBorsh,
       {
-        kind: "struct",
+        kind: 'struct',
         fields: [
-        //   ["accountDiscriminator", "Uint8Array"],
-          ["count", "u16"],
+          //   ["accountDiscriminator", "Uint8Array"],
+          ['count', 'u16'],
         ],
       },
     ],

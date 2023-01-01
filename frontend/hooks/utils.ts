@@ -1,6 +1,6 @@
-import { CandyMachine, Metaplex } from "@metaplex-foundation/js";
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
-import { MintCounterBorsh } from "../borsh/mintCounter";
+import { CandyMachine, Metaplex } from '@metaplex-foundation/js';
+import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
+import { MintCounterBorsh } from '../borsh/mintCounter';
 import {
   GuardGroup,
   GuardGroupStates,
@@ -8,12 +8,8 @@ import {
   ParsedPricesForUI,
   Token,
   TokenPayment$Gate,
-} from "./type";
-import {
-  DefaultCandyGuardSettings,
-  Metadata,
-  SplTokenCurrency,
-} from "@metaplex-foundation/js";
+} from './type';
+import { DefaultCandyGuardSettings, Metadata, SplTokenCurrency } from '@metaplex-foundation/js';
 
 export const guardToPaymentUtil = (guards: GuardGroup): ParsedPricesForUI => {
   const paymentsRequired: ParsedPricesForUI = {
@@ -23,33 +19,32 @@ export const guardToPaymentUtil = (guards: GuardGroup): ParsedPricesForUI => {
   };
   if (!guards) return paymentsRequired;
   // console.log("guardToPaymentUtil", { guards });
-  const actions: ("payment" | "burn" | "gate")[] = ["payment", "burn", "gate"];
+  const actions: ('payment' | 'burn' | 'gate')[] = ['payment', 'burn', 'gate'];
   if (actions.find((action) => guards[action])) {
     if (guards.payment?.sol) {
       paymentsRequired.payment.push({
-        label: "SOL",
+        label: 'SOL',
         price: guards.payment.sol.amount / LAMPORTS_PER_SOL,
-        kind: "sol",
+        kind: 'sol',
       });
     }
 
     for (let action of actions) {
       if (guards[action]?.token) {
         paymentsRequired[action].push({
-          label: guards[action].token.symbol || "token",
-          price:
-            guards[action].token.amount / 10 ** guards[action].token.decimals,
+          label: guards[action].token.symbol || 'token',
+          price: guards[action].token.amount / 10 ** guards[action].token.decimals,
           decimals: guards[action].token.decimals,
           mint: guards[action].token.mint,
-          kind: "token",
+          kind: 'token',
         });
       }
       if (guards[action]?.nfts?.length) {
         paymentsRequired[action].push({
-          label: guards[action].nfts[0].symbol || "NFT",
+          label: guards[action].nfts[0].symbol || 'NFT',
           mint: guards[action].requiredCollection,
           price: 1,
-          kind: "nft",
+          kind: 'nft',
         });
       }
     }
@@ -63,11 +58,9 @@ export const fetchMintLimit = (
   mx: Metaplex,
   candyMachine: CandyMachine,
   guardsInput$mintLimit,
-  rerenderer?: () => void
+  rerenderer?: () => void,
 ): Promise<MintLimitLogics> => {
-  const cacheKey = `${
-    guardsInput$mintLimit.id
-  }-${candyMachine.candyGuard.address.toString()}-${mx
+  const cacheKey = `${guardsInput$mintLimit.id}-${candyMachine.candyGuard.address.toString()}-${mx
     .identity()
     .publicKey.toString()}`;
   if (!mintLimitCaches[cacheKey]) {
@@ -83,13 +76,9 @@ export const fetchMintLimit = (
           user: mx.identity().publicKey,
         });
       if (mintLimit.pda) {
-        mintLimit.accountInfo = await mx.connection.getAccountInfo(
-          mintLimit.pda
-        );
+        mintLimit.accountInfo = await mx.connection.getAccountInfo(mintLimit.pda);
         if (mintLimit.accountInfo)
-          mintLimit.mintCounter = MintCounterBorsh.fromBuffer(
-            mintLimit.accountInfo.data
-          );
+          mintLimit.mintCounter = MintCounterBorsh.fromBuffer(mintLimit.accountInfo.data);
       }
       if (rerenderer) setTimeout(() => rerenderer(), 100);
 
@@ -107,7 +96,7 @@ export const mergeGuards = (guardsArray: DefaultCandyGuardSettings[]) => {
         if (guard) acc[key] = guard;
       });
       return acc;
-    } //,
+    }, //,
     //{} as DefaultCandyGuardSettings
   );
   //   console.log({ guards });
@@ -133,7 +122,7 @@ export const parseGuardGroup = async (
     verifyProof: (merkleRoot: Uint8Array | string, label?: string) => boolean;
     // tokenHoldings, nftHoldings
   },
-  mx?: Metaplex
+  mx?: Metaplex,
 ): Promise<GuardGroup> => {
   const guardsParsed: GuardGroup = {};
   //   console.log(guardsInput);
@@ -205,15 +194,12 @@ export const parseGuardGroup = async (
     //   amount: guardsInput.tokenPayment.amount.basisPoints.toNumber(),
     //   decimals: guardsInput.tokenPayment.amount.currency.decimals,
     // })
-    await updateTokenSymbolAndDecimalsFromChainAsync(
-      mx,
-      guardsParsed.payment.token
-    );
+    await updateTokenSymbolAndDecimalsFromChainAsync(mx, guardsParsed.payment.token);
   }
   if (guardsInput.nftPayment) {
     guardsParsed.payment = {
       nfts: nftHoldings.filter((y) =>
-        y.collection?.address.equals(guardsInput.nftPayment.requiredCollection)
+        y.collection?.address.equals(guardsInput.nftPayment.requiredCollection),
       ),
       requiredCollection: guardsInput.nftPayment.requiredCollection,
     };
@@ -245,15 +231,12 @@ export const parseGuardGroup = async (
     //   amount: guardsInput.tokenBurn.amount.basisPoints.toNumber(),
     //   decimals: guardsInput.tokenBurn.amount.currency.decimals,
     // })
-    await updateTokenSymbolAndDecimalsFromChainAsync(
-      mx,
-      guardsParsed.burn.token
-    );
+    await updateTokenSymbolAndDecimalsFromChainAsync(mx, guardsParsed.burn.token);
   }
   if (guardsInput.nftBurn) {
     guardsParsed.burn = {
       nfts: nftHoldings.filter((y) =>
-        y.collection?.address.equals(guardsInput.nftBurn.requiredCollection)
+        y.collection?.address.equals(guardsInput.nftBurn.requiredCollection),
       ),
       requiredCollection: guardsInput.nftBurn.requiredCollection,
     };
@@ -285,15 +268,12 @@ export const parseGuardGroup = async (
     //     amount: guardsInput.tokenGate.amount.basisPoints.toNumber(),
     //     decimals: guardsInput.tokenGate.amount.currency.decimals,
     // })
-    await updateTokenSymbolAndDecimalsFromChainAsync(
-      mx,
-      guardsParsed.gate.token
-    );
+    await updateTokenSymbolAndDecimalsFromChainAsync(mx, guardsParsed.gate.token);
   }
   if (guardsInput.nftGate) {
     guardsParsed.gate = {
       nfts: nftHoldings.filter((y) =>
-        y.collection?.address.equals(guardsInput.nftGate.requiredCollection)
+        y.collection?.address.equals(guardsInput.nftGate.requiredCollection),
       ),
       requiredCollection: guardsInput.nftGate.requiredCollection,
     };
@@ -313,10 +293,7 @@ export const parseGuardGroup = async (
     if (guardsInput.addressGate) allowed.push(guardsInput.addressGate.address);
 
     if (guardsInput.allowList?.merkleRoot) {
-      const isValid = verifyProof(
-        guardsInput.allowList.merkleRoot,
-        label || "default"
-      );
+      const isValid = verifyProof(guardsInput.allowList.merkleRoot, label || 'default');
       if (isValid) allowed.push(walletAddress);
     }
 
@@ -365,48 +342,37 @@ export const parseGuardStates = ({
   // Check for mint limit
   if (guards.mintLimit) {
     let canPayFor =
-      typeof guards.mintLimit?.settings?.limit == "number"
-        ? guards.mintLimit.settings.limit -
-          (guards.mintLimit?.mintCounter?.count || 0)
+      typeof guards.mintLimit?.settings?.limit == 'number'
+        ? guards.mintLimit.settings.limit - (guards.mintLimit?.mintCounter?.count || 0)
         : 10;
     states.isLimitReached = !canPayFor;
-    if (!canPayFor)
-      states.messages.push("Mint limit for each user has reached.");
+    if (!canPayFor) states.messages.push('Mint limit for each user has reached.');
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
 
   // Check for redeemed list
-  if (typeof guards.redeemLimit == "number") {
-    let canPayFor = Math.max(
-      guards.redeemLimit - candyMachine.itemsMinted.toNumber(),
-      0
-    );
+  if (typeof guards.redeemLimit == 'number') {
+    let canPayFor = Math.max(guards.redeemLimit - candyMachine.itemsMinted.toNumber(), 0);
     states.isLimitReached = !canPayFor;
-    if (!canPayFor) states.messages.push("Readeem limit has reached.");
+    if (!canPayFor) states.messages.push('Readeem limit has reached.');
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
 
   // Check for payment guards
   if (guards.payment?.sol) {
-    let canPayFor = Math.floor(
-      balance / (guards.payment?.sol.amount + 0.012 * LAMPORTS_PER_SOL)
-    );
+    let canPayFor = Math.floor(balance / (guards.payment?.sol.amount + 0.012 * LAMPORTS_PER_SOL));
     if (!canPayFor) states.messages.push("Don't have enough sol to pay");
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
 
   if (guards.payment?.token) {
-    const tokenAccount = tokenHoldings.find((x) =>
-      x.mint.equals(guards.payment?.token.mint)
-    );
+    const tokenAccount = tokenHoldings.find((x) => x.mint.equals(guards.payment?.token.mint));
     let canPayFor = tokenAccount
       ? Math.floor(tokenAccount.balance / guards.payment?.token.amount)
       : 0;
 
     if (!canPayFor)
-      states.messages.push(
-        `Don't have enough ${guards.payment?.token.symbol || "token"} to pay.`
-      );
+      states.messages.push(`Don't have enough ${guards.payment?.token.symbol || 'token'} to pay.`);
 
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
@@ -419,17 +385,11 @@ export const parseGuardStates = ({
 
   // Check for burn guards
   if (guards.burn?.token) {
-    const tokenAccount = tokenHoldings.find((x) =>
-      x.mint.equals(guards.burn?.token.mint)
-    );
-    let canPayFor = tokenAccount
-      ? Math.floor(tokenAccount.balance / guards.burn?.token.amount)
-      : 0;
+    const tokenAccount = tokenHoldings.find((x) => x.mint.equals(guards.burn?.token.mint));
+    let canPayFor = tokenAccount ? Math.floor(tokenAccount.balance / guards.burn?.token.amount) : 0;
 
     if (!canPayFor)
-      states.messages.push(
-        `Don't have enough ${guards.burn?.token.symbol || "token"} to burn.`
-      );
+      states.messages.push(`Don't have enough ${guards.burn?.token.symbol || 'token'} to burn.`);
 
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
@@ -443,34 +403,25 @@ export const parseGuardStates = ({
 
   // Check for gates
   if (guards.gate?.token) {
-    const tokenAccount = tokenHoldings.find((x) =>
-      x.mint.equals(guards.gate?.token.mint)
-    );
-    let canPayFor =
-      tokenAccount && tokenAccount.balance > guards.gate?.token.amount ? 10 : 0;
+    const tokenAccount = tokenHoldings.find((x) => x.mint.equals(guards.gate?.token.mint));
+    let canPayFor = tokenAccount && tokenAccount.balance > guards.gate?.token.amount ? 10 : 0;
     if (!canPayFor)
       states.messages.push(
-        `Don't have enough ${
-          guards.gate?.token.symbol || "token"
-        } to pass gate.`
+        `Don't have enough ${guards.gate?.token.symbol || 'token'} to pass gate.`,
       );
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
 
   if (guards.gate?.nfts) {
     let canPayFor = guards.burn?.nfts.length ? 10 : 0;
-    if (!canPayFor)
-      states.messages.push(`Don't have enough nfts to pass gate.`);
+    if (!canPayFor) states.messages.push(`Don't have enough nfts to pass gate.`);
     states.canPayFor = Math.min(states.canPayFor, canPayFor);
   }
 
   // Check for whitelisted addresses
   if (guards.allowed) {
-    states.isWalletWhitelisted = !!guards.allowed.find((x) =>
-      x.equals(walletAddress)
-    );
-    if (!states.isWalletWhitelisted)
-      states.messages.push(`Not allowed to mint.`);
+    states.isWalletWhitelisted = !!guards.allowed.find((x) => x.equals(walletAddress));
+    if (!states.isWalletWhitelisted) states.messages.push(`Not allowed to mint.`);
   }
 
   if (guards.gatekeeperNetwork) {
@@ -485,7 +436,7 @@ export const tokenSymbolCaches: {
 
 export const updateTokenSymbolAndDecimalsFromChainAsync = async (
   mx: Metaplex,
-  token: TokenPayment$Gate
+  token: TokenPayment$Gate,
 ) => {
   const chacheKey = token.mint.toString();
   if (!tokenSymbolCaches[chacheKey]) {
@@ -504,10 +455,7 @@ export const updateTokenSymbolAndDecimalsFromChainAsync = async (
   }
 };
 
-export const guardToLimitUtil = (
-  guards: GuardGroup,
-  defaultLimit: number = 10
-): number =>
+export const guardToLimitUtil = (guards: GuardGroup, defaultLimit: number = 10): number =>
   (guards.payment?.nfts
     ? guards.payment.nfts.length
     : guards.burn?.nfts
@@ -516,8 +464,7 @@ export const guardToLimitUtil = (
     ? guards.gate.nfts.length
     : guards.redeemLimit) ||
   (guards.mintLimit?.settings?.limit
-    ? guards.mintLimit?.settings?.limit -
-      (guards.mintLimit?.mintCounter?.count || 0)
+    ? guards.mintLimit?.settings?.limit - (guards.mintLimit?.mintCounter?.count || 0)
     : defaultLimit);
 
 export interface AlertState {

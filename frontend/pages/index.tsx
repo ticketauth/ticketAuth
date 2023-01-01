@@ -1,8 +1,8 @@
-import { Grid, Heading, Text, VStack, Wrap } from "@chakra-ui/react";
-import Searchbar from "../components/Searchbar";
-import EventCard from "../components/EventCard";
-import Header from "../components/Header";
-import { useEffect, useState } from "react";
+import { Grid, Heading, Text, VStack, Wrap } from '@chakra-ui/react';
+import Searchbar from '../components/Searchbar';
+import EventCard from '../components/EventCard';
+import Header from '../components/Header';
+import { useEffect, useState } from 'react';
 import {
   getUserEventsList,
   getEventById,
@@ -14,6 +14,7 @@ import { EventData } from "../utils/dataInterfaces";
 import { Backdrop } from "../components/Backdrop";
 
 require("typeface-monoton");
+
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
@@ -31,13 +32,16 @@ const Explore = () => {
             TicketAuth
           </Text>
           <Text fontSize={["20px", "25px"]} color="white">
+
             Buy or sell NFT tickets to anything!
           </Text>
         </Backdrop>
 
         <Searchbar />
 
+]
         <VStack w="100%" padding={["15% 10%", "5% 10%"]} align="flex-start">
+
           <Heading>Featured Events</Heading>
           {events == undefined ? (
             <>Skeleton</>
@@ -49,8 +53,10 @@ const Explore = () => {
                   EventId={event.EventId}
                   Location={event.Location}
                   Organizer={event.Organizer}
+
                   EventName={event["Name of event"]}
                   Bgimg={event["Background Image"]}
+
                 />
               ))}
             </Wrap>

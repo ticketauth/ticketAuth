@@ -1,35 +1,35 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API = "../../api/event";
+const API = '../../api/event';
 
 // Event -----------------------------------------------------------------
 // Read----------------------------------------------
 
 export async function getAllEvents() {
-	const events = await axios.get(API + "/getEvent");
-	console.log(events.data);
-	return events.data;
+  const events = await axios.get(API + '/getEvent');
+  console.log(events.data);
+  return events.data;
 }
 
 export async function getEventById(EventId) {
-	const event = await axios.post(`${API}/getEvent/${EventId}`);
-	return event.data;
+  const event = await axios.post(`${API}/getEvent/${EventId}`);
+  return event.data;
 }
 
 export async function getUserEventsList(walletAddress) {
-	const events = await axios.post(`${API}/getUserEventsList`, {
-		walletAddress,
-	});
+  const events = await axios.post(`${API}/getUserEventsList`, {
+    walletAddress,
+  });
 
-	return events.data;
+  return events.data;
 }
 
 export async function getEventByWalletAddress(walletAddress) {
-	const events = await axios.post(`${API}/getEventByWalletAddress`, {
-		walletAddress,
-	});
+  const events = await axios.post(`${API}/getEventByWalletAddress`, {
+    walletAddress,
+  });
 
-	return events.data;
+  return events.data;
 }
 
 // Read ----------------------------------------------
@@ -39,6 +39,7 @@ export async function createNewEvent(eventDetails) {
 	await axios.post(`${API}/createNewEvent`, {
 		eventDetails,
 	});
+
 }
 
 // Write --------------------------------------------
