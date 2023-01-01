@@ -8,7 +8,6 @@ import {
   Grid,
   GridItem,
   Heading,
-  Hide,
   HStack,
   Image,
   Input,
@@ -163,7 +162,7 @@ const CreateEvent: React.FC = () => {
                   <Center h="100%" w="45%">
                     <VStack align="flex-start">
                       <Text>Ticket Example:</Text>
-                      <Image h="100%" w="100%" src="/tickets/Card 2.jpg" />
+                      <Image h="100%" w="100%" alt="ticket" src="/tickets/Card 2.jpg" />
                     </VStack>
                   </Center>
                 </Show>
@@ -229,8 +228,8 @@ const Tab1: React.FC<{
         <FormControl w="100%" isInvalid={data.Category == ''}>
           <FormLabel>Event Category</FormLabel>
           {/* <Select placeholder='Select option'>
-							<option value='option1'>Option 1</option>
-						</Select> */}
+						// 	<option value='option1'>Option 1</option>
+						// </Select> */}
           <Input
             variant="flushed"
             placeholder="Category"
@@ -245,10 +244,9 @@ const Tab1: React.FC<{
 
       <GridItem colSpan={[6, 3]}>
         <FormControl w="100%" isInvalid={data['Start Event Datetime'] == ''}>
-          <FormLabel>Start Date & Time</FormLabel>
+          <FormLabel>Start Event Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="Start Event Date"
             type="datetime-local"
             value={data['Start Event Datetime']}
             onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
@@ -260,10 +258,9 @@ const Tab1: React.FC<{
       </GridItem>
       <GridItem colSpan={[6, 3]}>
         <FormControl w="100%" isInvalid={data['End Event Datetime'] == ''}>
-          <FormLabel>End Date & Time</FormLabel>
+          <FormLabel>End Event Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="End Event Date"
             type="datetime-local"
             value={data['End Event Datetime']}
             onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
@@ -275,31 +272,29 @@ const Tab1: React.FC<{
       </GridItem>
 
       <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['Start Event Datetime'] == ''}>
-          <FormLabel>Start Date & Time</FormLabel>
+        <FormControl w="100%" isInvalid={data['Start Sale Datetime'] == ''}>
+          <FormLabel>Start Sale Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="Start Ticket Sale Date"
             type="datetime-local"
-            value={data['Start Event Datetime']}
-            onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
+            value={data['Start Sale Datetime']}
+            onChange={(e) => handleData('Start Sale Datetime', e.currentTarget.value)}
           />
-          {data['Start Event Datetime'] == '' && (
+          {data['Start Sale Datetime'] == '' && (
             <FormErrorMessage>Date is required.</FormErrorMessage>
           )}
         </FormControl>
       </GridItem>
       <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['End Event Datetime'] == ''}>
-          <FormLabel>End Date & Time</FormLabel>
+        <FormControl w="100%" isInvalid={data['End Sale Datetime'] == ''}>
+          <FormLabel>End Sale Date & Time</FormLabel>
           <Input
             variant="flushed"
-            placeholder="End Ticket Sale Date"
             type="datetime-local"
-            value={data['End Event Datetime']}
-            onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
+            value={data['End Sale Datetime']}
+            onChange={(e) => handleData('End Sale Datetime', e.currentTarget.value)}
           />
-          {data['End Event Datetime'] == '' && (
+          {data['End Sale Datetime'] == '' && (
             <FormErrorMessage>Date is required.</FormErrorMessage>
           )}
         </FormControl>
