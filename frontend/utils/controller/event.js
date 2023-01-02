@@ -36,25 +36,24 @@ export async function getEventByWalletAddress(walletAddress) {
 
 // Write -----------------------------------------
 export async function createNewEvent(eventDetails) {
-	await axios.post(`${API}/createNewEvent`, {
-		eventDetails,
-	});
-
+  await axios.post(`${API}/createNewEvent`, {
+    eventDetails,
+  });
 }
 
 // Write --------------------------------------------
 
 // Update
 export async function updateEvent(eventDetails) {
-	await axios.post(`${API}/updateEvent`, {
-		eventDetails,
-	});
+  await axios.post(`${API}/updateEvent`, {
+    eventDetails,
+  });
 }
 // Update
 
 // Delete
 export async function deleteEvent(EventId) {
-	await axios.post(`${API}/deleteEvent`);
+  await axios.post(`${API}/deleteEvent`);
 }
 // Delete
 
