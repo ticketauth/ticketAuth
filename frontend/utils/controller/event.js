@@ -43,5 +43,7 @@ export async function createNewEvent(eventDetails) {
 }
 
 // Write --------------------------------------------
-
+//@KARAN need to authenticate whether user authorized to delete, update
+//also buying ticket api need to authenticate if it within ticket sale period
+//
 // Event -------------------------------------------------------------------------------------

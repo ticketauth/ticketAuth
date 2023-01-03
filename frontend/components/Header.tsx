@@ -26,7 +26,7 @@ const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void
       <ModalOverlay bg="whiteAlpha.300" backdropFilter="blur(10px)" />
       <ModalContent>
         <ModalBody>
-          <VStack>
+          <VStack spacing="10px" w="100%">
             <TorusWallet />
             <SolanaWalletMulti onPaymentClose={onPaymentClose} />
             {/* fiat currency payment*/}
@@ -51,16 +51,14 @@ const Header = () => {
       zIndex={4}
       padding="20px 50px"
     >
-      <Image cursor="pointer" onClick={() => router.push('/')} src="/logo.png" />
+      <Image alt="logo" cursor="pointer" onClick={() => router.push('/')} src="/logo.png" />
       <Spacer />
       <HStack spacing="20px">
-        <Button onClick={() => router.push('/create')}>Create Events</Button>
-        {publicKey ? (
+        <Button onClick={() => router.push('/create')}>Create Event</Button>
+        {publicKey && (
           <WalletMultiButton
             style={{ height: '40px', borderRadius: '7px', backgroundColor: '#7B2CBF' }}
           />
-        ) : (
-          <Button onClick={onPaymentOpen}>Sign Up</Button>
         )}
         <WalletModal isPaymentOpen={isPaymentOpen} onPaymentClose={onPaymentClose} />
         <ToggleModeButton />
