@@ -28,21 +28,21 @@ import useCandyMachineV3 from '../../hooks/useCandyMachineV3';
 import { GatewayProvider } from '@civic/solana-gateway-react';
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
 import {
-	CustomCandyGuardMintSettings,
-	NftPaymentMintSettings,
-	ParsedPricesForUI,
-} from "../../hooks/type";
-import { guardToLimitUtil } from "../../hooks/utils";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { Nft } from "@metaplex-foundation/js";
-import { AlertState } from "../../alertUtils";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import "../../styles/Event.module.css";
-import DateCard from "../../components/DateCard";
-import { dateConvertr } from "../../utils/dateConvertr";
-import { getEventById } from "../../utils/controller/event";
-import { CrossmintPayButton } from "@crossmint/client-sdk-react-ui";
-import { network } from "../../config";
+  CustomCandyGuardMintSettings,
+  NftPaymentMintSettings,
+  ParsedPricesForUI,
+} from '../../hooks/type';
+import { guardToLimitUtil } from '../../hooks/utils';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { Nft } from '@metaplex-foundation/js';
+import { AlertState } from '../../alertUtils';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import '../../styles/Event.module.css';
+import DateCard from '../../components/DateCard';
+import { dateConvertr } from '../../utils/dateConvertr';
+import { getEventById } from '../../utils/controller/event';
+import { CrossmintPayButton } from '@crossmint/client-sdk-react-ui';
+import { network } from '../../config';
 
 const Event = () => {
   const router = useRouter();
@@ -126,7 +126,7 @@ const Event = () => {
                   mint: guards.payment.nfts[i]?.mintAddress,
                 }
               : undefined,
-            gate: guard
+            gate: guards
               ? {
                   mint: guards.gate.nfts[i]?.mintAddress,
                 }
