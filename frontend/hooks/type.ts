@@ -6,9 +6,9 @@ import {
   NftGateGuardMintSettings,
   NftPaymentGuardMintSettings,
   Pda,
-} from "@metaplex-foundation/js";
-import { AccountInfo, PublicKey } from "@solana/web3.js";
-import { MintCounterBorsh } from "../borsh/mintCounter";
+} from '@metaplex-foundation/js';
+import { AccountInfo, PublicKey } from '@solana/web3.js';
+import { MintCounterBorsh } from '../borsh/mintCounter';
 
 export type Token = {
   mint: PublicKey;

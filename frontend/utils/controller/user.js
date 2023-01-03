@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API = "../../api/user";
+const API = '../../api/user';
 
 // User -----------------------------------------------------------------
 // Write --------------------------------------
 export async function createUser(userDetails) {
-	await axios.post(`${API}/createUser`, {
-		userDetails,
-	});
+  await axios.post(`${API}/createUser`, {
+    userDetails,
+  });
 }
 
 // Write --------------------------------------
@@ -15,11 +15,11 @@ export async function createUser(userDetails) {
 // Read--------
 
 export async function getUserByWalletAddress(walletAddress) {
-	const user = await axios.post(`${API}/getUserByWalletAddress`, {
-		walletAddress,
-	});
+  const user = await axios.post(`${API}/getUserByWalletAddress`, {
+    walletAddress,
+  });
 
-	return user.data;
+  return user.data;
 }
 
 // Read -----
