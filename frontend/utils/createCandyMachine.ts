@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { bundlrStorage, CreateCandyMachineInput, DefaultCandyGuardSettings, Metaplex, toMetaplexFileFromBrowser, walletAdapterIdentity, PublicKey, toMetaplexFile, toBigNumber, sol, InsertCandyMachineItemsOutput, insertCandyMachineItemsBuilder, InsertCandyMachineItemsInput, TransactionBuilder } from "@metaplex-foundation/js";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { ConnectionContext, useConnection, useWallet, WalletContextState } from "@solana/wallet-adapter-react";
-import { clusterApiUrl, Connection, Transaction } from "@solana/web3.js";
-import { bundlrAddress, network, rpcHost } from "../config";
-import { CandyMachineData } from "./dataInterfaces";
-import React from "react";
-=======
 import {
   bundlrStorage,
   CreateCandyMachineInput,
@@ -31,49 +22,18 @@ import {
   WalletContextState,
 } from '@solana/wallet-adapter-react';
 import { clusterApiUrl, Connection, Transaction } from '@solana/web3.js';
->>>>>>> main
+import { bundlrAddress, network, rpcHost } from '../config';
+import { CandyMachineData } from './dataInterfaces';
+import React from 'react';
 
 console.log(network);
-<<<<<<< HEAD
-async function uploadImage(ticketImage : File,  metaplex: Metaplex): Promise<string> {
-    const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage); 
-    const imgUri = await metaplex.storage().upload(imgMetaplexFile);
-    console.log(`Image URI:`,imgUri);
-    return imgUri;
-    //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk" // devnet
-    //return " https://arweave.net/xc-TivvovA5SQlf1Uz389KiV1MvewUF_-l4D-Y3vcgY" //mainnet-beta
-}
-
-async function uploadMetadata(imgUri: string, imgType: string, nftName: string, description: string, metaplex : Metaplex) {
-    const { uri } = await metaplex
-        .nfts()
-        .uploadMetadata({
-            name: nftName,
-            description: description,
-            image: imgUri,
-            properties: {
-                files: [
-                    {
-                        type: imgType,
-                        uri: imgUri,
-                    },
-                ]
-            }
-    });
-    console.log('Metadata URI:',uri);
-    
-    return uri;  
-    //return "https://arweave.net/GJQk6xMZhJnTkA_XdXJMlkrahGcMNAZitcr_k45-YKw" //devnet
-    //return "https://arweave.net/iNiBgdJy1KLQBAB0JtCL-NgiHD9ZMz9vDmCgfaLwe4o" //mainnet-beta
-=======
-const endpoint = process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || 'https://api.devnet.solana.com';
-
 async function uploadImage(ticketImage: File, metaplex: Metaplex): Promise<string> {
   const imgMetaplexFile = await toMetaplexFileFromBrowser(ticketImage);
   const imgUri = await metaplex.storage().upload(imgMetaplexFile);
   console.log(`Image URI:`, imgUri);
   return imgUri;
-  //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk"
+  //return "https://arweave.net/ePCQH2yLcD_0TNw5kRUkUINEBMDkbGw7GbzmSuYRIJk" // devnet
+  //return " https://arweave.net/xc-TivvovA5SQlf1Uz389KiV1MvewUF_-l4D-Y3vcgY" //mainnet-beta
 }
 
 async function uploadMetadata(
@@ -99,8 +59,8 @@ async function uploadMetadata(
   console.log('Metadata URI:', uri);
 
   return uri;
-  //return "https://arweave.net/GJQk6xMZhJnTkA_XdXJMlkrahGcMNAZitcr_k45-YKw"
->>>>>>> main
+  //return "https://arweave.net/GJQk6xMZhJnTkA_XdXJMlkrahGcMNAZitcr_k45-YKw" //devnet
+  //return "https://arweave.net/iNiBgdJy1KLQBAB0JtCL-NgiHD9ZMz9vDmCgfaLwe4o" //mainnet-beta
 }
 
 async function createCollectionNft(metadataUri: string, name: string, metaplex: Metaplex) {
@@ -116,62 +76,8 @@ async function createCollectionNft(metadataUri: string, name: string, metaplex: 
     `https://explorer.solana.com/address/${collectionNft.address.toBase58()}?cluster=${network}`,
   );
 
-<<<<<<< HEAD
-    return collectionNft.address;
-    //return new PublicKey("6NCaf74QuUjvCp6U8WzCpWecpccDVN77Tb7j6psFXMeX"); //mainnet-beta
-}
-
-async function generateCandyMachine(totalTickets: number, ticketPrice : number , collectionAddress : PublicKey, collectionSymbol: string, metaplex: Metaplex) {
-    const candyMachineSettings: CreateCandyMachineInput<DefaultCandyGuardSettings> =
-        {
-            authority: metaplex.identity(),
-            itemsAvailable: toBigNumber(totalTickets), // Collection Size: 100
-            sellerFeeBasisPoints: 1000, // 10% Royalties on Collection
-            symbol: collectionSymbol,
-            maxEditionSupply: toBigNumber(0), // 0 reproductions of each NFT allowed
-            isMutable: true,
-            creators: [
-                { address: metaplex.identity().publicKey, share: 100 },
-            ],
-            collection: {
-                address: collectionAddress,
-                updateAuthority: metaplex.identity(),
-            },
-            itemSettings:{
-                type: "configLines",
-                prefixName: "Ticket #$ID+1$",
-                nameLength: 0,
-                prefixUri: "https://arweave.net/",
-                uriLength: 43,
-                isSequential: true,
-            },
-            guards: {
-                solPayment: {
-                amount: sol(ticketPrice),
-                destination: collectionAddress,
-                },
-                redeemedAmount: {
-                maximum: toBigNumber(totalTickets),
-                },
-                gatekeeper: {
-                    network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
-                    expireOnUse: false
-                }
-                
-            }, 
-        };
-    
-    const { candyMachine } = await metaplex.candyMachines().create(candyMachineSettings, {commitment : "finalized"});
-    console.log(`✅ - Created Candy Machine: ${candyMachine.address.toBase58()}`);
-    console.log(`     https://explorer.solana.com/address/${candyMachine.address.toBase58()}?cluster=${network}`);
-        
-    return candyMachine;
-    //candymachine address = "BN7Kje2n24325EqDZDUt2SgDDqF43Z6RQAEyhmEx9Nt1" //mainnet-beta 
-}
-async function createInstruction(candyMachineID: PublicKey, uri : string, totalTickets : number, metaplex : Metaplex, wallet: WalletContextState, connection: Connection) {
-    const candyMachine = await metaplex
-=======
   return collectionNft.address;
+  //return new PublicKey("6NCaf74QuUjvCp6U8WzCpWecpccDVN77Tb7j6psFXMeX"); //mainnet-beta
 }
 
 async function generateCandyMachine(
@@ -209,15 +115,14 @@ async function generateCandyMachine(
       redeemedAmount: {
         maximum: toBigNumber(totalTickets),
       },
-      // gatekeeper: {
-      //     network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
-      //     expireOnUse: true
-      // }
+      gatekeeper: {
+        network: new PublicKey('ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6'),
+        expireOnUse: false,
+      },
     },
   };
 
   const { candyMachine } = await metaplex
->>>>>>> main
     .candyMachines()
     .create(candyMachineSettings, { commitment: 'finalized' });
   console.log(`✅ - Created Candy Machine: ${candyMachine.address.toBase58()}`);
@@ -226,6 +131,7 @@ async function generateCandyMachine(
   );
 
   return candyMachine;
+  //candymachine address = "BN7Kje2n24325EqDZDUt2SgDDqF43Z6RQAEyhmEx9Nt1" //mainnet-beta
 }
 async function createInstruction(
   candyMachineID: PublicKey,
@@ -237,54 +143,6 @@ async function createInstruction(
 ) {
   const candyMachine = await metaplex.candyMachines().findByAddress({ address: candyMachineID });
 
-<<<<<<< HEAD
-async function createNFT (eventName: string, eventDescription: string, startDate : string, endDate : string, eventCapacity: number, ticketPrice: number, ticketImage : File, metaplex : Metaplex, wallet: WalletContextState, connection: Connection): Promise<[string, string]> {
-    //Step 1 - Upload Image
-    const imgUri = await uploadImage(ticketImage, metaplex);
-    //Step 2 - Upload Metadata
-    const metadataUri = await uploadMetadata(imgUri, "video/mp4", eventName, eventDescription, metaplex); 
-    //Step 3 - Minting CollectionNFT
-    const collectionAddress = await createCollectionNft(metadataUri, eventName, metaplex);
-    //Step 4 - Create Candy Machine
-    const candyMachine = await generateCandyMachine(eventCapacity, ticketPrice,  collectionAddress, "tktAuth", metaplex)
-    const candyMachineID = candyMachine.address;
-    //Step 5 - Adding items to Candy Machine
-    const uriData = metadataUri.split("/");
-    await createInstruction(candyMachineID,uriData[3], eventCapacity, metaplex, wallet, connection); 
-    
-    return [collectionAddress.toBase58(), candyMachineID.toBase58()];
-    //return ["5PAAUq7tiwsLEQwbG3YLvzzmemWeWGkcwHZAd2Zb7djA", "BdYtP59ZqLK8YGDM2d6fJwHZtWyYcjP2w78UxaUiLWhX", transactionSignature];
-}
-
-export default async function createCandyMachine(
-    candyMachineData : CandyMachineData
-) {
-    const { connection } = useConnection();
-
-    const metaplex = React.useMemo(
-        () => connection && Metaplex.make(connection),
-        [connection]
-    );
-    
-    metaplex
-        .use(walletAdapterIdentity(candyMachineData.wallet)) // Will prompt the user 
-        .use(bundlrStorage({
-            address: bundlrAddress,
-            providerUrl: rpcHost,
-            timeout:60000,
-        }));
-
-    try{
-        const data = await createNFT(candyMachineData["Name of event"], candyMachineData["Event Description"], candyMachineData["Start Sale Datetime"], candyMachineData["End Sale Datetime"], candyMachineData["Event Capacity"], candyMachineData["Ticket price"], candyMachineData.ticketFile, metaplex, candyMachineData.wallet, connection);
-        console.log("Createcandymachine ending");
-        return data;
-    } catch(e : unknown){
-        if(typeof e === "string") {
-            console.log(e.toUpperCase());
-        } else if (e instanceof Error) {
-            console.log(e.message);
-        }
-=======
   let input: InsertCandyMachineItemsInput;
   let itemsToAdd: number;
   const transactionBuilder: TransactionBuilder[] = [];
@@ -325,40 +183,6 @@ export default async function createCandyMachine(
     });
     console.log(txid);
   }
-}
-
-async function addItems(
-  candyMachineID: PublicKey,
-  uri: string,
-  totalTickets: number,
-  metaplex: Metaplex,
-  wallet: WalletContextState,
-) {
-  const candyMachine = await metaplex.candyMachines().findByAddress({ address: candyMachineID });
-  const items = [];
-  for (let i = 0; i < 9; i++) {
-    //Adding max of 10 items per instruction
-    items.push({
-      name: '',
-      uri: uri,
-    });
-  }
-  let response: InsertCandyMachineItemsOutput;
-
-  for (let j = 0; j < totalTickets / 10; j++) {
-    let index = j == 0 ? 0 : j * 10 - 1;
-    response = await metaplex.candyMachines().insertItems({
-      candyMachine,
-      index: index, //just to set the index of the items to be added into the candy machine
-      items: items,
-    });
-
-    console.log(response);
-  }
-
-  console.log(`✅ - Items added to Candy Machine: ${candyMachineID.toString()}`);
-  console.log(`https://explorer.solana.com/tx/${response.response.signature}?cluster=${network}`);
-  return response.response.signature;
 }
 
 async function createNFT(
@@ -402,39 +226,32 @@ async function createNFT(
   //return ["5PAAUq7tiwsLEQwbG3YLvzzmemWeWGkcwHZAd2Zb7djA", "BdYtP59ZqLK8YGDM2d6fJwHZtWyYcjP2w78UxaUiLWhX", transactionSignature];
 }
 
-export default async function createCandyMachine(
-  eventName: string,
-  eventDescription: string,
-  startDate: string,
-  endDate: string,
-  eventCapacity: number,
-  ticketPrice: number,
-  ticketImage: File,
-  wallet: WalletContextState,
-) {
-  const connection = new Connection(endpoint, { commitment: 'finalized' });
+export default async function createCandyMachine(candyMachineData: CandyMachineData) {
+  const connection = candyMachineData.connection;
 
-  const metaplex = new Metaplex(connection)
-    .use(walletAdapterIdentity(wallet)) // Will prompt the user
-    //.use(keypairIdentity(accountFromSecret))
+  const metaplex = Metaplex.make(connection);
+
+  metaplex
+    .use(walletAdapterIdentity(candyMachineData.wallet)) // Will prompt the user
     .use(
       bundlrStorage({
-        address: process.env.NEXT_PUBLIC_BUNDLR_ADDRESS || 'https://devnet.bundlr.network',
-        providerUrl: process.env.NEXT_PUBLIC_QUICKNODE_RPC_HOST || 'https://api.devnet.solana.com',
+        address: bundlrAddress,
+        providerUrl: rpcHost,
         timeout: 60000,
       }),
     );
+
   try {
     const data = await createNFT(
-      eventName,
-      eventDescription,
-      startDate,
-      endDate,
-      eventCapacity,
-      ticketPrice,
-      ticketImage,
+      candyMachineData['Name of event'],
+      candyMachineData['Event Description'],
+      candyMachineData['Start Sale Datetime'],
+      candyMachineData['End Sale Datetime'],
+      candyMachineData['Event Capacity'],
+      candyMachineData['Ticket price'],
+      candyMachineData.ticketFile,
       metaplex,
-      wallet,
+      candyMachineData.wallet,
       connection,
     );
     console.log('Createcandymachine ending');
@@ -444,7 +261,6 @@ export default async function createCandyMachine(
       console.log(e.toUpperCase());
     } else if (e instanceof Error) {
       console.log(e.message);
->>>>>>> main
     }
   }
   return [];
