@@ -1,4 +1,120 @@
 import {
+<<<<<<< HEAD
+	Button,
+	Center,
+	Flex,
+	FormControl,
+	FormErrorMessage,
+	FormLabel,
+	Grid,
+	GridItem,
+	Heading,
+	Hide,
+	HStack,
+	Image,
+	Input,
+	Show,
+	SimpleGrid,
+	Spacer,
+	Spinner,
+	Tab,
+	TabList,
+	TabPanel,
+	TabPanels,
+	Tabs,
+	Text,
+	Textarea,
+	VStack,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import Header from "../components/Header";
+import { ChevronRightIcon } from "@chakra-ui/icons";
+import { DebounceSearch } from "../components/Maps";
+import { ImageInput } from "../components/ImageInput";
+import { CandyMachineData, FormInputData } from "../utils/dataInterfaces";
+import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
+import { useRouter } from "next/router";
+import createCandyMachine from "../utils/createCandyMachine";
+import { createNewEvent } from "../utils/controller/event";
+import { Backdrop } from "../components/Backdrop";
+
+const CreateEvent: React.FC = () => {
+	const wallet = useWallet();
+	const router = useRouter();
+	const [ticketFile, setTicketFile] = useState<File>();
+	const [loading, setLoading] = useState(false);
+	const [data, setData] = useState<FormInputData>({
+		"Name of event": "",
+		Category: "",
+		"Event Description": "",
+		walletAddress: "",
+		"Start Event Datetime": "",
+		"End Event Datetime": "",
+		"Start Sale Datetime": "",
+		"End Sale Datetime": "",
+		Location: "",
+		"Organizers Email": "",
+		Organizer: "",
+		"Event Capacity": 1,
+		"Ticket price": 0,
+		"Ticket Image": "",
+		"Background Image": "",
+	});
+
+	const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
+		"Name of event" : "",
+		"Event Description" : "",
+		"Start Event Datetime" : "",
+		"End Event Datetime" : "",
+		"Start Sale Datetime" : "",
+		"End Sale Datetime" :  "",
+		"Event Capacity" : 0,
+		"Ticket price" : 0,
+		ticketFile : null,
+		wallet : wallet,
+	})
+	
+	//Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
+	useEffect(() => {
+	  candyMachineData.ticketFile = ticketFile;
+	}, [ticketFile])
+	
+
+	const handleData = (type: string, value: any) => {
+		setData((prev) => ({
+			...prev,
+			[type]: value,
+		}));
+		setCandyMachineData((prev) => ({
+			...prev,
+			[type]: value,
+		}));
+		data.walletAddress = wallet.publicKey.toString();
+	};
+
+	const createEvent = async () => {
+		setLoading(true);
+		createCandyMachine(candyMachineData)
+		.then(([collectionAddress, candyMachineID]) => {
+			createNewEvent({
+				...data,
+				candyMachineId: candyMachineID,
+				collectionId: collectionAddress,
+			});
+			router.push("/");
+		});
+	};
+	const [tabIndex, setTabIndex] = useState(0);
+	return (
+		<Grid w="100%">
+			<Header />
+			<VStack spacing={-8}>
+				<Backdrop>
+					<Text fontSize={["5xl", "6xl"]} fontFamily={"monoton"} color="white">
+						Create Event
+					</Text>
+				</Backdrop>
+=======
   Button,
   Center,
   Flex,
@@ -104,6 +220,7 @@ const CreateEvent: React.FC = () => {
             Create Event
           </Text>
         </Backdrop>
+>>>>>>> main
 
         <Tabs
           variant="unstyled"

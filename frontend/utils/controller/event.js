@@ -36,14 +36,25 @@ export async function getEventByWalletAddress(walletAddress) {
 
 // Write -----------------------------------------
 export async function createNewEvent(eventDetails) {
-  console.log(eventDetails);
   await axios.post(`${API}/createNewEvent`, {
     eventDetails,
   });
 }
 
 // Write --------------------------------------------
-//@KARAN need to authenticate whether user authorized to delete, update
-//also buying ticket api need to authenticate if it within ticket sale period
-//
+
+// Update
+export async function updateEvent(eventDetails) {
+  await axios.post(`${API}/updateEvent`, {
+    eventDetails,
+  });
+}
+// Update
+
+// Delete
+export async function deleteEvent(EventId) {
+  await axios.post(`${API}/deleteEvent`);
+}
+// Delete
+
 // Event -------------------------------------------------------------------------------------

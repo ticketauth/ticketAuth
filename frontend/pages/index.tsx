@@ -9,10 +9,12 @@ import {
   getAllEvents,
   createNewEvent,
   getEventByWalletAddress,
-} from '../utils/controller/event';
-import { EventData } from '../utils/dataInterfaces';
-import { Backdrop } from '../components/Backdrop';
-import '@fontsource/monoton';
+} from "../utils/controller/event";
+import { EventData } from "../utils/dataInterfaces";
+import { Backdrop } from "../components/Backdrop";
+
+require("typeface-monoton");
+
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
@@ -23,20 +25,23 @@ const Explore = () => {
   return (
     <Grid w="100%">
       <Header />
-      <VStack spacing={-8} w="100%">
+      <VStack spacing={-8} w='100%'>
         <Backdrop>
-          <Text fontSize={['5xl', '6xl']} fontFamily={'Monoton'} color="white">
-            {' '}
+          <Text fontSize={["5xl", "6xl"]} fontFamily={"monoton"} color="white">
+            {" "}
             TicketAuth
           </Text>
-          <Text fontSize={['20px', '25px']} color="white">
+          <Text fontSize={["20px", "25px"]} color="white">
+
             Buy or sell NFT tickets to anything!
           </Text>
         </Backdrop>
 
         <Searchbar />
 
-        <VStack w="100%" padding={['15% 10%', '5% 10%']} align="flex-start">
+]
+        <VStack w="100%" padding={["15% 10%", "5% 10%"]} align="flex-start">
+
           <Heading>Featured Events</Heading>
           {events == undefined ? (
             <>Skeleton</>
@@ -48,8 +53,10 @@ const Explore = () => {
                   EventId={event.EventId}
                   Location={event.Location}
                   Organizer={event.Organizer}
-                  EventName={event['Name of event']}
-                  Bgimg={event['Background Image']}
+
+                  EventName={event["Name of event"]}
+                  Bgimg={event["Background Image"]}
+
                 />
               ))}
             </Wrap>

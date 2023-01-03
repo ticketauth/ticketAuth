@@ -44,6 +44,7 @@ export default function useCandyMachineV3(
 ) {
   const { connection } = useConnection();
   const wallet = useWallet();
+  
   const [guardsAndGroups, setGuardsAndGroups] = React.useState<{
     default?: GuardGroup;
     [k: string]: GuardGroup;
