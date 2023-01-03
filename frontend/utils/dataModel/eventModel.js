@@ -11,6 +11,7 @@ const eventSchema = new Schema({
   'End Sale Datetime': String,
   Location: String,
   'Organizers Email': String,
+  Organizer: String,
   'Event Capacity': Number,
   'Ticket price': Number,
   'Ticket Image': String,

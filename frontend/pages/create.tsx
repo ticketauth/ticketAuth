@@ -1,121 +1,120 @@
 import {
-	Button,
-	Center,
-	Flex,
-	FormControl,
-	FormErrorMessage,
-	FormLabel,
-	Grid,
-	GridItem,
-	Heading,
-	Hide,
-	HStack,
-	Image,
-	Input,
-	Show,
-	SimpleGrid,
-	Spacer,
-	Spinner,
-	Tab,
-	TabList,
-	TabPanel,
-	TabPanels,
-	Tabs,
-	Text,
-	Textarea,
-	VStack,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import { DebounceSearch } from "../components/Maps";
-import { ImageInput } from "../components/ImageInput";
-import { CandyMachineData, FormInputData } from "../utils/dataInterfaces";
-import { useConnection, useWallet, WalletContextState } from "@solana/wallet-adapter-react";
-import { useRouter } from "next/router";
-import createCandyMachine from "../utils/createCandyMachine";
-import { createNewEvent } from "../utils/controller/event";
-import { Backdrop } from "../components/Backdrop";
+  Button,
+  Center,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Grid,
+  GridItem,
+  Heading,
+  Hide,
+  HStack,
+  Image,
+  Input,
+  Show,
+  SimpleGrid,
+  Spacer,
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import Header from '../components/Header';
+import { ChevronRightIcon } from '@chakra-ui/icons';
+import { DebounceSearch } from '../components/Maps';
+import { ImageInput } from '../components/ImageInput';
+import { CandyMachineData, FormInputData } from '../utils/dataInterfaces';
+import { useConnection, useWallet, WalletContextState } from '@solana/wallet-adapter-react';
+import { useRouter } from 'next/router';
+import createCandyMachine from '../utils/createCandyMachine';
+import { createNewEvent } from '../utils/controller/event';
+import { Backdrop } from '../components/Backdrop';
 
 const CreateEvent: React.FC = () => {
-	const wallet = useWallet();
-	const router = useRouter();
+  const wallet = useWallet();
+  const router = useRouter();
   const { connection } = useConnection();
-	const [ticketFile, setTicketFile] = useState<File>();
-	const [loading, setLoading] = useState(false);
-	const [data, setData] = useState<FormInputData>({
-		"Name of event": "",
-		Category: "",
-		"Event Description": "",
-		walletAddress: "",
-		"Start Event Datetime": "",
-		"End Event Datetime": "",
-		"Start Sale Datetime": "",
-		"End Sale Datetime": "",
-		Location: "",
-		"Organizers Email": "",
-		Organizer: "",
-		"Event Capacity": 1,
-		"Ticket price": 0,
-		"Ticket Image": "",
-		"Background Image": "",
-	});
+  const [ticketFile, setTicketFile] = useState<File>();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<FormInputData>({
+    'Name of event': '',
+    Category: '',
+    'Event Description': '',
+    walletAddress: '',
+    'Start Event Datetime': '',
+    'End Event Datetime': '',
+    'Start Sale Datetime': '',
+    'End Sale Datetime': '',
+    Location: '',
+    'Organizers Email': '',
+    Organizer: '',
+    'Event Capacity': 1,
+    'Ticket price': 0,
+    'Ticket Image': '',
+    'Background Image': '',
+  });
 
-	const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
-		"Name of event" : "",
-		"Event Description" : "",
-		"Start Event Datetime" : "",
-		"End Event Datetime" : "",
-		"Start Sale Datetime" : "",
-		"End Sale Datetime" :  "",
-		"Event Capacity" : 0,
-		"Ticket price" : 0,
-		ticketFile : null,
-		wallet : wallet,
-    connection : connection
-	})
-	
-	//Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
-	useEffect(() => {
-	  candyMachineData.ticketFile = ticketFile;
-	}, [ticketFile])
-	
+  const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
+    'Name of event': '',
+    'Event Description': '',
+    'Start Event Datetime': '',
+    'End Event Datetime': '',
+    'Start Sale Datetime': '',
+    'End Sale Datetime': '',
+    'Event Capacity': 0,
+    'Ticket price': 0,
+    ticketFile: null,
+    wallet: wallet,
+    connection: connection,
+  });
 
-	const handleData = (type: string, value: any) => {
-		setData((prev) => ({
-			...prev,
-			[type]: value,
-		}));
-		setCandyMachineData((prev) => ({
-			...prev,
-			[type]: value,
-		}));
-		data.walletAddress = wallet.publicKey.toString();
-	};
+  //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
+  useEffect(() => {
+    candyMachineData.ticketFile = ticketFile;
+  }, [ticketFile]);
 
-	const createEvent = async () => {
-		setLoading(true);
-		createCandyMachine(candyMachineData)
-		.then(([collectionAddress, candyMachineID]) => {
-			createNewEvent({
-				...data,
-				candyMachineId: candyMachineID,
-				collectionId: collectionAddress,
-			});
-			router.push("/");
-		});
-	};
-	const [tabIndex, setTabIndex] = useState(0);
-	return (
-		<Grid w="100%">
-			<Header />
-			<VStack spacing={-8}>
-				<Backdrop>
-					<Text fontSize={["5xl", "6xl"]} fontFamily={"monoton"} color="white">
-						Create Event
-					</Text>
-				</Backdrop>
+  const handleData = (type: string, value: any) => {
+    setData((prev) => ({
+      ...prev,
+      [type]: value,
+    }));
+    setCandyMachineData((prev) => ({
+      ...prev,
+      [type]: value,
+    }));
+    data.walletAddress = wallet.publicKey.toString();
+  };
 
+  const createEvent = async () => {
+    setLoading(true);
+    createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
+      createNewEvent({
+        ...data,
+        candyMachineId: candyMachineID,
+        collectionId: collectionAddress,
+      });
+      router.push('/');
+    });
+  };
+  const [tabIndex, setTabIndex] = useState(0);
+
+  return (
+    <Grid w="100%">
+      <Header />
+      <VStack spacing={-8}>
+        <Backdrop>
+          <Text fontSize={['5xl', '6xl']} fontFamily={'Monoton'} color="white">
+            Create Event
+          </Text>
+        </Backdrop>
+        
         <Tabs
           variant="unstyled"
           index={tabIndex}
@@ -135,27 +134,43 @@ const CreateEvent: React.FC = () => {
             >
               <Tab
                 borderStyle="solid"
+                borderColor="cyan"
                 borderWidth="2px"
+                color="black"
                 borderRadius="100%"
-                _selected={{ bg: 'brand.1' }}
+                _selected={{ bg: 'brand.1', color: 'white' }}
               >
                 1
               </Tab>
               <Tab
                 borderStyle="solid"
+                borderColor="cyan"
                 borderWidth="2px"
+                color="black"
                 borderRadius="100%"
-                _selected={{ bg: 'brand.2' }}
+                _selected={{ bg: 'brand.2', color: 'white' }}
               >
                 2
               </Tab>
               <Tab
                 borderStyle="solid"
+                borderColor="cyan"
                 borderWidth="2px"
+                color="black"
                 borderRadius="100%"
-                _selected={{ bg: 'brand.3' }}
+                _selected={{ bg: 'brand.3', color: 'white' }}
               >
                 3
+              </Tab>
+              <Tab
+                borderStyle="solid"
+                borderColor="cyan"
+                borderWidth="2px"
+                color="black"
+                borderRadius="100%"
+                _selected={{ bg: 'brand.4', color: 'white' }}
+              >
+                4
               </Tab>
             </HStack>
           </TabList>
@@ -186,8 +201,32 @@ const CreateEvent: React.FC = () => {
             </TabPanel>
 
             <TabPanel>
+              <HStack>
+                <VStack spacing="10px" w={['100%', '45%']}>
+                  <Tab2 data={data} handleData={handleData} />
+                  <Flex w="100%" justifyContent="flex-end">
+                    <Button rightIcon={<ChevronRightIcon />} onClick={(e) => setTabIndex(1)}>
+                      Next Step
+                    </Button>
+                  </Flex>
+                </VStack>
+
+                <Show above="sm">
+                  <Spacer />
+
+                  <Center h="100%" w="45%">
+                    <VStack align="flex-start">
+                      <Text>Ticket Example:</Text>
+                      <Image h="100%" w="100%" alt="ticket" src="/tickets/Card 2.jpg" />
+                    </VStack>
+                  </Center>
+                </Show>
+              </HStack>
+            </TabPanel>
+
+            <TabPanel>
               <VStack spacing="10px" w="100%">
-                <Tab2 data={data} handleData={handleData} />
+                <Tab3 data={data} handleData={handleData} />
                 <Flex w="100%" justifyContent="flex-end">
                   <Button rightIcon={<ChevronRightIcon />} onClick={(e) => setTabIndex(2)}>
                     Next Step
@@ -198,7 +237,7 @@ const CreateEvent: React.FC = () => {
 
             <TabPanel>
               <VStack spacing="10px" w="100%">
-                <Tab3 data={data} setTicketFile={setTicketFile} handleData={handleData} />
+                <Tab4 data={data} setTicketFile={setTicketFile} handleData={handleData} />
                 <Flex w="100%" justifyContent="flex-end">
                   <Button
                     rightIcon={loading ? <Spinner /> : <ChevronRightIcon />}
@@ -223,100 +262,95 @@ const Tab1: React.FC<{
   handleData: (type: string, value: string | number) => void;
 }> = ({ data, handleData }) => {
   return (
-    <SimpleGrid columns={6} spacing={4} w="100%">
-      <GridItem colSpan={[6, 4]}>
-        <FormControl w="100%" isInvalid={data['Name of event'] == ''}>
-          <FormLabel>Event Name</FormLabel>
-          <Input
-            variant="flushed"
-            placeholder="Event Name"
-            type="text"
-            value={data['Name of event']}
-            onChange={(e) => handleData('Name of event', e.currentTarget.value)}
-            w="100%"
-          />
-          {data['Name of event'] == '' && (
-            <FormErrorMessage>Event name is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 2]}>
-        <FormControl w="100%" isInvalid={data.Category == ''}>
-          <FormLabel>Event Category</FormLabel>
-          {/* <Select placeholder='Select option'>
+    <VStack spacing={4} w="100%">
+      <FormControl w="100%" isInvalid={data['Name of event'] == ''}>
+        <FormLabel>Event Name</FormLabel>
+        <Input
+          variant="flushed"
+          placeholder="Event Name"
+          type="text"
+          value={data['Name of event']}
+          onChange={(e) => handleData('Name of event', e.currentTarget.value)}
+          w="100%"
+        />
+        {data['Name of event'] == '' && (
+          <FormErrorMessage>Event name is required.</FormErrorMessage>
+        )}
+      </FormControl>
+
+      <FormControl w="100%" isInvalid={data.Category == ''}>
+        <FormLabel>Event Category</FormLabel>
+        {/* <Select placeholder='Select option'>
 						// 	<option value='option1'>Option 1</option>
 						// </Select> */}
-          <Input
-            variant="flushed"
-            placeholder="Category"
-            type="text"
-            value={data.Category}
-            onChange={(e) => handleData('Category', e.currentTarget.value)}
-            w="100%"
-          />
-          {data.Category == '' && <FormErrorMessage>Enter the event category.</FormErrorMessage>}
-        </FormControl>
-      </GridItem>
+        <Input
+          variant="flushed"
+          placeholder="Category"
+          type="text"
+          value={data.Category}
+          onChange={(e) => handleData('Category', e.currentTarget.value)}
+          w="100%"
+        />
+        {data.Category == '' && <FormErrorMessage>Enter the event category.</FormErrorMessage>}
+      </FormControl>
 
-      <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['Start Event Datetime'] == ''}>
-          <FormLabel>Start Event Date & Time</FormLabel>
-          <Input
-            variant="flushed"
-            type="datetime-local"
-            value={data['Start Event Datetime']}
-            onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
-          />
-          {data['Start Event Datetime'] == '' && (
-            <FormErrorMessage>Date is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['End Event Datetime'] == ''}>
-          <FormLabel>End Event Date & Time</FormLabel>
-          <Input
-            variant="flushed"
-            type="datetime-local"
-            value={data['End Event Datetime']}
-            onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
-          />
-          {data['End Event Datetime'] == '' && (
-            <FormErrorMessage>Date is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
+      <FormControl w="100%" isInvalid={data['Start Event Datetime'] == ''}>
+        <FormLabel>Start Event Date & Time</FormLabel>
+        <Input
+          variant="flushed"
+          type="datetime-local"
+          value={data['Start Event Datetime']}
+          onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
+        />
+        {data['Start Event Datetime'] == '' && (
+          <FormErrorMessage>Date is required.</FormErrorMessage>
+        )}
+      </FormControl>
 
-      <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['Start Sale Datetime'] == ''}>
-          <FormLabel>Start Sale Date & Time</FormLabel>
-          <Input
-            variant="flushed"
-            type="datetime-local"
-            value={data['Start Sale Datetime']}
-            onChange={(e) => handleData('Start Sale Datetime', e.currentTarget.value)}
-          />
-          {data['Start Sale Datetime'] == '' && (
-            <FormErrorMessage>Date is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 3]}>
-        <FormControl w="100%" isInvalid={data['End Sale Datetime'] == ''}>
-          <FormLabel>End Sale Date & Time</FormLabel>
-          <Input
-            variant="flushed"
-            type="datetime-local"
-            value={data['End Sale Datetime']}
-            onChange={(e) => handleData('End Sale Datetime', e.currentTarget.value)}
-          />
-          {data['End Sale Datetime'] == '' && (
-            <FormErrorMessage>Date is required.</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
+      <FormControl w="100%" isInvalid={data['End Event Datetime'] == ''}>
+        <FormLabel>End Event Date & Time</FormLabel>
+        <Input
+          variant="flushed"
+          type="datetime-local"
+          value={data['End Event Datetime']}
+          onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
+        />
+        {data['End Event Datetime'] == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
+      </FormControl>
+    </VStack>
+  );
+};
+const Tab2: React.FC<{
+  data: FormInputData;
+  handleData: (type: string, value: string | number) => void;
+}> = ({ data, handleData }) => {
+  return (
+    <VStack w="100%">
+      <FormControl w="100%" isInvalid={data['Start Sale Datetime'] == ''}>
+        <FormLabel>Start Sale Date & Time</FormLabel>
+        <Input
+          variant="flushed"
+          type="datetime-local"
+          value={data['Start Sale Datetime']}
+          onChange={(e) => handleData('Start Sale Datetime', e.currentTarget.value)}
+        />
+        {data['Start Sale Datetime'] == '' && (
+          <FormErrorMessage>Date is required.</FormErrorMessage>
+        )}
+      </FormControl>
 
-      <GridItem colSpan={[6, 1]}>
+      <FormControl w="100%" isInvalid={data['End Sale Datetime'] == ''}>
+        <FormLabel>End Sale Date & Time</FormLabel>
+        <Input
+          variant="flushed"
+          type="datetime-local"
+          value={data['End Sale Datetime']}
+          onChange={(e) => handleData('End Sale Datetime', e.currentTarget.value)}
+        />
+        {data['End Sale Datetime'] == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
+      </FormControl>
+
+      <HStack>
         <FormControl w="100%" isInvalid={data['Ticket price'].toString() == ''}>
           <FormLabel>Ticket Price</FormLabel>
           <Input
@@ -331,8 +365,7 @@ const Tab1: React.FC<{
             <FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>
           )}
         </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 1]}>
+
         <FormControl w="100%" isInvalid={data['Event Capacity'].toString() == ''}>
           <FormLabel>Capacity</FormLabel>
           <Input
@@ -347,42 +380,27 @@ const Tab1: React.FC<{
             <FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>
           )}
         </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 2]}>
-        <FormControl w="100%" isInvalid={data.Organizer == ''}>
-          <FormLabel>Organizer Name</FormLabel>
-          <Input
-            variant="flushed"
-            placeholder="Organizer"
-            type="text"
-            value={data.Organizer}
-            onChange={(e) => handleData('Organizer', e.currentTarget.value)}
-            w="100%"
-          />
-          {data.Organizer == '' && <FormErrorMessage>Enter your Organizer name</FormErrorMessage>}
-        </FormControl>
-      </GridItem>
-      <GridItem colSpan={[6, 2]}>
-        <FormControl w="100%" isInvalid={data['Organizers Email'] == ''}>
-          <FormLabel>Organizers Email</FormLabel>
-          <Input
-            variant="flushed"
-            placeholder="Organiser email"
-            type="email"
-            value={data['Organizers Email']}
-            onChange={(e) => handleData('Organizers Email', e.currentTarget.value)}
-            w="100%"
-          />
-          {data['Organizers Email'] == '' && (
-            <FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>
-          )}
-        </FormControl>
-      </GridItem>
-    </SimpleGrid>
+      </HStack>
+
+      <FormControl w="100%" isInvalid={data['Organizers Email'] == ''}>
+        <FormLabel>Organizers Email</FormLabel>
+        <Input
+          variant="flushed"
+          placeholder="Organiser email"
+          type="email"
+          value={data['Organizers Email']}
+          onChange={(e) => handleData('Organizers Email', e.currentTarget.value)}
+          w="100%"
+        />
+        {data['Organizers Email'] == '' && (
+          <FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>
+        )}
+      </FormControl>
+    </VStack>
   );
 };
 
-const Tab2: React.FC<{
+const Tab3: React.FC<{
   data: FormInputData;
   handleData: (type: string, value: string) => void;
 }> = ({ data, handleData }) => {
@@ -408,7 +426,7 @@ const Tab2: React.FC<{
   );
 };
 
-const Tab3: React.FC<{
+const Tab4: React.FC<{
   data: FormInputData;
   handleData: (type: string, value: string) => void;
   setTicketFile: (File) => void;
