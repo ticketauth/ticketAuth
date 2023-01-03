@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
     let EventId = req.body;
 
-		const allEvents = await event.deleteOne({ EventId: EventId });
-
+    const allEvents = await event.deleteOne({ EventId: EventId });
+    console.log(allEvents);
 
     res.status(200).json(allEvents);
   } catch (error) {
