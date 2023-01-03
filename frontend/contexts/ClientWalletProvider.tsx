@@ -9,7 +9,6 @@ import {
     SolletWalletAdapter,
  } from '@solana/wallet-adapter-wallets';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { clusterApiUrl } from '@solana/web3.js';
 import { WalletModalProvider as ReactUIWalletModalProvider } from '@solana/wallet-adapter-react-ui';
 
 export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
