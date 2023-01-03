@@ -16,21 +16,21 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({ children })
   
     const endpoint = useMemo(() => rpcHost, []);
 
-    const wallets = useMemo(
-        () => [
-            new PhantomWalletAdapter(),
-            new SolflareWalletAdapter(),
-            new SolletWalletAdapter({ network }),
-            new SolletExtensionWalletAdapter({ network }),
-        ],
-        [network]
-    );
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new SolletWalletAdapter({ network }),
+      new SolletExtensionWalletAdapter({ network }),
+    ],
+    [network],
+  );
 
-    return(
-        <ConnectionProvider endpoint={endpoint}>
-            <WalletProvider wallets={wallets} autoConnect={true}>
-                <ReactUIWalletModalProvider>{children}</ReactUIWalletModalProvider>
-            </WalletProvider>
-        </ConnectionProvider>
-    );
+  return (
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect={true}>
+        <ReactUIWalletModalProvider>{children}</ReactUIWalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
+  );
 };

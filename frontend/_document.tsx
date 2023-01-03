@@ -1,11 +1,12 @@
-import { ColorModeScript } from '@chakra-ui/react'
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
-import theme from './theme'
+/*eslint-disable @next/next/no-document-import-in-page*/
+import { ColorModeScript } from '@chakra-ui/react';
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import theme from './theme';
 
 export default class Document extends NextDocument {
   render() {
     return (
-      <Html lang='en'>
+      <Html lang="en">
         <Head />
         <body>
           {/* 👇 Here's the script */}
@@ -14,6 +15,6 @@ export default class Document extends NextDocument {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
