@@ -1,5 +1,5 @@
 import { WalletContextState } from "@solana/wallet-adapter-react";
-
+import { type Connection } from '@solana/web3.js';
 export interface EventData {
   'Name of event': string; //Elon musk firing party
   'Event Description': string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
@@ -62,4 +62,5 @@ export interface CandyMachineData {
 	"Ticket price": number;
 	ticketFile: File;
 	wallet: WalletContextState;
+  connection : Connection;
 }

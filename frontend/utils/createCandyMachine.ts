@@ -172,12 +172,9 @@ async function createNFT (eventName: string, eventDescription: string, startDate
 export default async function createCandyMachine(
     candyMachineData : CandyMachineData
 ) {
-    const { connection } = useConnection();
+    const connection = candyMachineData.connection;
 
-    const metaplex = React.useMemo(
-        () => connection && Metaplex.make(connection),
-        [connection]
-    );
+    const metaplex = Metaplex.make(connection)
     
     metaplex
         .use(walletAdapterIdentity(candyMachineData.wallet)) // Will prompt the user 

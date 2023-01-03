@@ -31,7 +31,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { DebounceSearch } from "../components/Maps";
 import { ImageInput } from "../components/ImageInput";
 import { CandyMachineData, FormInputData } from "../utils/dataInterfaces";
-import { useWallet, WalletContextState } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet, WalletContextState } from "@solana/wallet-adapter-react";
 import { useRouter } from "next/router";
 import createCandyMachine from "../utils/createCandyMachine";
 import { createNewEvent } from "../utils/controller/event";
@@ -40,6 +40,7 @@ import { Backdrop } from "../components/Backdrop";
 const CreateEvent: React.FC = () => {
 	const wallet = useWallet();
 	const router = useRouter();
+  const { connection } = useConnection();
 	const [ticketFile, setTicketFile] = useState<File>();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState<FormInputData>({
@@ -71,6 +72,7 @@ const CreateEvent: React.FC = () => {
 		"Ticket price" : 0,
 		ticketFile : null,
 		wallet : wallet,
+    connection : connection
 	})
 	
 	//Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
