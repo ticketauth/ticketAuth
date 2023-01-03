@@ -186,7 +186,7 @@ const Event = () => {
                 }}
                 gatekeeperNetwork={guards.gatekeeperNetwork}
                 connection={connection}
-                cluster={network}
+                cluster={process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"}
                 options={{ autoShowModal: false }}
               >
                 <MintButton gatekeeperNetwork={guards.gatekeeperNetwork} />

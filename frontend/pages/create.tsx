@@ -114,7 +114,7 @@ const CreateEvent: React.FC = () => {
             Create Event
           </Text>
         </Backdrop>
-
+        
         <Tabs
           variant="unstyled"
           index={tabIndex}
