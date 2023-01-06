@@ -238,7 +238,7 @@ const Event = () => {
             <Button
               bg="red"
               color="white"
-              disabled={wallet.publicKey?.toString() == eventDets.walletAddress}
+              disabled={wallet?.publicKey?.toString() === eventDets.walletAddress}
               onClick={() => {}}
             >
               Delete
