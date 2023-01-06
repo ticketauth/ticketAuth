@@ -1,4 +1,4 @@
-import { WalletContextState } from "@solana/wallet-adapter-react";
+import { WalletContextState } from '@solana/wallet-adapter-react';
 import { type Connection } from '@solana/web3.js';
 export interface EventData {
   'Name of event': string; //Elon musk firing party
@@ -16,7 +16,7 @@ export interface EventData {
   'Ticket price': number; //7.99
   'Ticket Image': string; //a url? or a Base64 string as img
   'Background Image': string;
-  EventId: string; //ASDL124Vfrfw3
+  eventId: string; //ASDL124Vfrfw3
   active: boolean; //if event is currently active,
   candyMachineId: string;
   collectionId: string;
@@ -47,20 +47,20 @@ export interface FormInputData {
   'Ticket price': number; //7.99
   'Ticket Image': string; //a url? or a Base64 string as img
   'Background Image': string;
-  // EventId: string; //ASDL124Vfrfw3
+  // eventId: string; //ASDL124Vfrfw3
   // active: boolean; //if event is currently active,
 }
 
 export interface CandyMachineData {
-	"Name of event": string;
-	"Event Description": string;
-	"Start Event Datetime": string;
-	"End Event Datetime": string;
-	"Start Sale Datetime": string;
-	"End Sale Datetime": string;
-	"Event Capacity": number;
-	"Ticket price": number;
-	ticketFile: File;
-	wallet: WalletContextState;
-  connection : Connection;
+  'Name of event': string;
+  'Event Description': string;
+  'Start Event Datetime': string;
+  'End Event Datetime': string;
+  'Start Sale Datetime': string;
+  'End Sale Datetime': string;
+  'Event Capacity': number;
+  'Ticket price': number;
+  ticketFile: File;
+  wallet: WalletContextState;
+  connection: Connection;
 }

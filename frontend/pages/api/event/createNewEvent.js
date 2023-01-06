@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       walletAddress: data.walletAddress,
     });
 
-    data.EventId = data.walletAddress + files.length;
+    data.eventId = data.walletAddress + files.length;
     data.active = true;
 
     // console.log(data);

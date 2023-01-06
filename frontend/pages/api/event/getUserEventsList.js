@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     for (let index in eventIdList) {
       console.log(eventIdList[index]);
-      allPromises.push(event.findOne({ EventId: eventIdList[index] }));
+      allPromises.push(event.findOne({ eventId: eventIdList[index] }));
     }
 
     let eventList = await Promise.all(allPromises);

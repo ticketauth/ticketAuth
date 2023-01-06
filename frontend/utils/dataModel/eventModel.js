@@ -16,7 +16,7 @@ const eventSchema = new Schema({
   'Ticket price': Number,
   'Ticket Image': String,
   'Background Image': String,
-  EventId: String, //ASDL124Vfrfw3
+  eventId: String, //ASDL124Vfrfw3
   active: Boolean, //if event is currently active,
   candyMachineId: String,
   collectionId: String,

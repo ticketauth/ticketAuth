@@ -9,20 +9,22 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    const walletAddress = req.body.walletAddress;
+    const data = req.body;
 
-    const exists = await user.exists({ walletAddress: walletAddress });
+    const exists = await user.exists({ walletAddress: data.walletAddress });
 
     if (!exists) {
       const result = await user.create({
-        walletAddress: walletAddress,
+        walletAddress: data.walletAddress,
         eventAttends: [],
-        eventCreated: [],
+        eventCreated: 0,
+        firstName: data.firstName || '',
+        lastName: data.lastName || '',
+        email: data.email || '',
       });
 
       res.json(true);
     } else {
-      res.status(200).json(false);
     }
 
     // console.log(result);

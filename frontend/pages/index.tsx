@@ -33,7 +33,7 @@ const Explore = () => {
             Buy or sell NFT tickets to anything!
           </Text>
         </Backdrop>
-        <Searchbar />]
+        <Searchbar />
         <VStack w="100%" padding={['15% 10%', '5% 10%']} align="flex-start">
           <Heading>Featured Events</Heading>
           {events == undefined ? (
@@ -43,7 +43,7 @@ const Explore = () => {
               {events?.map((event, key) => (
                 <EventCard
                   key={key}
-                  EventId={event.EventId}
+                  eventId={event.eventId}
                   Location={event.Location}
                   Organizer={event.Organizer}
                   EventName={event['Name of event']}
