@@ -13,11 +13,13 @@ import {
 import { EventData } from '../utils/dataInterfaces';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
+import { getUser } from '../utils/controller/user';
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
+
   }, []);
 
   return (
