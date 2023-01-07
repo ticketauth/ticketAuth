@@ -8,7 +8,6 @@ import {
   ModalContent,
   ModalOverlay,
   Spacer,
-  Text,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
@@ -18,7 +17,7 @@ import ToggleModeButton from './ToggleModeButton';
 import { TorusWallet } from './TorusWallet';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useEffect } from 'react';
+import { getUserByWalletAddress } from '../utils/controller/user';
 
 const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void }) => {
   const { isPaymentOpen, onPaymentClose } = props;
@@ -36,13 +35,6 @@ const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void
       </ModalContent>
     </Modal>
   );
-};
-
-const isUser = async () => {
-  //check with useWallet privatekey if its the user
-  //return the userinfo
-  ////else
-  return {};
 };
 
 const Header = () => {
@@ -65,7 +57,8 @@ const Header = () => {
         <Button
           onClick={() => {
             if (!publicKey) return onPaymentOpen();
-            isUser().then((res) => {
+            getUserByWalletAddress(publicKey.toString()).then((res) => {
+              console.log(res);
               if (Object.keys(res).length === 0) router.push('/SignUp');
               else router.push('/create');
             });

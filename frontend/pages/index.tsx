@@ -1,4 +1,4 @@
-import { Grid, Heading, Text, VStack, Wrap } from '@chakra-ui/react';
+import { Grid, Heading, SimpleGrid, Text, VStack, Wrap } from '@chakra-ui/react';
 import Searchbar from '../components/Searchbar';
 import EventCard from '../components/EventCard';
 import Header from '../components/Header';
@@ -39,7 +39,7 @@ const Explore = () => {
           {events == undefined ? (
             <>Skeleton</>
           ) : (
-            <Wrap w="100%" h="100%" padding="20px">
+            <SimpleGrid w="100%" h="100%" padding="20px" columns={3} spacing="20px">
               {events?.map((event, key) => (
                 <EventCard
                   key={key}
@@ -50,7 +50,7 @@ const Explore = () => {
                   Bgimg={event['Background Image']}
                 />
               ))}
-            </Wrap>
+            </SimpleGrid>
           )}
         </VStack>
       </VStack>

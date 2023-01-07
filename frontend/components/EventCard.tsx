@@ -22,12 +22,12 @@ const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg }) => {
   const router = useRouter();
 
   return (
-    <Card maxW="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)} key={key}>
-      <CardBody>
-        <Center h="300px">
-          <Image src={Bgimg} alt="Image" objectFit="contain" borderRadius="lg" />
+    <GridItem colSpan={[3, 1]}>
+      <Card className="shadow" onClick={() => router.push(`/event/${EventId}`)} key={key}>
+        <Center bg="white" h="300px" w="100%">
+          <Image src={Bgimg} alt="Image" h="100%" w="100%" objectFit="contain" borderRadius="lg" />
         </Center>
-        <SimpleGrid columns={5} padding="20px 0px" spacing="10px">
+        <SimpleGrid columns={5} padding="20px" spacing="10px">
           <GridItem colSpan={2} padding="0px 20px">
             <Center h="100%" w="100%">
               <DateCard />
@@ -40,8 +40,8 @@ const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg }) => {
             <Text size="sm">@ {Location}</Text>
           </GridItem>
         </SimpleGrid>
-      </CardBody>
-    </Card>
+      </Card>
+    </GridItem>
   );
 };
 export default EventCard;

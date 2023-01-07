@@ -26,7 +26,7 @@ export default function Searchbar() {
       <Show above="sm">
         <InputGroup alignItems="center" gap="10px" w={'100%'}>
           <Text>From:</Text>
-          <Input variant="unstyled" type="datetime-local" />
+          <Input color="black" variant="unstyled" type="datetime-local" />
           <Text>to</Text>
           <Input variant="unstyled" type="datetime-local" />
         </InputGroup>

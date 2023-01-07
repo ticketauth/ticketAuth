@@ -2,18 +2,10 @@ import {
   Button,
   Center,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Grid,
-  GridItem,
-  Heading,
-  Hide,
   HStack,
   Image,
-  Input,
   Show,
-  SimpleGrid,
   Spacer,
   Spinner,
   Tab,
@@ -22,7 +14,6 @@ import {
   TabPanels,
   Tabs,
   Text,
-  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -116,7 +107,7 @@ const CreateEvent: React.FC = () => {
             Create Event
           </Text>
         </Backdrop>
-        
+
         <Tabs
           variant="unstyled"
           index={tabIndex}
@@ -183,7 +174,7 @@ const CreateEvent: React.FC = () => {
                 <VStack spacing="10px" w={['100%', '45%']}>
                   <Tab1 data={data} handleData={handleData} />
                   <Flex w="100%" justifyContent="flex-end">
-                    <Button rightIcon={<ChevronRightIcon />} onClick={(e) => setTabIndex(1)}>
+                    <Button rightIcon={<ChevronRightIcon />} onClick={() => setTabIndex(1)}>
                       Next Step
                     </Button>
                   </Flex>
