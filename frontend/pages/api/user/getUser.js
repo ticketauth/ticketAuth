@@ -18,21 +18,19 @@ export default async function handler(req, res) {
       const result = await user.create({
         walletAddress: walletAddress,
         eventAttends: [],
-        eventCreated: 0,
+        eventCreated: [],
         firstName: '',
         lastName: '',
         email: '',
       });
 
-      res.status(200).json(status);
-    } else {
-      const userDetails = await user.find({ walletAddress: walletAddress });
+      console.log(result);
 
-      if (userDetails.email === '') {
-        res.status(200).json(status);
-      } else {
-        res.status(200).json(userDetails);
-      }
+      res.status(200).json(result);
+    } else {
+      const userDetails = await user.findOne({ walletAddress: walletAddress });
+
+      res.status(200).json(userDetails);
     }
   } catch (error) {
     console.log(error);

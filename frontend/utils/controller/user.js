@@ -22,7 +22,7 @@ export async function getUser(walletAddress) {
     walletAddress,
   });
 
-  return user.data.status;
+  return user.data;
 }
 
 // Read -----

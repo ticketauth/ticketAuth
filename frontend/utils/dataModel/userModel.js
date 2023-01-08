@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   walletAddress: String,
   eventAttends: [String],
-  eventCreated: Number,
+  eventCreated: [String],
   firstName: String,
   lastName: String,
   email: String,
