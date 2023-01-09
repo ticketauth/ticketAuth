@@ -19,8 +19,6 @@ import {
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { DebounceSearch } from '../components/Maps';
-import { ImageInput } from '../components/ImageInput';
 import { CandyMachineData, FormInputData } from '../utils/dataInterfaces';
 import { useConnection, useWallet, WalletContextState } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
@@ -29,6 +27,7 @@ import { createNewEvent } from '../utils/controller/event';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { Tab1, Tab2, Tab3, Tab4 } from '../components/CreateTabs';
+import { getUserByWalletAddress } from '../utils/controller/user';
 
 const CreateEvent: React.FC = () => {
   const wallet = useWallet();
@@ -68,11 +67,20 @@ const CreateEvent: React.FC = () => {
     connection: connection,
   });
 
+  const [tabIndex, setTabIndex] = useState(0);
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.ticketFile = ticketFile;
   }, [ticketFile]);
 
+  useEffect(() => {
+    var userData = {};
+    while (tabIndex == 3) {
+      setTimeout(() => {
+        getUserByWalletAddress(wallet.publicKey?.toString()).then((res) => (userData = res));
+      }, 5000);
+    }
+  }, [tabIndex, wallet.publicKey]);
   const handleData = (type: string, value: any) => {
     setData((prev) => ({
       ...prev,
@@ -96,7 +104,6 @@ const CreateEvent: React.FC = () => {
       router.push('/');
     });
   };
-  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Grid w="100%">
