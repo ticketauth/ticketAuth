@@ -16,7 +16,7 @@ export interface EventData {
   'Ticket price': number; //7.99
   'Ticket Image': string; //a url? or a Base64 string as img
   'Background Image': string;
-  eventId: string; //ASDL124Vfrfw3
+  EventId: string; //ASDL124Vfrfw3
   active: boolean; //if event is currently active,
   candyMachineId: string;
   collectionId: string;
@@ -29,6 +29,14 @@ export interface UserData {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface DateData {
+  day: string;
+  date: number;
+  month: string;
+  year: number;
+  time: string;
 }
 
 export interface FormInputData {

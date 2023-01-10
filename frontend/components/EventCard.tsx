@@ -16,20 +16,15 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import DateCard from './DateCard';
 
-const EventCard = ({ key, eventId, Location, Organizer, EventName, Bgimg }) => {
+const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg, datestr }) => {
   const router = useRouter();
 
   return (
     <GridItem colSpan={[3, 1]}>
-      <Card
-        height="450px"
-        className="shadow"
-        onClick={() => router.push(`/event/${EventId}`)}
-        key={key}
-      >
+      <Card maxW="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)} key={key}>
         <Center h="300px" w="100%">
           <Image src={Bgimg} alt="Image" h="100%" w="100%" objectFit="contain" borderRadius="lg" />
         </Center>
@@ -37,7 +32,7 @@ const EventCard = ({ key, eventId, Location, Organizer, EventName, Bgimg }) => {
         <SimpleGrid columns={5} padding="20px" spacing="10px">
           <GridItem colSpan={2} padding="0px 20px">
             <Center h="100%" w="100%">
-              <DateCard />
+              <DateCard datestr={datestr} />
             </Center>
           </GridItem>
 
