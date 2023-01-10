@@ -11,8 +11,8 @@ export async function getAllEvents() {
   return events.data;
 }
 
-export async function getEventById(EventId) {
-  const event = await axios.post(`${API}/getEvent/${EventId}`);
+export async function getEventById(eventId) {
+  const event = await axios.post(`${API}/getEvent/${eventId}`);
   return event.data;
 }
 
@@ -52,7 +52,7 @@ export async function updateEvent(eventDetails) {
 // Update
 
 // Delete
-export async function deleteEvent(EventId) {
+export async function deleteEvent(eventId) {
   await axios.post(`${API}/deleteEvent`);
 }
 // Delete

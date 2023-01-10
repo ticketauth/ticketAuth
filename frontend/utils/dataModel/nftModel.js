@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  EventId: String,
+  eventId: String,
   metadata: [Schema.Types.Mixed],
   nft: [Buffer],
 });

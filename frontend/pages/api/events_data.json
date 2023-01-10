@@ -2,7 +2,7 @@
   "data": [
     {
       "Name of event": "Metacamp AfterParty",
-      "EventId": "ASDL124Vfrfw3",
+      "eventId": "ASDL124Vfrfw3",
       "Event Description": "Welcome to the afterparty @Metacamp hosted by TicketAuth to celebrate our first release!",
       "walletAddress": "AD23vfW14",
       "Start Datetime": "2022-12-16T21:00",

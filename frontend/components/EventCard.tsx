@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import DateCard from './DateCard';
 
-const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg }) => {
+const EventCard = ({ key, eventId, Location, Organizer, EventName, Bgimg }) => {
   const router = useRouter();
 
   return (

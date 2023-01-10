@@ -118,18 +118,18 @@ const Event = () => {
           return {
             burn: guards.burn?.nfts?.length
               ? {
-                  mint: guards.burn.nfts[i]?.mintAddress,
-                }
+                mint: guards.burn.nfts[i]?.mintAddress,
+              }
               : undefined,
             payment: guards.payment?.nfts?.length
               ? {
-                  mint: guards.payment.nfts[i]?.mintAddress,
-                }
+                mint: guards.payment.nfts[i]?.mintAddress,
+              }
               : undefined,
             gate: guards
               ? {
-                  mint: guards.gate.nfts[i]?.mintAddress,
-                }
+                mint: guards.gate.nfts[i]?.mintAddress,
+              }
               : undefined,
           };
         });
@@ -175,9 +175,9 @@ const Event = () => {
         ) : (
           <>
             {!!candyMachineV3.items.remaining &&
-            guardStates.hasGatekeeper &&
-            wallet.publicKey &&
-            wallet.signTransaction ? (
+              guardStates.hasGatekeeper &&
+              wallet.publicKey &&
+              wallet.signTransaction ? (
               <GatewayProvider
                 wallet={{
                   publicKey: wallet.publicKey,
@@ -205,7 +205,7 @@ const Event = () => {
       candyMachine={candyMachineV3.candyMachine}
       gatekeeperNetwork={gatekeeperNetwork}
       isMinting={candyMachineV3.status.minting}
-      setIsMinting={() => {}}
+      setIsMinting={() => { }}
       isActive={!!candyMachineV3.items.remaining}
       isEnded={guardStates.isEnded}
       isSoldOut={!candyMachineV3.items.remaining}
@@ -239,7 +239,7 @@ const Event = () => {
               bg="red"
               color="white"
               disabled={wallet?.publicKey?.toString() === eventDets.walletAddress}
-              onClick={() => {}}
+              onClick={() => { }}
             >
               Delete
             </Button>
@@ -380,9 +380,8 @@ const Event = () => {
                     <Text fontSize="sm">{eventDets.Location}</Text>
                     <AspectRatio w="100%">
                       <iframe
-                        src={`https://www.google.com/maps/embed/v1/place?key=${
-                          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-                        }&q=${eventDets.Location.replace(/\s/g, '+')}`}
+                        src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+                          }&q=${eventDets.Location.replace(/\s/g, '+')}`}
                       />
                     </AspectRatio>
                   </VStack>

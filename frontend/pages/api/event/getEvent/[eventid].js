@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    const allEvents = await event.findOne({ EventId: query.eventid });
+    const allEvents = await event.findOne({ EventId: query.eventId });
 
     console.log(allEvents);
 
