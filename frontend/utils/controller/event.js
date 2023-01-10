@@ -7,7 +7,7 @@ const API = '../../api/event';
 
 export async function getAllEvents() {
   const events = await axios.get(API + '/getEvent');
-  console.log(events.data);
+  // console.log(events.data);
   return events.data;
 }
 
@@ -30,6 +30,13 @@ export async function getEventByWalletAddress(walletAddress) {
   });
 
   return events.data;
+}
+
+export async function getTemporaryEventId(walletAddress) {
+  const result = await axios.post(`${API}/getTemporaryEventId`, {
+    walletAddress,
+  });
+  return result.data.eventId;
 }
 
 // Read ----------------------------------------------
