@@ -237,6 +237,17 @@ const Event = () => {
               )}
             </VStack>
             <Spacer />
+<<<<<<< HEAD
+=======
+            <Button
+              bg="red"
+              color="white"
+              disabled={wallet?.publicKey?.toString() === eventDets.walletAddress}
+              onClick={() => {}}
+            >
+              Delete
+            </Button>
+>>>>>>> 3cf3155 (fixed deployment errors)
           </HStack>
         </GridItem>
 

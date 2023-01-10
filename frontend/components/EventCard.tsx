@@ -12,12 +12,20 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import DateCard from './DateCard';
 
+<<<<<<< HEAD
 const EventCard = ({ EventId, Location, Organizer, EventName, Bgimg, datestr }) => {
+=======
+const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg, datestr }) => {
+>>>>>>> 3cf3155 (fixed deployment errors)
   const router = useRouter();
 
   return (
     <GridItem colSpan={[3, 1]}>
+<<<<<<< HEAD
       <Card maxW="md" h="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)}>
+=======
+      <Card maxW="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)} key={key}>
+>>>>>>> 3cf3155 (fixed deployment errors)
         <Center h="300px" w="100%">
           <Image src={Bgimg} alt="Image" h="100%" w="100%" objectFit="contain" borderRadius="lg" />
         </Center>

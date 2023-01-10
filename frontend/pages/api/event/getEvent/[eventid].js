@@ -9,7 +9,11 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
+<<<<<<< HEAD
     const allEvents = await event.findOne({ eventId: query.eventid });
+=======
+    const allEvents = await event.findOne({ EventId: query.eventid });
+>>>>>>> 3cf3155 (fixed deployment errors)
 
     res.status(200).json(allEvents);
   } catch (error) {

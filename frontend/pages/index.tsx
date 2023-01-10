@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Box, Center, Grid, Heading, SimpleGrid, Spinner, Text, VStack } from '@chakra-ui/react';
+=======
+import { Grid, Heading, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+>>>>>>> 3cf3155 (fixed deployment errors)
 import Searchbar from '../components/Searchbar';
 import EventCard from '../components/EventCard';
 import Header from '../components/Header';
@@ -18,6 +22,10 @@ const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
+<<<<<<< HEAD
+=======
+    console.log(events);
+>>>>>>> 3cf3155 (fixed deployment errors)
   }, []);
 
   return (
@@ -45,7 +53,11 @@ const Explore = () => {
               {events?.map((event, key) => (
                 <EventCard
                   key={key}
+<<<<<<< HEAD
                   EventId={event.eventId}
+=======
+                  EventId={event.EventId}
+>>>>>>> 3cf3155 (fixed deployment errors)
                   Location={event.Location}
                   Organizer={event.Organizer}
                   EventName={event['Name of event']}
