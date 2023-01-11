@@ -10,8 +10,8 @@ export async function createNft(nftDetails) {
 
 // read --------------------------------------------------
 
-export async function getNftByEventId(EventId) {
-  const detail = await axios.post(`${API}/getNftByEventId`, { EventId });
+export async function getNftByeventId(eventId) {
+  const detail = await axios.post(`${API}/getNftByeventId`, { eventId });
   return detail.data;
 }
 
