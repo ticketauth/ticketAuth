@@ -9,14 +9,6 @@ import {
   getAllEvents,
   createNewEvent,
   getEventByWalletAddress,
-<<<<<<< Updated upstream
-} from "../utils/controller/event";
-import { EventData } from "../utils/dataInterfaces";
-import { Backdrop } from "../components/Backdrop";
-
-require("typeface-monoton");
-
-=======
   getTemporaryEventId,
 } from '../utils/controller/event';
 import { EventData } from '../utils/dataInterfaces';
@@ -24,23 +16,12 @@ import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { getUser } from '../utils/controller/user';
 import { ticketConfirmation } from "../utils/controller/email"
->>>>>>> Stashed changes
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
-<<<<<<< Updated upstream
-=======
 
-    (async function () {
-
-      let result = await ticketConfirmation("packirisamykaran@gmail.com");
-      // console.log(result)
-
-    })()
-
->>>>>>> Stashed changes
   }, []);
 
   return (
@@ -60,11 +41,6 @@ const Explore = () => {
 
         <Searchbar />
 
-<<<<<<< Updated upstream
-]
-=======
-
->>>>>>> Stashed changes
         <VStack w="100%" padding={["15% 10%", "5% 10%"]} align="flex-start">
 
           <Heading>Featured Events</Heading>

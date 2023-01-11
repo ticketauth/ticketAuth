@@ -19,6 +19,8 @@ export default async function handler(req, res) {
 
     const accessToken = await oAuth2Client.getAccessToken();
 
+    let ticketConfirmationDetails = req.body.ticketConfirmationDetails;
+
     const transport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -33,7 +35,7 @@ export default async function handler(req, res) {
 
     const mailOptions = {
       from: 'TicketAuth <ticketauthxyz@gmail.com>',
-      to: req.body.email,
+      to: ticketConfirmationDetails.email,
       subject: 'Hello from ticketaut repo',
       attachments: [
         { filename: 'ticket.png', content: img.split('base64,')[1], encoding: 'base64' },
