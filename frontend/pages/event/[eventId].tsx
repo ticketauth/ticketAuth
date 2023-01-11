@@ -42,6 +42,7 @@ import DateCard from '../../components/DateCard';
 import { dateConvertr } from '../../utils/dateConvertr';
 import { getEventById } from '../../utils/controller/event';
 import { CrossmintPayButton } from '@crossmint/client-sdk-react-ui';
+import { network } from '../../config';
 
 const Event = () => {
   const router = useRouter();
@@ -117,18 +118,18 @@ const Event = () => {
           return {
             burn: guards.burn?.nfts?.length
               ? {
-                  mint: guards.burn.nfts[i]?.mintAddress,
-                }
+                mint: guards.burn.nfts[i]?.mintAddress,
+              }
               : undefined,
             payment: guards.payment?.nfts?.length
               ? {
-                  mint: guards.payment.nfts[i]?.mintAddress,
-                }
+                mint: guards.payment.nfts[i]?.mintAddress,
+              }
               : undefined,
-            gate: guards.gate?.nfts?.length
+            gate: guards
               ? {
-                  mint: guards.gate.nfts[i]?.mintAddress,
-                }
+                mint: guards.gate.nfts[i]?.mintAddress,
+              }
               : undefined,
           };
         });
@@ -174,9 +175,9 @@ const Event = () => {
         ) : (
           <>
             {!!candyMachineV3.items.remaining &&
-            guardStates.hasGatekeeper &&
-            wallet.publicKey &&
-            wallet.signTransaction ? (
+              guardStates.hasGatekeeper &&
+              wallet.publicKey &&
+              wallet.signTransaction ? (
               <GatewayProvider
                 wallet={{
                   publicKey: wallet.publicKey,
@@ -185,7 +186,7 @@ const Event = () => {
                 }}
                 gatekeeperNetwork={guards.gatekeeperNetwork}
                 connection={connection}
-                cluster={process.env.NEXT_PUBLIC_SOLANA_NETWORK || 'devnet'}
+                cluster={process.env.NEXT_PUBLIC_SOLANA_NETWORK || "devnet"}
                 options={{ autoShowModal: false }}
               >
                 <MintButton gatekeeperNetwork={guards.gatekeeperNetwork} />
@@ -204,7 +205,7 @@ const Event = () => {
       candyMachine={candyMachineV3.candyMachine}
       gatekeeperNetwork={gatekeeperNetwork}
       isMinting={candyMachineV3.status.minting}
-      setIsMinting={() => {}}
+      setIsMinting={() => { }}
       isActive={!!candyMachineV3.items.remaining}
       isEnded={guardStates.isEnded}
       isSoldOut={!candyMachineV3.items.remaining}
@@ -221,18 +222,28 @@ const Event = () => {
       <Header />
       <SimpleGrid columns={6} w="100%" padding="100px 15%" spacing="10px">
         <GridItem colSpan={6}>
-          <VStack w="75%" align="flex-start">
-            <Heading size="lg">Event: {eventDets['Name of event']}</Heading>
-            <Text color="blue">by {eventDets.Organizer}</Text>
-            {eventstartdate && eventendate && (
-              <Text>
-                {eventstartdate?.day}, {eventstartdate?.date} {eventstartdate?.month}{' '}
-                {eventstartdate?.year}, {eventstartdate?.time} to {eventendate?.day},{' '}
-                {eventendate?.date} {eventendate?.month} {eventendate?.year}, {eventendate?.time}
-              </Text>
-            )}
-          </VStack>
-          <Spacer />
+          <HStack>
+            <VStack w="75%" align="flex-start">
+              <Heading size="lg">Event: {eventDets['Name of event']}</Heading>
+              <Text color="blue">by {eventDets.Organizer}</Text>
+              {eventstartdate && eventendate && (
+                <Text>
+                  {eventstartdate.day}, {eventstartdate.date} {eventstartdate.month}{' '}
+                  {eventstartdate.year}, {eventstartdate.time} to {eventendate.day},{' '}
+                  {eventendate.date} {eventendate.month} {eventendate.year}, {eventendate.time}
+                </Text>
+              )}
+            </VStack>
+            <Spacer />
+            <Button
+              bg="red"
+              color="white"
+              disabled={wallet?.publicKey?.toString() === eventDets.walletAddress}
+              onClick={() => { }}
+            >
+              Delete
+            </Button>
+          </HStack>
         </GridItem>
 
         <GridItem colSpan={[6, 4]}>
@@ -241,7 +252,12 @@ const Event = () => {
               <Grid h="300px" templateColumns="repeat(4, 1fr)">
                 <GridItem colSpan={3} h="100%" w="100%" overflow="hidden">
                   <Center h="100%">
-                    <Image alignSelf="center" objectFit="cover" src={eventDets[imgSelected]} />
+                    <Image
+                      alt="ticket"
+                      alignSelf="center"
+                      objectFit="cover"
+                      src={eventDets[imgSelected]}
+                    />
                   </Center>
                 </GridItem>
 
@@ -256,7 +272,12 @@ const Event = () => {
                           imgSelected == 'Ticket Image' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
                       >
-                        <Image objectFit="cover" src={eventDets['Ticket Image']} />
+                        <Image
+                          alt="ticket"
+                          boxSize="100px"
+                          objectFit="contain"
+                          src={eventDets['Ticket Image']}
+                        />
                       </Center>
                       <Center
                         w="120px"
@@ -266,7 +287,7 @@ const Event = () => {
                           imgSelected == 'Background Image' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
                       >
-                        <Image boxSize="100px" src={eventDets['Background Image']} />
+                        <Image alt="ticket" boxSize="100px" src={eventDets['Background Image']} />
                       </Center>
                     </VStack>
                   </GridItem>
@@ -291,25 +312,29 @@ const Event = () => {
           <SimpleGrid columns={2} spacing="10px">
             <GridItem colSpan={1}>
               <Card minHeight="120px" w="100%" h="100%" boxShadow="1px 1px 24px rgba(30,30,30,0.1)">
-                <CardBody>
-                  <VStack spacing="5px" w="100%">
-                    <Text fontSize="xs">Ticket Price</Text>
-                    <Divider />
-                    <Flex h="20px">
-                      <Image fit="contain" src="/solana-sol-logo.png" alt="Sol" />
-                    </Flex>
-                    <Text>{totalPrice > 0 ? totalPrice + ' sol' : 'FREE'}</Text>
-                  </VStack>
-                </CardBody>
+                <VStack spacing="5px" w="100%" h="100%" justifyContent="center">
+                  <Heading size="sm">Ticket Price</Heading>
+                  <Divider />
+                  <Flex h="20px">
+                    <Image alt="ticket" fit="contain" src="/solana-sol-logo.png" />
+                  </Flex>
+                  <Text>{totalPrice > 0 ? totalPrice + ' sol' : 'FREE'}</Text>
+                </VStack>
               </Card>
             </GridItem>
 
             <Show above="sm">
               <GridItem colSpan={1}>
-                <Card minHeight="120px" w="100%" boxShadow="1px 1px 24px rgba(30,30,30,0.1)">
-                  <CardBody>
+                <Card
+                  minHeight="120px"
+                  padding="10%"
+                  w="100%"
+                  h="100%"
+                  boxShadow="1px 1px 24px rgba(30,30,30,0.1)"
+                >
+                  <Center w="100%" h="100%">
                     <DateCard datestr={eventDets['Start Datetime']} fontsize="xs" />
-                  </CardBody>
+                  </Center>
                 </Card>
               </GridItem>
             </Show>
@@ -318,7 +343,7 @@ const Event = () => {
               <Card direction="row" w="100%" boxShadow="1px 1px 24px rgba(30,30,30,0.1)">
                 <CardBody>
                   <VStack spacing="5px">
-                    <Text fontSize="lg">Tickets Sold</Text>
+                    <Heading size="sm">Tickets Sold</Heading>
                     <Divider />
                     <HStack>
                       <HiOutlineTicket />
@@ -355,9 +380,8 @@ const Event = () => {
                     <Text fontSize="sm">{eventDets.Location}</Text>
                     <AspectRatio w="100%">
                       <iframe
-                        src={`https://www.google.com/maps/embed/v1/place?key=${
-                          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-                        }&q=${eventDets.Location.replace(/\s/g, '+')}`}
+                        src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+                          }&q=${eventDets.Location.replace(/\s/g, '+')}`}
                       />
                     </AspectRatio>
                   </VStack>

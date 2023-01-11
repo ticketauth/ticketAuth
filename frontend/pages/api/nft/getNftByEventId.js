@@ -7,9 +7,9 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    let EventId = req.body.EventId;
+    let eventId = req.body.eventId;
 
-    const nftDetails = await model.findOne({ EventId: EventId });
+    const nftDetails = await model.findOne({ eventId: eventId });
 
     res.status(200).json(nftDetails);
   } catch (error) {

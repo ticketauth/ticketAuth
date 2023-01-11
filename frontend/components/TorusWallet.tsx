@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import Torus from '@toruslabs/torus-embed';
-import { Button } from '@chakra-ui/react';
+import { Button, Image, Text, VStack } from '@chakra-ui/react';
 
 export const TorusWallet = () => {
   const torus = new Torus();
@@ -18,10 +17,11 @@ export const TorusWallet = () => {
   };
 
   return (
-    <div>
-      <Button bg="white" w="100%" h="150px" onClick={onClick}>
-        Torus Wallet
-      </Button>
-    </div>
+    <Button bg="white" w="100%" h="150px" onClick={onClick}>
+      <VStack>
+        <Text fontSize="2xl">Torus Wallet</Text>
+        <Image alt="torus" boxSize="35px" objectFit="contain" src="/torus.png" />
+      </VStack>
+    </Button>
   );
 };
