@@ -10,3 +10,12 @@ export async function ticketConfirmation(ticketConfirmationDetails) {
 
   return 'true';
 }
+
+export async function eventPublished(eventDetails) {
+  // eventName, eventDetailsLink, eventImage, email, collectionId
+  let result = await axios.post(`${API}/eventPublished`, {
+    eventDetails,
+  });
+
+  return 'true';
+}

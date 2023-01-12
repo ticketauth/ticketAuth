@@ -18,12 +18,19 @@ import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { getUser } from '../utils/controller/user';
 
-import { ticketConfirmation } from "../utils/controller/email"
+import { eventPublished, ticketConfirmation } from "../utils/controller/email"
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
+
+    (async function () {
+      await eventPublished({
+        email: "packirisamykaran@gmail.com",
+        eventName: "metacamp"
+      })
+    })()
 
   }, []);
 
