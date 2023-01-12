@@ -96,7 +96,7 @@ const SignUp: React.FC = () => {
           bg="brand.3"
           color="white"
           onClick={() =>
-            signUp(data).then(() => {
+            updateUser(data).then(() => {
               router.push('/');
             })
           }
