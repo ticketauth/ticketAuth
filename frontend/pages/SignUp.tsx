@@ -81,9 +81,7 @@ const SignUp: React.FC = () => {
         <FormControl isInvalid={!publicKey}>
           <FormLabel color="green">Wallet Connected:</FormLabel>
           {publicKey ? (
-            <WalletMultiButton
-              style={{ height: '40px', borderRadius: '7px', backgroundColor: '#7B2CBF' }}
-            />
+            <Button>{publicKey.toString()}</Button>
           ) : (
             <FormErrorMessage>Payment method is required.</FormErrorMessage>
           )}

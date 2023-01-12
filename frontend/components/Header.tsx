@@ -18,13 +18,14 @@ import { TorusWallet } from './TorusWallet';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { getUser } from '../utils/controller/user';
+import { useState } from 'react';
 
 const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void }) => {
   const { isPaymentOpen, onPaymentClose } = props;
   return (
     <Modal isOpen={isPaymentOpen} onClose={onPaymentClose} isCentered>
       <ModalOverlay h="100%" bg="whiteAlpha.300" backdropFilter="blur(10px)" />
-      <ModalContent maxW="100vw">
+      <ModalContent>
         <VStack spacing="10px" w="100%">
           <TorusWallet />
           <SolanaWalletMulti onPaymentClose={onPaymentClose} />
@@ -37,6 +38,7 @@ const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void
 
 const Header = () => {
   const { isOpen: isPaymentOpen, onOpen: onPaymentOpen, onClose: onPaymentClose } = useDisclosure();
+  const [ loading, setLoading ] = useState(false);
   const router = useRouter();
   const { publicKey } = useWallet();
   return (
@@ -54,12 +56,18 @@ const Header = () => {
       <HStack spacing="20px">
         <Button
           onClick={() => {
-            if (!publicKey) return onPaymentOpen();
+            setLoading(true);
+            if (!publicKey) {
+              setLoading(false);
+              return onPaymentOpen();
+            }
             getUser(publicKey.toString()).then((res) => {
               if (res.email === '') router.push('/SignUp');
               else router.push('/create');
+              setLoading(false);
             });
           }}
+          isLoading={loading}
         >
           Create Event
         </Button>
