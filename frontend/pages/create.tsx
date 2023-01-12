@@ -27,7 +27,7 @@ import { createNewEvent } from '../utils/controller/event';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { Tab1, Tab2, Tab3, Tab4 } from '../components/CreateTabs';
-import { getUserByWalletAddress } from '../utils/controller/user';
+import { getUser } from '../utils/controller/user';
 
 const CreateEvent: React.FC = () => {
   const wallet = useWallet();
@@ -75,11 +75,6 @@ const CreateEvent: React.FC = () => {
 
   useEffect(() => {
     var userData = {};
-    while (tabIndex == 3) {
-      setTimeout(() => {
-        getUserByWalletAddress(wallet.publicKey?.toString()).then((res) => (userData = res));
-      }, 5000);
-    }
   }, [tabIndex, wallet.publicKey]);
   const handleData = (type: string, value: any) => {
     setData((prev) => ({

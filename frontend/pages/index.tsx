@@ -19,7 +19,6 @@ const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
-    console.log(events);
   }, []);
 
   return (

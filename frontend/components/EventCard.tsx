@@ -1,30 +1,23 @@
 import {
   Card,
-  CardBody,
   Heading,
-  Wrap,
   Image,
   Text,
-  HStack,
   SimpleGrid,
   GridItem,
-  VStack,
-  useFormControlStyles,
   Center,
-  Spacer,
-  Box,
   Divider,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import DateCard from './DateCard';
 
-const EventCard = ({ key, EventId, Location, Organizer, EventName, Bgimg, datestr }) => {
+const EventCard = ({ EventId, Location, Organizer, EventName, Bgimg, datestr }) => {
   const router = useRouter();
 
   return (
     <GridItem colSpan={[3, 1]}>
-      <Card maxW="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)} key={key}>
+      <Card maxW="md" h="md" className="shadow" onClick={() => router.push(`/event/${EventId}`)}>
         <Center h="300px" w="100%">
           <Image src={Bgimg} alt="Image" h="100%" w="100%" objectFit="contain" borderRadius="lg" />
         </Center>

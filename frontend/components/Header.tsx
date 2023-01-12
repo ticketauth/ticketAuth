@@ -17,7 +17,7 @@ import ToggleModeButton from './ToggleModeButton';
 import { TorusWallet } from './TorusWallet';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { getUserByWalletAddress } from '../utils/controller/user';
+import { getUser } from '../utils/controller/user';
 
 const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void }) => {
   const { isPaymentOpen, onPaymentClose } = props;
@@ -55,9 +55,8 @@ const Header = () => {
         <Button
           onClick={() => {
             if (!publicKey) return onPaymentOpen();
-            getUserByWalletAddress(publicKey.toString()).then((res) => {
-              console.log(res);
-              if (Object.keys(res).length === 0) router.push('/SignUp');
+            getUser(publicKey.toString()).then((res) => {
+              if (res.email === '') router.push('/SignUp');
               else router.push('/create');
             });
           }}

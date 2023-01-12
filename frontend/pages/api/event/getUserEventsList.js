@@ -20,13 +20,10 @@ export default async function handler(req, res) {
     let allPromises = [];
 
     for (let index in eventIdList) {
-      console.log(eventIdList[index]);
       allPromises.push(event.findOne({ eventId: eventIdList[index] }));
     }
 
     let eventList = await Promise.all(allPromises);
-
-    console.log(eventList);
 
     res.status(200).send(eventList);
   } catch (error) {
