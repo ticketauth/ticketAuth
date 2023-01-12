@@ -10,6 +10,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { FormInputData } from '../utils/dataInterfaces';
 import { ImageInput } from './ImageInput';
 import { DebounceSearch } from './Maps';
@@ -188,6 +189,9 @@ export const Tab4: React.FC<{
   handleData: (type: string, value: string) => void;
   setTicketFile: (File) => void;
 }> = ({ data, handleData, setTicketFile }) => {
+  useEffect(() => {
+    console.log('Ran');
+  }, []);
   return (
     <SimpleGrid columns={2} w="100%" gap="10px">
       <GridItem colSpan={[2, 1]}>

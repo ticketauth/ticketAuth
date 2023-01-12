@@ -7,9 +7,10 @@ const API = '../../api/user';
 export async function signUp(userDetails) {
   // pass {walletAddress, firstName, lastName, email}
   // return user Doc
-  await axios.post(`${API}/signUp`, {
+  const res = await axios.post(`${API}/signUp`, {
     userDetails,
   });
+  console.log(res);
 }
 
 // Write --------------------------------------
