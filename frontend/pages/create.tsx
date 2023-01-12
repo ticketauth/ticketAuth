@@ -2,18 +2,10 @@ import {
   Button,
   Center,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Grid,
-  GridItem,
-  Heading,
-  Hide,
   HStack,
   Image,
-  Input,
   Show,
-  SimpleGrid,
   Spacer,
   Spinner,
   Tab,
@@ -22,14 +14,11 @@ import {
   TabPanels,
   Tabs,
   Text,
-  Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { DebounceSearch } from '../components/Maps';
-import { ImageInput } from '../components/ImageInput';
 import { CandyMachineData, FormInputData } from '../utils/dataInterfaces';
 import { useConnection, useWallet, WalletContextState } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
@@ -38,6 +27,7 @@ import { createNewEvent } from '../utils/controller/event';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { Tab1, Tab2, Tab3, Tab4 } from '../components/CreateTabs';
+import { getUser } from '../utils/controller/user';
 
 const CreateEvent: React.FC = () => {
   const wallet = useWallet();
@@ -77,11 +67,15 @@ const CreateEvent: React.FC = () => {
     connection: connection,
   });
 
+  const [tabIndex, setTabIndex] = useState(0);
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.ticketFile = ticketFile;
   }, [ticketFile]);
 
+  useEffect(() => {
+    var userData = {};
+  }, [tabIndex, wallet.publicKey]);
   const handleData = (type: string, value: any) => {
     setData((prev) => ({
       ...prev,
@@ -105,7 +99,6 @@ const CreateEvent: React.FC = () => {
       router.push('/');
     });
   };
-  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Grid w="100%">
@@ -116,7 +109,7 @@ const CreateEvent: React.FC = () => {
             Create Event
           </Text>
         </Backdrop>
-        
+
         <Tabs
           variant="unstyled"
           index={tabIndex}
@@ -183,7 +176,7 @@ const CreateEvent: React.FC = () => {
                 <VStack spacing="10px" w={['100%', '45%']}>
                   <Tab1 data={data} handleData={handleData} />
                   <Flex w="100%" justifyContent="flex-end">
-                    <Button rightIcon={<ChevronRightIcon />} onClick={(e) => setTabIndex(1)}>
+                    <Button rightIcon={<ChevronRightIcon />} onClick={() => setTabIndex(1)}>
                       Next Step
                     </Button>
                   </Flex>

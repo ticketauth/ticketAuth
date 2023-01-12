@@ -15,15 +15,15 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useState } from 'react';
 import '@fontsource/monoton';
 import { useRouter } from 'next/router';
-import { getUser, updateUser } from '../utils/controller/user';
+import { updateUser } from '../utils/controller/user';
 
 const SignUp: React.FC = () => {
   const { publicKey } = useWallet();
   const [data, setData] = useState({
-    'First Name': '',
-    'Last Name': '',
-    'Email Address': '',
-    'Wallet Address': publicKey?.toString(),
+    firstName: '',
+    lastName: '',
+    email: '',
+    walletAddress: publicKey?.toString(),
   });
   const router = useRouter();
 
@@ -33,7 +33,6 @@ const SignUp: React.FC = () => {
       [type]: value,
     }));
   };
-  console.log(publicKey);
 
   return (
     <Flex w="100%" h="100%" gap="10px">
@@ -49,40 +48,38 @@ const SignUp: React.FC = () => {
             Sign Up
           </Heading>
         </VStack>
-        <FormControl isInvalid={data['First Name'] == ''}>
+        <FormControl isInvalid={data['firstName'] == ''}>
           <FormLabel>First Name</FormLabel>
           <Input
             placeholder="First Name"
             type="text"
-            value={data['First Name']}
-            onChange={(e) => handleData('First Name', e.currentTarget.value)}
+            value={data['firstName']}
+            onChange={(e) => handleData('firstName', e.currentTarget.value)}
           />
-          {data['First Name'] == '' && <FormErrorMessage>First name is required.</FormErrorMessage>}
+          {data.firstName == '' && <FormErrorMessage>First name is required.</FormErrorMessage>}
         </FormControl>
-        <FormControl isInvalid={data['Last Name'] == ''}>
+        <FormControl isInvalid={data['lastName'] == ''}>
           <FormLabel>Last Name</FormLabel>
           <Input
             placeholder="Last Name"
             type="text"
-            value={data['Last Name']}
-            onChange={(e) => handleData('Last Name', e.currentTarget.value)}
+            value={data['lastName']}
+            onChange={(e) => handleData('lastName', e.currentTarget.value)}
           />
-          {data['Last Name'] == '' && <FormErrorMessage>Last name is required.</FormErrorMessage>}
+          {data['lastName'] == '' && <FormErrorMessage>Last name is required.</FormErrorMessage>}
         </FormControl>
-        <FormControl isInvalid={data['Email Address'] == ''}>
+        <FormControl isInvalid={data['email'] == ''}>
           <FormLabel>Email Address</FormLabel>
           <Input
             placeholder="Email Address"
             type="text"
-            value={data['Email Address']}
-            onChange={(e) => handleData('Email Address', e.currentTarget.value)}
+            value={data['email']}
+            onChange={(e) => handleData('email', e.currentTarget.value)}
           />
-          {data['Email Address'] == '' && (
-            <FormErrorMessage>Email Address is required.</FormErrorMessage>
-          )}
+          {data['email'] == '' && <FormErrorMessage>email is required.</FormErrorMessage>}
         </FormControl>
         <FormControl isInvalid={!publicKey}>
-          <FormLabel>Connected Wallet:</FormLabel>
+          <FormLabel color="green">Wallet Connected:</FormLabel>
           {publicKey ? (
             <WalletMultiButton
               style={{ height: '40px', borderRadius: '7px', backgroundColor: '#7B2CBF' }}
@@ -96,7 +93,8 @@ const SignUp: React.FC = () => {
           bg="brand.3"
           color="white"
           onClick={() =>
-            updateUser(data).then(() => {
+            updateUser(data).then((res) => {
+              console.log('response:', res);
               router.push('/');
             })
           }

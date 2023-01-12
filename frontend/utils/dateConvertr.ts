@@ -1,4 +1,6 @@
-export const dateConvertr = (datestr: string) => {
+import { DateData } from './dataInterfaces';
+
+export const dateConvertr = (datestr: string): DateData => {
   const curdate = new Date(datestr + 'Z');
   const months = [
     'JAN',
@@ -15,7 +17,7 @@ export const dateConvertr = (datestr: string) => {
     'DEC',
   ];
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const r = {
+  return {
     day: days[curdate.getUTCDay()],
     date: curdate.getUTCDate(),
     month: months[curdate.getUTCMonth()],
@@ -26,5 +28,4 @@ export const dateConvertr = (datestr: string) => {
       (curdate.getUTCMinutes() < 10 ? '0' : '') +
       curdate.getUTCMinutes(),
   };
-  return r;
 };
