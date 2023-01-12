@@ -15,7 +15,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useState } from 'react';
 import '@fontsource/monoton';
 import { useRouter } from 'next/router';
-import { signUp } from '../utils/controller/user';
+import { updateUser } from '../utils/controller/user';
 
 const SignUp: React.FC = () => {
   const { publicKey } = useWallet();
@@ -93,7 +93,7 @@ const SignUp: React.FC = () => {
           bg="brand.3"
           color="white"
           onClick={() =>
-            signUp(data).then((res) => {
+            updateUser(data).then((res) => {
               console.log('response:', res);
               router.push('/');
             })
