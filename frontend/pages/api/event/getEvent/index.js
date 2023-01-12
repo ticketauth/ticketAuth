@@ -11,6 +11,13 @@ export default async function handler(req, res) {
     await dbConnect();
 
     const allEvents = await event.find({});
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    // console.log(allEvents);
+=======
+>>>>>>> 51f3212 (signup flow done)
+>>>>>>> dfc8d86 (signup flow done)
 
     res.status(200).json(allEvents);
   } catch (error) {

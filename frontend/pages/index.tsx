@@ -23,9 +23,12 @@ const Explore = () => {
   useEffect(() => {
     getAllEvents().then((data) => setEvents(data));
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     console.log(events);
 >>>>>>> 3cf3155 (fixed deployment errors)
+=======
+>>>>>>> dfc8d86 (signup flow done)
   }, []);
 
   return (

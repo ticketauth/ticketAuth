@@ -18,7 +18,10 @@ import { TorusWallet } from './TorusWallet';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { getUser } from '../utils/controller/user';
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+>>>>>>> dfc8d86 (signup flow done)
 
 const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void }) => {
   const { isPaymentOpen, onPaymentClose } = props;
@@ -56,11 +59,15 @@ const Header = () => {
       <HStack spacing="20px">
         <Button
           onClick={() => {
+<<<<<<< HEAD
             setLoading(true);
             if (!publicKey) {
               setLoading(false);
               return onPaymentOpen();
             }
+=======
+            if (!publicKey) return onPaymentOpen();
+>>>>>>> dfc8d86 (signup flow done)
             getUser(publicKey.toString()).then((res) => {
               if (res.email === '') router.push('/SignUp');
               else router.push('/create');

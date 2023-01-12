@@ -84,7 +84,13 @@ const CreateEvent: React.FC = () => {
     candyMachineData.ticketFile = ticketFile;
   }, [ticketFile]);
 
+<<<<<<< HEAD
 
+=======
+  useEffect(() => {
+    var userData = {};
+  }, [tabIndex, wallet.publicKey]);
+>>>>>>> dfc8d86 (signup flow done)
   const handleData = (type: string, value: any) => {
     setData((prev) => ({
       ...prev,
