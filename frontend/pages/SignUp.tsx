@@ -15,7 +15,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useState } from 'react';
 import '@fontsource/monoton';
 import { useRouter } from 'next/router';
-import { getUser, signUp } from '../utils/controller/user';
+import { getUser, updateUser } from '../utils/controller/user';
 
 const SignUp: React.FC = () => {
   const { publicKey } = useWallet();
