@@ -4,10 +4,11 @@ const API = '../../api/user';
 
 // User -----------------------------------------------------------------
 // Write --------------------------------------
-export async function signUp(userDetails) {
-  // pass {walletAddress, firstName, lastName, email}
-  // return user Doc
-  const res = await axios.post(`${API}/signUp`, {
+
+export async function updateUser(userDetails) {
+  // param {walletAddress, firstName, lastName, email}
+  // return userDetails
+  await axios.post(`${API}/updateUser`, {
     userDetails,
   });
   console.log(res);
@@ -18,6 +19,7 @@ export async function signUp(userDetails) {
 // Read--------
 
 export async function getUser(walletAddress) {
+  // param {walletAddress}
   //Return False or userDetails
   const user = await axios.post(`${API}/getUser`, {
     walletAddress,

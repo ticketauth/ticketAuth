@@ -12,7 +12,7 @@ import '@fontsource/monoton';
 import "@fontsource/josefin-sans";
 import { getUser } from '../utils/controller/user';
 
-import { ticketConfirmation } from "../utils/controller/email"
+import { eventPublished, ticketConfirmation } from "../utils/controller/email"
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
