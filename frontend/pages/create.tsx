@@ -19,7 +19,7 @@ import {
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { CandyMachineData, FormInputData } from '../utils/dataInterfaces';
+import { CandyMachineData, FormInputData, UserData } from '../utils/dataInterfaces';
 import { useConnection, useWallet, WalletContextState } from '@solana/wallet-adapter-react';
 import { useRouter } from 'next/router';
 import createCandyMachine from '../utils/createCandyMachine';
@@ -35,6 +35,7 @@ const CreateEvent: React.FC = () => {
   const { connection } = useConnection();
   const [ticketFile, setTicketFile] = useState<File>();
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState<UserData>()
   const [data, setData] = useState<FormInputData>({
     'Name of event': '',
     Category: '',
@@ -68,14 +69,22 @@ const CreateEvent: React.FC = () => {
   });
 
   const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    if (!wallet.publicKey) return;
+    getUser(wallet.publicKey?.toString()).then(res=>{
+      setData({...data,
+      "walletAddress":wallet.publicKey?.toString(),
+      "Organizers Email":res.email,
+      "Organizer":res.firstName+" "+res.lastName})
+    })
+  },[])
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.ticketFile = ticketFile;
   }, [ticketFile]);
 
-  useEffect(() => {
-    var userData = {};
-  }, [tabIndex, wallet.publicKey]);
+
   const handleData = (type: string, value: any) => {
     setData((prev) => ({
       ...prev,
@@ -85,7 +94,6 @@ const CreateEvent: React.FC = () => {
       ...prev,
       [type]: value,
     }));
-    data.walletAddress = wallet.publicKey.toString();
   };
 
   const createEvent = async () => {

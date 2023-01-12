@@ -14,6 +14,7 @@ import {
   Show,
   SimpleGrid,
   Spacer,
+  Spinner,
   Stack,
   Text,
   VStack,
@@ -60,6 +61,7 @@ const Event = () => {
   useEffect(() => {
     if (!eventId) return;
     getEventById(eventId).then((event: EventData) => {
+      console.log(event)
       setEvent(event);
       setStartDate(dateConvertr(event['Start Event Datetime']));
       setEndDate(dateConvertr(event['End Event Datetime']));
@@ -216,7 +218,7 @@ const Event = () => {
   );
 
   return eventDets == undefined ? (
-    <>Skeleton</>
+    <Center w="100%" h="200px"><Spinner size="xl"/></Center>
   ) : (
     <>
       <Header />
@@ -235,14 +237,6 @@ const Event = () => {
               )}
             </VStack>
             <Spacer />
-            <Button
-              bg="red"
-              color="white"
-              disabled={wallet?.publicKey?.toString() === eventDets.walletAddress}
-              onClick={() => {}}
-            >
-              Delete
-            </Button>
           </HStack>
         </GridItem>
 
