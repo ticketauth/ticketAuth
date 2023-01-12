@@ -9,11 +9,16 @@ import {
   getAllEvents,
   createNewEvent,
   getEventByWalletAddress,
+
+  getTemporaryEventId,
+
 } from '../utils/controller/event';
 import { EventData } from '../utils/dataInterfaces';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { getUser } from '../utils/controller/user';
+
+import { ticketConfirmation } from "../utils/controller/email"
 
 const Explore = () => {
   const [events, setEvents] = useState<Array<EventData>>();
@@ -35,7 +40,9 @@ const Explore = () => {
           </Text>
         </Backdrop>
         <Searchbar />
+
         <VStack w="100%" padding={['15% 10%', '5% 10%']} align="flex-start">
+
           <Heading>Featured Events</Heading>
           {events == undefined ? (
             <>Skeleton</>
