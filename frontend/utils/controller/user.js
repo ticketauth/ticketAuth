@@ -11,7 +11,6 @@ export async function updateUser(userDetails) {
   await axios.post(`${API}/updateUser`, {
     userDetails,
   });
-  console.log(res);
 }
 
 // Write --------------------------------------
