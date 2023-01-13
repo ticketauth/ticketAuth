@@ -19,6 +19,7 @@ import { updateUser } from '../utils/controller/user';
 
 const SignUp: React.FC = () => {
   const { publicKey } = useWallet();
+  const [ loading, setLoading ] = useState(false);
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -90,12 +91,15 @@ const SignUp: React.FC = () => {
           w="100%"
           bg="brand.3"
           color="white"
-          onClick={() =>
+          onClick={() =>{
+            setLoading(true);
             updateUser(data).then((res) => {
               console.log('response:', res);
               router.push('/');
+              setLoading(false);
             })
-          }
+          }}
+          isLoading={loading}
         >
           Sign Up
         </Button>

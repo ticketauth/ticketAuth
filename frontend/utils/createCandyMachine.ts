@@ -88,10 +88,10 @@ async function generateCandyMachine(totalTickets: number, ticketPrice : number ,
                 redeemedAmount: {
                 maximum: toBigNumber(totalTickets),
                 },
-                gatekeeper: {
-                    network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
-                    expireOnUse: false
-                }
+                // gatekeeper: {
+                //     network: new PublicKey("ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6"),
+                //     expireOnUse: false
+                // }
                 
             }, 
         };
