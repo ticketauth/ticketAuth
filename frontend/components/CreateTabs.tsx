@@ -21,17 +21,17 @@ export const Tab1: React.FC<{
 }> = ({ data, handleData }) => {
   return (
     <VStack spacing={4} w="100%">
-      <FormControl w="100%" isInvalid={data['Name of event'] == ''}>
+      <FormControl w="100%" isInvalid={data.EventName == ''}>
         <FormLabel>Event Name</FormLabel>
         <Input
           variant="flushed"
           placeholder="Event Name"
           type="text"
-          value={data['Name of event']}
-          onChange={(e) => handleData('Name of event', e.currentTarget.value)}
+          value={data.EventName}
+          onChange={(e) => handleData('EventName', e.currentTarget.value)}
           w="100%"
         />
-        {data['Name of event'] == '' && (
+        {data.EventName == '' && (
           <FormErrorMessage>Event name is required.</FormErrorMessage>
         )}
       </FormControl>
@@ -52,28 +52,28 @@ export const Tab1: React.FC<{
         {data.Category == '' && <FormErrorMessage>Enter the event category.</FormErrorMessage>}
       </FormControl>
 
-      <FormControl w="100%" isInvalid={data['Start Event Datetime'] == ''}>
+      <FormControl w="100%" isInvalid={data.StartEventDatetime == ''}>
         <FormLabel>Start Event Date & Time</FormLabel>
         <Input
           variant="flushed"
           type="datetime-local"
-          value={data['Start Event Datetime']}
-          onChange={(e) => handleData('Start Event Datetime', e.currentTarget.value)}
+          value={data.StartEventDatetime}
+          onChange={(e) => handleData('StartEventDatetime', e.currentTarget.value)}
         />
-        {data['Start Event Datetime'] == '' && (
+        {data.StartEventDatetime == '' && (
           <FormErrorMessage>Date is required.</FormErrorMessage>
         )}
       </FormControl>
 
-      <FormControl w="100%" isInvalid={data['End Event Datetime'] == ''}>
+      <FormControl w="100%" isInvalid={data.EndEventDatetime == ''}>
         <FormLabel>End Event Date & Time</FormLabel>
         <Input
           variant="flushed"
           type="datetime-local"
-          value={data['End Event Datetime']}
-          onChange={(e) => handleData('End Event Datetime', e.currentTarget.value)}
+          value={data.EndEventDatetime}
+          onChange={(e) => handleData('EndEventDatetime', e.currentTarget.value)}
         />
-        {data['End Event Datetime'] == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
+        {data.EndEventDatetime == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
       </FormControl>
     </VStack>
   );
@@ -84,73 +84,73 @@ export const Tab2: React.FC<{
 }> = ({ data, handleData }) => {
   return (
     <VStack w="100%">
-      <FormControl w="100%" isInvalid={data['Start Sale Datetime'] == ''}>
+      <FormControl w="100%" isInvalid={data.StartSaleDatetime == ''}>
         <FormLabel>Start Sale Date & Time</FormLabel>
         <Input
           variant="flushed"
           type="datetime-local"
-          value={data['Start Sale Datetime']}
-          onChange={(e) => handleData('Start Sale Datetime', e.currentTarget.value)}
+          value={data.StartSaleDatetime}
+          onChange={(e) => handleData('StartSaleDatetime', e.currentTarget.value)}
         />
-        {data['Start Sale Datetime'] == '' && (
+        {data.StartSaleDatetime == '' && (
           <FormErrorMessage>Date is required.</FormErrorMessage>
         )}
       </FormControl>
 
-      <FormControl w="100%" isInvalid={data['End Sale Datetime'] == ''}>
+      <FormControl w="100%" isInvalid={data.EndSaleDatetime == ''}>
         <FormLabel>End Sale Date & Time</FormLabel>
         <Input
           variant="flushed"
           type="datetime-local"
-          value={data['End Sale Datetime']}
-          onChange={(e) => handleData('End Sale Datetime', e.currentTarget.value)}
+          value={data.EndSaleDatetime}
+          onChange={(e) => handleData('EndSaleDatetime', e.currentTarget.value)}
         />
-        {data['End Sale Datetime'] == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
+        {data.EndSaleDatetime == '' && <FormErrorMessage>Date is required.</FormErrorMessage>}
       </FormControl>
 
       <HStack w="100%" gap="20px">
-        <FormControl w="100%" isInvalid={data['Ticket price'].toString() == ''}>
+        <FormControl w="100%" isInvalid={data.TicketPrice.toString() == ''}>
           <FormLabel>Ticket Price</FormLabel>
           <Input
             variant="flushed"
             placeholder="Ticket Price"
             type="number"
-            value={data['Ticket price']}
-            onChange={(e) => handleData('Ticket price', e.currentTarget.value)}
+            value={data.TicketPrice}
+            onChange={(e) => handleData('TicketPrice', e.currentTarget.value)}
             w="100%"
           />
-          {data['Ticket price'].toString() == '' && (
+          {data.TicketPrice.toString() == '' && (
             <FormErrorMessage>Enter the price of the ticket.</FormErrorMessage>
           )}
         </FormControl>
 
-        <FormControl w="100%" isInvalid={data['Event Capacity'].toString() == ''}>
+        <FormControl w="100%" isInvalid={data.EventCapacity.toString() == ''}>
           <FormLabel>Capacity</FormLabel>
           <Input
             variant="flushed"
             placeholder="Event Capacity"
             type="number"
-            value={data['Event Capacity']}
-            onChange={(e) => handleData('Event Capacity', e.currentTarget.value)}
+            value={data.EventCapacity}
+            onChange={(e) => handleData('EventCapacity', e.currentTarget.value)}
             w="100%"
           />
-          {data['Event Capacity'].toString() && (
+          {data.EventCapacity.toString() && (
             <FormErrorMessage>Enter the number of available tickets.</FormErrorMessage>
           )}
         </FormControl>
       </HStack>
 
-      <FormControl w="100%" isInvalid={data['Organizers Email'] == ''}>
+      <FormControl w="100%" isInvalid={data.OrganizersEmail == ''}>
         <FormLabel>Organizers Email</FormLabel>
         <Input
           variant="flushed"
           placeholder="Organiser email"
           type="email"
-          value={data['Organizers Email']}
-          onChange={(e) => handleData('Organizers Email', e.currentTarget.value)}
+          value={data.OrganizersEmail}
+          onChange={(e) => handleData('OrganizersEmail', e.currentTarget.value)}
           w="100%"
         />
-        {data['Organizers Email'] == '' && (
+        {data.OrganizersEmail == '' && (
           <FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>
         )}
       </FormControl>
@@ -164,15 +164,15 @@ export const Tab3: React.FC<{
 }> = ({ data, handleData }) => {
   return (
     <VStack w="100%" align="flex-start">
-      <FormControl isInvalid={data['Event Description'] == ''}>
+      <FormControl isInvalid={data.EventDescription == ''}>
         <FormLabel>Event Description</FormLabel>
         <Textarea
           h="200px"
-          value={data['Event Description']}
-          onChange={(e) => handleData('Event Description', e.currentTarget.value)}
+          value={data.EventDescription}
+          onChange={(e) => handleData('EventDescription', e.currentTarget.value)}
           w="100%"
         />
-        {data['Event Description'] == '' && (
+        {data.EventDescription == '' && (
           <FormErrorMessage>Description is required.</FormErrorMessage>
         )}
       </FormControl>
