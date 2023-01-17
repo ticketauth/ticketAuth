@@ -63,12 +63,12 @@ const Event = () => {
     getEventById(eventId).then((event: EventData) => {
       console.log(event)
       setEvent(event);
-      setStartDate(dateConvertr(event['Start Event Datetime']));
-      setEndDate(dateConvertr(event['End Event Datetime']));
+      setStartDate(dateConvertr(event.StartEventDatetime));
+      setEndDate(dateConvertr(event.EndEventDatetime));
     });
   }, [eventId]);
 
-  const candyMachineV3 = useCandyMachineV3(eventDets?.candyMachineId || '');
+  const candyMachineV3 = useCandyMachineV3(eventDets?.CandyMachineId || '');
 
   const [balance, setBalance] = useState<number>();
   const [mintedItems, setMintedItems] = useState<Nft[]>();
@@ -226,7 +226,7 @@ const Event = () => {
         <GridItem colSpan={6}>
           <HStack>
             <VStack w="75%" align="flex-start">
-              <Heading size="lg">Event: {eventDets['Name of event']}</Heading>
+              <Heading size="lg">Event: {eventDets.EventName}</Heading>
               <Text color="blue">by {eventDets.Organizer}</Text>
               {eventstartdate && eventendate && (
                 <Text>
@@ -270,7 +270,7 @@ const Event = () => {
                           alt="ticket"
                           boxSize="100px"
                           objectFit="contain"
-                          src={eventDets['Ticket Image']}
+                          src={eventDets.TicketImage}
                         />
                       </Center>
                       <Center
@@ -281,7 +281,7 @@ const Event = () => {
                           imgSelected == 'Background Image' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
                       >
-                        <Image alt="ticket" boxSize="100px" src={eventDets['Background Image']} />
+                        <Image alt="ticket" boxSize="100px" src={eventDets.BackgroundImage} />
                       </Center>
                     </VStack>
                   </GridItem>
@@ -296,7 +296,7 @@ const Event = () => {
                 <Heading size="sm" textDecoration="underline">
                   Event Description
                 </Heading>
-                <Text>{eventDets['Event Description']}</Text>
+                <Text>{eventDets.EventDescription}</Text>
               </VStack>
             </CardBody>
           </Card>
@@ -327,7 +327,7 @@ const Event = () => {
                   boxShadow="1px 1px 24px rgba(30,30,30,0.1)"
                 >
                   <Center w="100%" h="100%">
-                    <DateCard datestr={eventDets['Start Datetime']} fontsize="xs" />
+                    <DateCard datestr={eventDets.StartEventDatetime} fontsize="xs" />
                   </Center>
                 </Card>
               </GridItem>
@@ -389,7 +389,7 @@ const Event = () => {
                 <CardBody>
                   <VStack spacing="5px" align="flex-start">
                     <Heading fontSize="sm">Organisers Email</Heading>
-                    <Text fontSize="sm">{eventDets['Organizers Email']}</Text>
+                    <Text fontSize="sm">{eventDets.OrganizersEmail}</Text>
                   </VStack>
                 </CardBody>
               </Card>

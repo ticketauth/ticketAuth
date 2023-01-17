@@ -1,25 +1,29 @@
 import { WalletContextState } from '@solana/wallet-adapter-react';
 import { type Connection } from '@solana/web3.js';
-export interface EventData {
-  'Name of event': string; //Elon musk firing party
-  'Event Description': string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
+
+export interface FormInputData {
+  EventName: string; //Elon musk firing party
+  EventDescription: string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
   Category: string;
-  walletAddress: string; //AD23vfW14
-  'Start Event Datetime': string; //idk what format string or date in mongodb, this will include start time also
-  'End Event Datetime': string; //same as start, with time also
-  'Start Sale Datetime': string;
-  'End Sale Datetime': string;
+  WalletAddress: string; //AD23vfW14
+  StartEventDatetime: string; //idk what format string or date in mongodb, this will include start time also
+  EndEventDatetime: string; //same as start, with time also
+  StartSaleDatetime: string;
+  EndSaleDatetime: string;
   Location: string; //Maybe postal code or some other identifiers as fields might be better
-  'Organizers Email': string; //elonmusk@gmail.com
+  OrganizersEmail: string; //elonmusk@gmail.com
   Organizer: string;
-  'Event Capacity': number; //2000
-  'Ticket price': number; //7.99
-  'Ticket Image': string; //a url? or a Base64 string as img
-  'Background Image': string;
-  eventId: string; //ASDL124Vfrfw3
-  active: boolean; //if event is currently active,
-  candyMachineId: string;
-  collectionId: string;
+  EventCapacity: number; //2000
+  TicketPrice: number; //7.99
+  TicketImage: string; //a url? or a Base64 string as img
+  BackgroundImage: string;
+}
+
+export interface EventData extends FormInputData {
+  EventId: string; //ASDL124Vfrfw3
+  Active: boolean; //if event is currently active,
+  CandyMachineId: string;
+  CollectionId: string;
 }
 
 export interface UserData {
@@ -37,26 +41,6 @@ export interface DateData {
   month: string;
   year: number;
   time: string;
-}
-
-export interface FormInputData {
-  'Name of event': string; //Elon musk firing party
-  'Event Description': string; //Welcome to the mass firing event of Twitter hosted by the almighty Elon Musk.
-  Category: string;
-  walletAddress: string; //AD23vfW14
-  'Start Event Datetime': string; //idk what format string or date in mongodb, this will include start time also
-  'End Event Datetime': string; //same as start, with time also
-  'Start Sale Datetime': string;
-  'End Sale Datetime': string;
-  Location: string; //Maybe postal code or some other identifiers as fields might be better
-  'Organizers Email': string; //elonmusk@gmail.com
-  Organizer: string;
-  'Event Capacity': number; //2000
-  'Ticket price': number; //7.99
-  'Ticket Image': string; //a url? or a Base64 string as img
-  'Background Image': string;
-  // eventId: string; //ASDL124Vfrfw3
-  // active: boolean; //if event is currently active,
 }
 
 export interface CandyMachineData {
