@@ -37,21 +37,21 @@ const CreateEvent: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<UserData>()
   const [data, setData] = useState<FormInputData>({
-    'Name of event': '',
+    EventName: '',
     Category: '',
-    'Event Description': '',
-    walletAddress: '',
-    'Start Event Datetime': '',
-    'End Event Datetime': '',
-    'Start Sale Datetime': '',
-    'End Sale Datetime': '',
+    EventDescription: '',
+    WalletAddress: '',
+    StartEventDatetime: '',
+    EndEventDatetime: '',
+    StartSaleDatetime: '',
+    EndSaleDatetime: '',
     Location: '',
-    'Organizers Email': '',
+    OrganizersEmail: '',
     Organizer: '',
-    'Event Capacity': 1,
-    'Ticket price': 0,
-    'Ticket Image': '',
-    'Background Image': '',
+    EventCapacity: 1,
+    TicketPrice: 0,
+    TicketImage: '',
+    BackgroundImage: '',
   });
 
   const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
@@ -73,10 +73,10 @@ const CreateEvent: React.FC = () => {
   useEffect(() => {
     if (!wallet.publicKey) return;
     getUser(wallet.publicKey?.toString()).then(res=>{
-      setData({...data,
-      "walletAddress":wallet.publicKey?.toString(),
-      "Organizers Email":res.email,
-      "Organizer":res.firstName+" "+res.lastName})
+      setData({...data, 
+      WalletAddress:wallet.publicKey?.toString(),
+      OrganizersEmail:res.email,
+      Organizer:res.firstName+" "+res.lastName})
     })
   },[])
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile

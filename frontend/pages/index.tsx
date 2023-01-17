@@ -45,12 +45,12 @@ const Explore = () => {
               {events?.map((event, key) => (
                 <EventCard
                   key={key}
-                  EventId={event.eventId}
+                  EventId={event.EventId}
                   Location={event.Location}
                   Organizer={event.Organizer}
-                  EventName={event['Name of event']}
-                  Bgimg={event['Background Image']}
-                  datestr={event['Start Event Datetime']}
+                  EventName={event.EventName}
+                  Bgimg={event.BackgroundImage}
+                  datestr={event.StartEventDatetime}
                 />
               ))}
             </SimpleGrid>
