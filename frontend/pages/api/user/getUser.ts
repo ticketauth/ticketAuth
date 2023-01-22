@@ -1,21 +1,22 @@
 import mongoose from 'mongoose';
-
 import user from '../../../utils/dataModel/userModel';
-
 import dbConnect from '../../../utils/mongodb';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { UserData } from '../../../utils/dataInterfaces';
 
-export default async function handler(req, res) {
+// tsChangeDone
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
   try {
     await dbConnect();
 
-    let status = false;
-
     let walletAddress = req.body.walletAddress;
+
+    let userDetails: UserData;
 
     const exists = await user.exists({ walletAddress: walletAddress });
 
     if (!exists) {
-      const result = await user.create({
+      userDetails = await user.create({
         walletAddress: walletAddress,
         eventAttends: [],
         eventCreated: [],
@@ -23,15 +24,13 @@ export default async function handler(req, res) {
         lastName: '',
         email: '',
       });
-
-      console.log(result);
-
-      res.status(200).json(result);
     } else {
-      const userDetails = await user.findOne({ walletAddress: walletAddress });
+      let filter = { walletAddress: walletAddress };
 
-      res.status(200).json(userDetails);
+      userDetails = await user.findOne(filter);
     }
+
+    res.status(200).json({ userDetails });
   } catch (error) {
     console.log(error);
   }

@@ -1,15 +1,22 @@
 import { EventData } from '../../../utils/dataInterfaces';
-
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
-
 import user from '../../../utils/dataModel/userModel';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { UserData } from '../../../utils/dataInterfaces';
+import { updateUserData } from '../../../utils/dataInterfaces';
 
-export default async function handler(req, res) {
+// tsChangeDone
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<{ status: boolean }>,
+) {
+  let status: boolean = false;
+
   try {
     await dbConnect();
 
-    const data = req.body.userDetails;
+    const data: updateUserData = req.body.userDetails;
 
     const filter = { walletAddress: data.walletAddress };
 
@@ -20,8 +27,11 @@ export default async function handler(req, res) {
     };
 
     const result = await user.findOneAndUpdate(filter, update);
-    res.status(200).json(result);
+
+    status = true;
   } catch (error) {
     console.log(error);
   }
+
+  res.status(200).json({ status });
 }
