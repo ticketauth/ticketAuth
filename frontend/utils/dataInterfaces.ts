@@ -56,3 +56,31 @@ export interface CandyMachineData {
   wallet: WalletContextState;
   connection: Connection;
 }
+
+export interface updateUserData {
+  walletAddress: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface NftData {
+  eventId: string;
+  metadata: any[];
+  nft: string[];
+}
+
+export interface TicketConfirmationData {
+  eventName: string;
+  eventDetailsLink: string;
+  ticketImage: string;
+  userEmail: string;
+}
+
+export interface EventPublishedData {
+  eventName: string;
+  eventDetailsLink: string;
+  eventImage: string;
+  organiserEmail: string;
+  collectionId: string;
+}
