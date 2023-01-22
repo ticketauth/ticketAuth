@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
+import { EventData } from '../dataInterfaces';
 const Schema = mongoose.Schema;
 
-const eventSchema = new Schema({
+// tsChangeDone
+
+const eventSchema = new Schema<EventData>({
   'Name of event': String,
   'Event Description': String,
   walletAddress: String,
@@ -22,4 +25,4 @@ const eventSchema = new Schema({
   collectionId: String,
 });
 
-export default mongoose.models.event || mongoose.model('event', eventSchema);
+export default mongoose.models.event || mongoose.model<EventData>('event', eventSchema);

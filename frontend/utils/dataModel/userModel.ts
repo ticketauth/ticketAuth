@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 import { stringify } from 'querystring';
+import { UserData } from '../dataInterfaces';
 const Schema = mongoose.Schema;
+// tsChangeDone
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserData>({
   walletAddress: String,
   eventAttends: [String],
   eventCreated: [String],
@@ -11,4 +13,4 @@ const UserSchema = new Schema({
   email: String,
 });
 
-export default mongoose.models.User || mongoose.model('User', UserSchema);
+export default mongoose.models.User || mongoose.model<UserData>('User', UserSchema);
