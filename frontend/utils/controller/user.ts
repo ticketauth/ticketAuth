@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { UserData } from '../dataInterfaces';
-import { updateUserData } from '../dataInterfaces';
+import { UserData, updateUserData } from '../dataInterfaces/userInterfaces';
+import {} from '../dataInterfaces';
 const API = '../../api/user';
 
 // tsChangeDone

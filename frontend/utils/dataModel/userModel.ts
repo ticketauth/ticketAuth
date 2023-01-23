@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { stringify } from 'querystring';
-import { UserData } from '../dataInterfaces';
+import { UserData } from '../dataInterfaces/userInterfaces';
 const Schema = mongoose.Schema;
 // tsChangeDone
 
@@ -11,6 +11,7 @@ const UserSchema = new Schema<UserData>({
   firstName: String,
   lastName: String,
   email: String,
+  managedWalletPK: String,
 });
 
 export default mongoose.models.User || mongoose.model<UserData>('User', UserSchema);

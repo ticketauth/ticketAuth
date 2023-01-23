@@ -1,7 +1,7 @@
 import { EventData } from './dataInterfaces';
 
-const getEventDets = async (eventId: string): Promise<EventData> => {
-  const data = await fetch(`/api/dont_delete/event/${eventId}`, {
+const getEventDets = async (EventId: string): Promise<EventData> => {
+  const data = await fetch(`/api/dont_delete/event/${EventId}`, {
     method: 'GET',
     // headers: {
     //   'Content-Type': 'application/json',

@@ -8,9 +8,9 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    let eventId = req.body;
+    let EventId = req.body;
 
-    const allEvents = await event.deleteOne({ eventId: eventId });
+    const allEvents = await event.deleteOne({ EventId: EventId });
 
     res.status(200).json(allEvents);
   } catch (error) {

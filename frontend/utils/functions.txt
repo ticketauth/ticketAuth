@@ -16,7 +16,7 @@ getAllEvents() *
 
 
 
-getEventById(eventId:string) *
+getEventById(EventId:string) *
 
 
 

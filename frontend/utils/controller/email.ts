@@ -1,31 +1,27 @@
 import axios from 'axios';
-import img from '../../utils/emailTicket.png';
-import { EventPublishedData, TicketConfirmationData } from '../dataInterfaces';
+// import img from '../../utils/emailTicket.png';
+import {
+  EventPublishedEmailData,
+  TicketConfirmationEmailData,
+} from '../dataInterfaces/emailInterfaces';
 const API = '../../api/email';
 
-export interface ticketConfirmationInterface {
-  eventName: string;
-  eventDetailsLink: string;
-  ticketImage: string;
-  email: string;
-}
-
 // done
-export async function ticketConfirmation(ticketConfirmationDetails: TicketConfirmationData) {
+export async function ticketConfirmation(ticketConfirmationDetails: TicketConfirmationEmailData) {
   // eventName, eventDetailsLink, ticketImage, email
 
   let status: boolean = await axios.post(`${API}/ticketConfirmation`, {
     ticketConfirmationDetails,
   });
 
-  return 'true';
+  return status;
 }
 
-export async function eventPublished(eventPublishedDetails: EventPublishedData) {
+export async function eventPublished(eventPublishedDetails: EventPublishedEmailData) {
   // eventName, eventDetailsLink, eventImage, email, collectionId
-  let result = await axios.post(`${API}/eventPublished`, {
+  let status = await axios.post(`${API}/eventPublished`, {
     eventPublishedDetails,
   });
 
-  return 'true';
+  return status;
 }

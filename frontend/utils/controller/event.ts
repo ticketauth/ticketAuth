@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { EventData } from '../dataInterfaces';
+import { CreateEventFormData, EventData } from '../dataInterfaces/eventInterfaces';
 
 const API = '../../api/event';
 
@@ -14,8 +14,8 @@ export async function getAllEvents(): Promise<EventData[]> {
 }
 
 // done
-export async function getEventById(eventId: string) {
-  const eventDetails: EventData = (await axios.post(`${API}/getEvent/${eventId}`)).data
+export async function getEventById(EventId: string) {
+  const eventDetails: EventData = (await axios.post(`${API}/getEvent/${EventId}`)).data
     .eventDetails;
   return eventDetails;
 }
@@ -44,19 +44,24 @@ export async function getEventByWalletAddress(walletAddress: string) {
 
 // done
 export async function getTemporaryEventId(walletAddress: string) {
-  const eventId: string = await axios.post(`${API}/getTemporaryEventId`, {
-    walletAddress,
-  });
-  return eventId;
+  const EventId: string = (
+    await axios.post(`${API}/getTemporaryEventId`, {
+      walletAddress,
+    })
+  ).data.EventId;
+  return EventId;
 }
 
 // Read ----------------------------------------------
 
 // Write -----------------------------------------
-export async function createNewEvent(eventDetails) {
-  await axios.post(`${API}/createNewEvent`, {
-    eventDetails,
-  });
+
+export async function createNewEvent(createEventDetails: CreateEventFormData) {
+  let status: boolean = (
+    await axios.post(`${API}/createNewEvent`, {
+      createEventDetails,
+    })
+  ).data.status;
 }
 
 // Write --------------------------------------------
@@ -70,7 +75,7 @@ export async function updateEvent(eventDetails) {
 // Update
 
 // Delete
-export async function deleteEvent(eventId) {
+export async function deleteEvent(EventId) {
   await axios.post(`${API}/deleteEvent`);
 }
 // Delete

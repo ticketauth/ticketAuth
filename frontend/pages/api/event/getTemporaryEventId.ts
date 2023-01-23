@@ -14,11 +14,11 @@ export default async function handler(req, res) {
 
     let userInfo: UserData = await user.findOne(filter);
 
-    let eventIdList: EventData[] = userInfo.eventCreated;
+    let EventIdList: EventData[] = userInfo.eventCreated;
 
-    let eventId: string = walletAddress + eventIdList.length;
+    let EventId: string = walletAddress + EventIdList.length;
 
-    res.status(200).json({ eventId });
+    res.status(200).json({ EventId });
   } catch (error) {
     console.log(error);
   }

@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { NftData } from '../dataInterfaces';
+import { NftData } from '../dataInterfaces/nftInterfaces';
 // tsChangeDone
 const Schema = mongoose.Schema;
 
 const schema = new Schema<NftData>({
-  eventId: String,
+  EventId: String,
   metadata: [Schema.Types.Mixed],
   nft: [String],
 });

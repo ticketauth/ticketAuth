@@ -1,11 +1,11 @@
 // tsChangeDone
 import axios from 'axios';
-import { NftData } from '../dataInterfaces';
+import { NftData } from '../dataInterfaces/nftInterfaces';
 const API = '../../api/nft';
 
 // Write --------------------------------------
 export async function createNft(nftDetails: NftData): Promise<boolean> {
-  // Params {eventId, metadata, nft}
+  // Params {EventId, metadata, nft}
   // return boolean true: success, false:failed
   const status: boolean = (await axios.post(`${API}/createNft`, { nftDetails })).data.status;
   return status;
@@ -14,10 +14,10 @@ export async function createNft(nftDetails: NftData): Promise<boolean> {
 
 // read --------------------------------------------------
 
-export async function getNftByeventId(eventId: string): Promise<NftData> {
-  // params (eventId)
-  // nftDetails {eventId, metadata, nft}
-  const nftDetails: NftData = (await axios.post(`${API}/getNftByeventId`, { eventId })).data
+export async function getNftByEventId(EventId: string): Promise<NftData> {
+  // params (EventId)
+  // nftDetails {EventId, metadata, nft}
+  const nftDetails: NftData = (await axios.post(`${API}/getNftByEventId`, { EventId })).data
     .nftDetails;
 
   return nftDetails;
