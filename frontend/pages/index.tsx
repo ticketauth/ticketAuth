@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import {
   getAllEvents,
 } from '../utils/controller/event';
-import { EventData } from '../utils/dataInterfaces';
+import { EventData } from '../utils/dataInterfaces/eventInterfaces';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import "@fontsource/josefin-sans";
