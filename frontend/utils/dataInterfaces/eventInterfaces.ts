@@ -38,3 +38,9 @@ export interface CreateEventFormData {
   TicketImage: string; //a url? or a Base64 string as img
   BackgroundImage: string;
 }
+
+export interface NonCreateEventFormData {
+  Active: boolean;
+  CandyMachineId: string;
+  CollectionId: string;
+}
