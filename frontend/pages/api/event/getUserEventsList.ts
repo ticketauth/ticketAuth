@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { EventData, UserData } from '../../../utils/dataInterfaces';
-
+import { UserData } from '../../../utils/dataInterfaces/userInterfaces';
+import { EventData } from '../../../utils/dataInterfaces/eventInterfaces';
 import event from '../../../utils/dataModel/eventModel';
 
 import user from '../../../utils/dataModel/userModel';

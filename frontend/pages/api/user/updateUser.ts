@@ -1,10 +1,9 @@
-import { EventData } from '../../../utils/dataInterfaces';
+import { EventData } from '../../../utils/dataInterfaces/eventInterfaces';
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
 import user from '../../../utils/dataModel/userModel';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { UserData } from '../../../utils/dataInterfaces';
-import { updateUserData } from '../../../utils/dataInterfaces';
+import { UserData, updateUserData } from '../../../utils/dataInterfaces/userInterfaces';
 
 // tsChangeDone
 export default async function handler(

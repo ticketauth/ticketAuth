@@ -23,12 +23,12 @@ import {
 import { useState } from 'react';
 import useGoogle from 'react-google-autocomplete/lib/usePlacesAutocompleteService';
 import { HiLocationMarker } from 'react-icons/hi';
-import { FormInputData } from '../utils/dataInterfaces';
+import { CreateEventFormData } from '../utils/dataInterfaces/eventInterfaces';
 
 const ApiKey: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 export const DebounceSearch: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: any) => void;
 }> = ({ data, handleData }) => {
   const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } = useGoogle({

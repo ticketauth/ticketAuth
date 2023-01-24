@@ -22,7 +22,8 @@ import {
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Header from '../../components/Header';
-import type { DateData, EventData } from '../../utils/dataInterfaces';
+import type { EventData } from '../../utils/dataInterfaces/eventInterfaces';
+import type { DateData } from '../../utils/dataInterfaces/generalInterfaces';
 import { HiOutlineTicket } from 'react-icons/hi';
 import { MultiMintButton } from '../../components/NftBuyButton';
 import useCandyMachineV3 from '../../hooks/useCandyMachineV3';

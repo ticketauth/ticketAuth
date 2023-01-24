@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EventData } from '../../../../utils/dataInterfaces';
+import { EventData } from '../../../../utils/dataInterfaces/eventInterfaces';
 import event from '../../../../utils/dataModel/eventModel';
 import dbConnect from '../../../../utils/mongodb';
 
