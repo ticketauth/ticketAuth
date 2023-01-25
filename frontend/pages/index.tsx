@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import {
   getAllEvents,
 } from '../utils/controller/event';
-import { EventData } from '../utils/dataInterfaces';
+import { EventData } from '../utils/dataInterfaces/eventInterfaces';
 import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import "@fontsource/josefin-sans";
@@ -30,7 +30,7 @@ const Explore = () => {
             TicketAuth
           </Text>
           <Text fontSize={['20px', '25px']} fontFamily="Josefin Sans" color="white">
-            Digital tickets, A new frontier 
+            Digital tickets, A new frontier
           </Text>
         </Backdrop>
         <Searchbar />
@@ -39,7 +39,7 @@ const Explore = () => {
 
           <Heading>Featured Events</Heading>
           {events == undefined ? (
-            <Center w="100%" h="200px"><Spinner size="xl"/></Center>
+            <Center w="100%" h="200px"><Spinner size="xl" /></Center>
           ) : (
             <SimpleGrid w="100%" h="100%" padding="20px" columns={3} spacing="20px">
               {events?.map((event, key) => (

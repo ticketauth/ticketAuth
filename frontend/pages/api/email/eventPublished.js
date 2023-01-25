@@ -69,7 +69,7 @@ Please reply to this email if you have any questions or you need further assista
 
     const result = await transport.sendMail(mailOptions);
     console.log(result);
-    res.status(200).json('result');
+    res.status(200).json({});
   } catch (error) {
     console.log(error);
     res.status(200).json('result');

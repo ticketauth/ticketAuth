@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Input, useMultiStyleConfig, VStack } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
-import { FormInputData } from '../utils/dataInterfaces';
+import { CreateEventFormData } from '../utils/dataInterfaces/eventInterfaces';
 
 const FileToUrl = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -11,7 +11,7 @@ const FileToUrl = (file: File) =>
   });
 
 export const ImageInput: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: string) => void;
   imgtype: string;
   setTicketFile: (File) => void;

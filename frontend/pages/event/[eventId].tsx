@@ -22,7 +22,8 @@ import {
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Header from '../../components/Header';
-import type { DateData, EventData } from '../../utils/dataInterfaces';
+import type { EventData } from '../../utils/dataInterfaces/eventInterfaces';
+import type { DateData } from '../../utils/dataInterfaces/generalInterfaces';
 import { HiOutlineTicket } from 'react-icons/hi';
 import { MultiMintButton } from '../../components/NftBuyButton';
 import useCandyMachineV3 from '../../hooks/useCandyMachineV3';
@@ -47,7 +48,7 @@ import { network } from '../../config';
 
 const Event = () => {
   const router = useRouter();
-  const { eventId } = router.query;
+  const { EventId } = router.query;
   const [eventDets, setEvent] = useState<EventData>();
   const [imgSelected, setImgSelected] = useState('Ticket Image');
   const [eventstartdate, setStartDate] = useState<DateData>();
@@ -59,14 +60,14 @@ const Event = () => {
   const wallet = useWallet();
 
   useEffect(() => {
-    if (!eventId) return;
-    getEventById(eventId).then((event: EventData) => {
+    if (!EventId) return;
+    getEventById(EventId as string).then((event: EventData) => {
       console.log(event)
       setEvent(event);
       setStartDate(dateConvertr(event.StartEventDatetime));
       setEndDate(dateConvertr(event.EndEventDatetime));
     });
-  }, [eventId]);
+  }, [EventId]);
 
   const candyMachineV3 = useCandyMachineV3(eventDets?.CandyMachineId || '');
 
@@ -120,18 +121,18 @@ const Event = () => {
           return {
             burn: guards.burn?.nfts?.length
               ? {
-                  mint: guards.burn.nfts[i]?.mintAddress,
-                }
+                mint: guards.burn.nfts[i]?.mintAddress,
+              }
               : undefined,
             payment: guards.payment?.nfts?.length
               ? {
-                  mint: guards.payment.nfts[i]?.mintAddress,
-                }
+                mint: guards.payment.nfts[i]?.mintAddress,
+              }
               : undefined,
             gate: guards
               ? {
-                  mint: guards.gate.nfts[i]?.mintAddress,
-                }
+                mint: guards.gate.nfts[i]?.mintAddress,
+              }
               : undefined,
           };
         });
@@ -177,9 +178,9 @@ const Event = () => {
         ) : (
           <>
             {!!candyMachineV3.items.remaining &&
-            guardStates.hasGatekeeper &&
-            wallet.publicKey &&
-            wallet.signTransaction ? (
+              guardStates.hasGatekeeper &&
+              wallet.publicKey &&
+              wallet.signTransaction ? (
               <GatewayProvider
                 wallet={{
                   publicKey: wallet.publicKey,
@@ -207,7 +208,7 @@ const Event = () => {
       candyMachine={candyMachineV3.candyMachine}
       gatekeeperNetwork={gatekeeperNetwork}
       isMinting={candyMachineV3.status.minting}
-      setIsMinting={() => {}}
+      setIsMinting={() => { }}
       isActive={!!candyMachineV3.items.remaining}
       isEnded={guardStates.isEnded}
       isSoldOut={!candyMachineV3.items.remaining}
@@ -218,7 +219,7 @@ const Event = () => {
   );
 
   return eventDets == undefined ? (
-    <Center w="100%" h="200px"><Spinner size="xl"/></Center>
+    <Center w="100%" h="200px"><Spinner size="xl" /></Center>
   ) : (
     <>
       <Header />
@@ -374,9 +375,8 @@ const Event = () => {
                     <Text fontSize="sm">{eventDets.Location}</Text>
                     <AspectRatio w="100%">
                       <iframe
-                        src={`https://www.google.com/maps/embed/v1/place?key=${
-                          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-                        }&q=${eventDets.Location.replace(/\s/g, '+')}`}
+                        src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+                          }&q=${eventDets.Location.replace(/\s/g, '+')}`}
                       />
                     </AspectRatio>
                   </VStack>

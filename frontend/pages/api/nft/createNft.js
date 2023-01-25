@@ -1,23 +1,25 @@
+//  tsChangeDone
+
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
 
 import model from '../../../utils/dataModel/nftModel';
 
 export default async function handler(req, res) {
+  let status = false;
   try {
     await dbConnect();
 
-    const details = req.body;
+    const nftDetails = req.body.nftDetails;
 
-    console.log(details);
-    const result = await model.create(details);
+    const result = await model.create(nftDetails);
 
-
-		res.status(200).json(true);
-
+    status = true;
 
     // console.log(result);
   } catch (error) {
     console.log(error);
   }
+
+  res.status(200).json({ status });
 }

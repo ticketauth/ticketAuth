@@ -1,11 +1,14 @@
-import { EventData } from '../../../utils/dataInterfaces';
-
+import { EventData } from '../../../utils/dataInterfaces/eventInterfaces';
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
-
 import user from '../../../utils/dataModel/userModel';
 
+import { UserData, updateUserData } from '../../../utils/dataInterfaces/userInterfaces';
+
+// tsChangeDone
 export default async function handler(req, res) {
+  let status = false;
+
   try {
     await dbConnect();
 
@@ -20,8 +23,11 @@ export default async function handler(req, res) {
     };
 
     const result = await user.findOneAndUpdate(filter, update);
-    res.status(200).json(result);
+
+    status = true;
   } catch (error) {
     console.log(error);
   }
+
+  res.status(200).json({ status });
 }

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     const data = req.body.eventDetails;
 
-    const files = await event.findOneAndUpdate({ eventId: data.eventId }, data);
+    const files = await event.findOneAndUpdate({ EventId: data.EventId }, data);
 
     res.status(200).json({});
   } catch (error) {

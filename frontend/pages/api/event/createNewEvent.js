@@ -10,15 +10,16 @@ export default async function handler(req, res) {
 
     // const data = .data;
     const data = req.body.eventDetails;
+    console.log('DATA', data);
 
     const files = await event.find({
       walletAddress: data.walletAddress,
     });
 
-    data.eventId = data.walletAddress + files.length;
+    data.EventId = data.walletAddress + files.length;
     data.active = true;
 
-    console.log("Creating event with these dets:",data);
+    // console.log(data);
     await event.create(data);
 
     res.status(200).json({});

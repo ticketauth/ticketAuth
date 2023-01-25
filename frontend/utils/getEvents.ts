@@ -1,4 +1,4 @@
-import { EventData } from './dataInterfaces';
+import { EventData } from './dataInterfaces/eventInterfaces';
 
 const getEvents = async (): Promise<Array<EventData>> => {
   const data = await fetch('/api/dont_delete/testEvents', {

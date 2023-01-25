@@ -11,12 +11,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { FormInputData } from '../utils/dataInterfaces';
+import { CreateEventFormData } from '../utils/dataInterfaces/eventInterfaces';
 import { ImageInput } from './ImageInput';
 import { DebounceSearch } from './Maps';
 
 export const Tab1: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: string | number) => void;
 }> = ({ data, handleData }) => {
   return (
@@ -79,7 +79,7 @@ export const Tab1: React.FC<{
   );
 };
 export const Tab2: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: string | number) => void;
 }> = ({ data, handleData }) => {
   return (
@@ -159,7 +159,7 @@ export const Tab2: React.FC<{
 };
 
 export const Tab3: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: string) => void;
 }> = ({ data, handleData }) => {
   return (
@@ -185,7 +185,7 @@ export const Tab3: React.FC<{
 };
 
 export const Tab4: React.FC<{
-  data: FormInputData;
+  data: CreateEventFormData;
   handleData: (type: string, value: string) => void;
   setTicketFile: (File) => void;
 }> = ({ data, handleData, setTicketFile }) => {

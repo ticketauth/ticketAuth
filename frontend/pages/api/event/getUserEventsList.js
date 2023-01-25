@@ -1,31 +1,35 @@
 import mongoose from 'mongoose';
-
+import { UserData } from '../../../utils/dataInterfaces/userInterfaces';
+import { EventData } from '../../../utils/dataInterfaces/eventInterfaces';
 import event from '../../../utils/dataModel/eventModel';
 
 import user from '../../../utils/dataModel/userModel';
 
 import dbConnect from '../../../utils/mongodb';
 
+// tsChangeDone
 export default async function handler(req, res) {
   try {
     await dbConnect();
 
     let walletAddress = req.body.walletAddress;
 
-    let userInfo = await user.findOne({ walletAddress: walletAddress });
+    let filter = { walletAddress };
+
+    let userDetails = await user.findOne(filter);
     // console.log(userInfo.eventCreated);
 
-    let eventIdList = userInfo.eventCreated;
+    let EventIdList = userDetails.eventCreated;
 
     let allPromises = [];
 
-    for (let index in eventIdList) {
-      allPromises.push(event.findOne({ eventId: eventIdList[index] }));
+    for (let index in EventIdList) {
+      allPromises.push(event.findOne({ EventId: EventIdList[index] }));
     }
 
-    let eventList = await Promise.all(allPromises);
+    let userEventsList = await Promise.all(allPromises);
 
-    res.status(200).send(eventList);
+    res.status(200).json({ userEventsList });
   } catch (error) {
     console.log(error);
   }

@@ -1,15 +1,17 @@
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
-
 import model from '../../../utils/dataModel/nftModel';
 
+// tsChangeDone
 export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    let eventId = req.body.eventId;
+    let EventId = req.body.EventId;
 
-    const nftDetails = await model.findOne({ eventId: eventId });
+    let filter = { EventId };
+
+    const nftDetails = await model.findOne(filter);
 
     res.status(200).json(nftDetails);
   } catch (error) {

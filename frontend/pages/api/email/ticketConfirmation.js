@@ -9,6 +9,7 @@ const oAuth2Client = new google.auth.OAuth2(
 
 oAuth2Client.setCredentials({ refresh_token: process.env.GMAIL_REFRESH_TOKEN });
 
+// tsChangeDone
 export default async function handler(req, res) {
   try {
     // const img = require('../../../utils/emailTicket.png');
@@ -84,10 +85,10 @@ Please reply to this email if you have any questions or you need any further ass
 
     const result = await transport.sendMail(mailOptions);
     console.log(result);
-    res.status(200).json('result');
+    res.status(200).json({ status: true });
   } catch (error) {
     console.log(error);
-    res.status(200).json('result');
+    res.status(200).json({ status: false });
   }
 
   // res.status(200).json("result");
