@@ -1,4 +1,4 @@
-import { DateData } from './dataInterfaces';
+import { DateData } from './dataInterfaces/generalInterfaces';
 
 export const dateConvertr = (datestr: string): DateData => {
   const curdate = new Date(datestr + 'Z');
