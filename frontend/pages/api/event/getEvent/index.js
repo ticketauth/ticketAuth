@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    const allEvents: EventData[] = await event.find({});
+    const allEvents = await event.find({});
 
     res.status(200).json({ allEvents });
   } catch (error) {

@@ -2,20 +2,17 @@ import { EventData } from '../../../utils/dataInterfaces/eventInterfaces';
 import dbConnect from '../../../utils/mongodb';
 import mongoose from 'mongoose';
 import user from '../../../utils/dataModel/userModel';
-import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { UserData, updateUserData } from '../../../utils/dataInterfaces/userInterfaces';
 
 // tsChangeDone
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<{ status: boolean }>,
-) {
-  let status: boolean = false;
+export default async function handler(req, res) {
+  let status = false;
 
   try {
     await dbConnect();
 
-    const data: updateUserData = req.body.userDetails;
+    const data = req.body.userDetails;
 
     const filter = { walletAddress: data.walletAddress };
 

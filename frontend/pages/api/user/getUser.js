@@ -1,17 +1,17 @@
 import mongoose from 'mongoose';
 import user from '../../../utils/dataModel/userModel';
 import dbConnect from '../../../utils/mongodb';
-import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { UserData } from '../../../utils/dataInterfaces/userInterfaces';
 
 // tsChangeDone
-export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+export default async function handler(req, res) {
   try {
     await dbConnect();
 
     let walletAddress = req.body.walletAddress;
 
-    let userDetails: UserData;
+    let userDetails;
 
     const exists = await user.exists({ walletAddress: walletAddress });
 

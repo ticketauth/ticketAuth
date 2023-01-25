@@ -12,14 +12,14 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    let walletAddress: string = req.body.walletAddress;
+    let walletAddress = req.body.walletAddress;
 
     let filter = { walletAddress };
 
-    let userDetails: UserData = await user.findOne(filter);
+    let userDetails = await user.findOne(filter);
     // console.log(userInfo.eventCreated);
 
-    let EventIdList: string[] = userDetails.eventCreated;
+    let EventIdList = userDetails.eventCreated;
 
     let allPromises = [];
 
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
       allPromises.push(event.findOne({ EventId: EventIdList[index] }));
     }
 
-    let userEventsList: EventData[] = await Promise.all(allPromises);
+    let userEventsList = await Promise.all(allPromises);
 
     res.status(200).json({ userEventsList });
   } catch (error) {

@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     await dbConnect();
 
-    let walletAddress: string = req.body.walletAddress;
+    let walletAddress = req.body.walletAddress;
 
     let filter = { walletAddress };
 
