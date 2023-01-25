@@ -56,7 +56,7 @@ export async function getTemporaryEventId(walletAddress: string) {
 
 // Write -----------------------------------------
 
-export async function createNewEvent(createEventDetails: CreateEventFormData) {
+export async function createNewEvent(createEventDetails: EventData) {
   let status: boolean = (
     await axios.post(`${API}/createNewEvent`, {
       createEventDetails,

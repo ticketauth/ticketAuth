@@ -38,7 +38,8 @@ const CreateEvent: React.FC = () => {
   const [ticketFile, setTicketFile] = useState<File>();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<UserData>()
-  const [data, setData] = useState<FormInputData>({
+  const [data, setData] = useState<CreateEventFormData>({
+    EventId: "",
     EventName: '',
     Category: '',
     EventDescription: '',
@@ -57,17 +58,17 @@ const CreateEvent: React.FC = () => {
   });
 
   const [candyMachineData, setCandyMachineData] = useState<CandyMachineData>({
-    'Name of event': '',
-    'Event Description': '',
-    'Start Event Datetime': '',
-    'End Event Datetime': '',
-    'Start Sale Datetime': '',
-    'End Sale Datetime': '',
-    'Event Capacity': 0,
-    'Ticket price': 0,
-    ticketFile: null,
-    wallet: wallet,
-    connection: connection,
+    EventName: '',
+    EventDescription: '',
+    StartEventDatetime: '',
+    EndEventDatetime: '',
+    StartSaleDatetime: '',
+    EndSaleDatetime: '',
+    EventCapacity: 0,
+    TicketPrice: 0,
+    TicketFile: null,
+    Wallet: wallet,
+    Connection: connection,
   });
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -85,7 +86,7 @@ const CreateEvent: React.FC = () => {
   }, [])
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
-    candyMachineData.ticketFile = ticketFile;
+    candyMachineData.TicketFile = ticketFile;
   }, [ticketFile]);
 
 
@@ -105,8 +106,9 @@ const CreateEvent: React.FC = () => {
     createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
       createNewEvent({
         ...data,
-        candyMachineId: candyMachineID,
-        collectionId: collectionAddress,
+        CandyMachineId: candyMachineID,
+        CollectionId: collectionAddress,
+        Active: true
       });
       router.push('/');
     });
