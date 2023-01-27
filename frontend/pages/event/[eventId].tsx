@@ -62,7 +62,7 @@ const Event = () => {
   useEffect(() => {
     if (!EventId) return;
     getEventById(EventId as string).then((event: EventData) => {
-      console.log(event)
+
       setEvent(event);
       setStartDate(dateConvertr(event.StartEventDatetime));
       setEndDate(dateConvertr(event.EndEventDatetime));

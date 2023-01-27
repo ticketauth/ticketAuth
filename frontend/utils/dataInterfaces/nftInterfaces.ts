@@ -1,5 +1,5 @@
 export interface NftData {
   EventId: string;
-  metadata: any[];
-  nft: string[];
+  Metadata: any[];
+  Nft: string[];
 }

@@ -22,6 +22,6 @@
 		"utils/mongodb.js",
 		"pages/api/user/updateUser.js",
 		"pages/api/event/getEvent/[id].js[id].js"
-, "pages/api/event/createNewEvent.js", "pages/api/event/getEvent/index.js", "pages/api/event/getEvent/[EventId].js", "pages/api/event/deleteEvent.js", "pages/api/event/getEventByWalletAddress.js", "pages/api/event/updateEvent.js", "pages/api/event/getUserEventsList.js", "pages/api/user/getUser.js", "pages/api/nft/getNftByEventId.js", "pages/api/nft/createNft.js"	],
+, "pages/api/event/createNewEvent.js", "pages/api/event/getEvent/index.js", "pages/api/event/getEvent/[EventId].js", "pages/api/event/deleteEvent.js", "pages/api/event/getEventByWalletAddress.js", "pages/api/event/updateEvent.js", "pages/api/event/getUserEventsList.js", "pages/api/user/getUser.js", "pages/api/nft/getNftByEventId.js", "pages/api/nft/createNft.js", "pages/api/event/getTemporaryEventId.js"	],
 	"exclude": ["node_modules"]
 }

@@ -7,6 +7,7 @@ const API = '../../api/nft';
 export async function createNft(nftDetails: NftData): Promise<boolean> {
   // Params {EventId, metadata, nft}
   // return boolean true: success, false:failed
+
   const status: boolean = (await axios.post(`${API}/createNft`, { nftDetails })).data.status;
   return status;
 }
