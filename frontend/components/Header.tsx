@@ -38,7 +38,7 @@ const WalletModal = (props: { isPaymentOpen: boolean; onPaymentClose: () => void
 
 const Header = () => {
   const { isOpen: isPaymentOpen, onOpen: onPaymentOpen, onClose: onPaymentClose } = useDisclosure();
-  const [ loading, setLoading ] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { publicKey } = useWallet();
   return (
@@ -62,7 +62,7 @@ const Header = () => {
               return onPaymentOpen();
             }
             getUser(publicKey.toString()).then((res) => {
-              if (res.email === '') router.push('/SignUp');
+              if (res.Email === '') router.push('/SignUp');
               else router.push('/create');
               setLoading(false);
             });
