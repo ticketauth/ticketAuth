@@ -20,10 +20,10 @@ import { updateUser } from '../utils/controller/user';
 const SignUp: React.FC = () => {
   const { publicKey } = useWallet();
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    walletAddress: publicKey?.toString(),
+    FirstName: '',
+    LastName: '',
+    Email: '',
+    WalletAddress: publicKey?.toString(),
   });
   const router = useRouter();
 
@@ -56,7 +56,7 @@ const SignUp: React.FC = () => {
             value={data['firstName']}
             onChange={(e) => handleData('firstName', e.currentTarget.value)}
           />
-          {data.firstName == '' && <FormErrorMessage>First name is required.</FormErrorMessage>}
+          {data.FirstName == '' && <FormErrorMessage>First name is required.</FormErrorMessage>}
         </FormControl>
         <FormControl isInvalid={data['lastName'] == ''}>
           <FormLabel>Last Name</FormLabel>
