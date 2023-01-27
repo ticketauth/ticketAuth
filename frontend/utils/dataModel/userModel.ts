@@ -5,13 +5,13 @@ const Schema = mongoose.Schema;
 // tsChangeDone
 
 const UserSchema = new Schema<UserData>({
-  walletAddress: String,
-  eventAttends: [String],
-  eventCreated: [String],
-  firstName: String,
-  lastName: String,
-  email: String,
-  managedWalletPK: String,
+  WalletAddress: String,
+  EventAttends: [String],
+  EventCreated: [String],
+  FirstName: String,
+  LastName: String,
+  Email: String,
+  ManagedWalletPK: String,
 });
 
 export default mongoose.models.User || mongoose.model<UserData>('User', UserSchema);

@@ -1,16 +1,16 @@
 export interface UserData {
-  walletAddress: string;
-  eventAttends: [string];
-  eventCreated: [string];
-  firstName: string;
-  lastName: string;
-  email: string;
-  managedWalletPK: string;
+  WalletAddress: string;
+  EventAttends: [string];
+  EventCreated: [string];
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  ManagedWalletPK: string;
 }
 
 export interface updateUserData {
-  walletAddress: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  WalletAddress: string;
+  FirstName: string;
+  LastName: string;
+  Email: string;
 }
