@@ -79,8 +79,8 @@ const CreateEvent: React.FC = () => {
       setData({
         ...data,
         WalletAddress: wallet.publicKey?.toString(),
-        OrganizersEmail: res.email,
-        Organizer: res.firstName + " " + res.lastName
+        OrganizersEmail: res.Email,
+        Organizer: res.FirstName + " " + res.LastName
       })
     })
   }, [])
