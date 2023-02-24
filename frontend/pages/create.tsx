@@ -142,6 +142,16 @@ const CreateEvent: React.FC = () => {
       });
       router.push('/');
     });
+    // setLoading(true);
+    // createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
+    //   createNewEvent({
+    //     ...data,
+    //     CandyMachineId: candyMachineID,
+    //     CollectionId: collectionAddress,
+    //     Active: true
+    //   });
+    //   router.push('/');
+    // });
   };
 
   return (

@@ -50,7 +50,7 @@ const Event = () => {
   const router = useRouter();
   const { EventId } = router.query;
   const [eventDets, setEvent] = useState<EventData>();
-  const [imgSelected, setImgSelected] = useState('Ticket Image');
+  const [imgSelected, setImgSelected] = useState('TicketImage');
   const [eventstartdate, setStartDate] = useState<DateData>();
   const [eventendate, setEndDate] = useState<DateData>();
   const [salestartdate, setSaleStartDate] = useState<DateData>();
@@ -62,7 +62,6 @@ const Event = () => {
   useEffect(() => {
     if (!EventId) return;
     getEventById(EventId as string).then((event: EventData) => {
-
       setEvent(event);
       setStartDate(dateConvertr(event.StartEventDatetime));
       setEndDate(dateConvertr(event.EndEventDatetime));
@@ -262,7 +261,7 @@ const Event = () => {
                       <Center
                         w="120px"
                         h="120px"
-                        onClick={() => setImgSelected('Ticket Image')}
+                        onClick={() => setImgSelected('TicketImage')}
                         border={
                           imgSelected == 'TicketImage' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
@@ -277,7 +276,7 @@ const Event = () => {
                       <Center
                         w="120px"
                         h="120px"
-                        onClick={() => setImgSelected('Background Image')}
+                        onClick={() => setImgSelected('BackgroundImage')}
                         border={
                           imgSelected == 'BackgroundImage' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
