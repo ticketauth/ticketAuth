@@ -30,10 +30,13 @@ import { Backdrop } from '../components/Backdrop';
 import '@fontsource/monoton';
 import { Tab1, Tab2, Tab3, Tab4 } from '../components/CreateTabs';
 import { getUser } from '../utils/controller/user';
+import { Keypair, LAMPORTS_PER_SOL, sendAndConfirmTransaction, SystemProgram, Transaction } from '@solana/web3.js';
 
 const CreateEvent: React.FC = () => {
-  const wallet = useWallet();
+  const { publicKey, sendTransaction} = useWallet();
   const router = useRouter();
+  const payer = Keypair.generate();
+  const wallet = useWallet();
   const { connection } = useConnection();
   const [ticketFile, setTicketFile] = useState<File>();
   const [loading, setLoading] = useState(false);
@@ -72,19 +75,27 @@ const CreateEvent: React.FC = () => {
   });
 
   const [tabIndex, setTabIndex] = useState(0);
-
+  const lamports = 0.1;
   useEffect(() => {
-    console.log(wallet.publicKey?.toString())
-    if (!wallet.publicKey) return;
-    getUser(wallet.publicKey?.toString()).then(res => {
+    console.log(publicKey?.toString())
+    if (!publicKey) return;
+    connection.getBalance(publicKey).then((bal) => {
+      if(bal <= lamports){
+        alert("You do not have enough balance to create an event");
+        router.push("/");
+      }
+    })
+    getUser(publicKey?.toString()).then(res => {
       setData({
         ...data,
-        WalletAddress: wallet.publicKey?.toString(),
+        WalletAddress: publicKey?.toString(),
         OrganizersEmail: res.Email,
         Organizer: res.FirstName + " " + res.LastName
       })
     })
-  }, [wallet])
+  }, [publicKey])
+  
+  
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.TicketFile = ticketFile;
@@ -103,6 +114,17 @@ const CreateEvent: React.FC = () => {
   };
 
   const createEvent = async () => {
+    let lamportsI = LAMPORTS_PER_SOL * lamports;
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: payer.publicKey,
+        lamports: lamportsI,
+      })
+    )
+    
+    const signature = await sendTransaction(transaction, connection);
+    await connection.confirmTransaction(signature, 'processed');
     console.log(data)
     // createNewEvent({
     //   ...data,
@@ -111,7 +133,7 @@ const CreateEvent: React.FC = () => {
     //   Active: true
     // });
     setLoading(true);
-    createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
+    createCandyMachine(candyMachineData, payer).then(([collectionAddress, candyMachineID]) => {
       createNewEvent({
         ...data,
         CandyMachineId: candyMachineID,
