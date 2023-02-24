@@ -60,9 +60,9 @@ const Event = () => {
   const wallet = useWallet();
 
   useEffect(() => {
+    console.log("PENIS",EventId)
     if (!EventId) return;
     getEventById(EventId as string).then((event: EventData) => {
-
       setEvent(event);
       setStartDate(dateConvertr(event.StartEventDatetime));
       setEndDate(dateConvertr(event.EndEventDatetime));

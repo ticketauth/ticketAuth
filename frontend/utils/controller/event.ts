@@ -15,6 +15,7 @@ export async function getAllEvents(): Promise<EventData[]> {
 
 // done
 export async function getEventById(EventId: string) {
+  console.log("Penis")
   const eventDetails: EventData = (await axios.post(`${API}/getEvent/${EventId}`)).data
     .eventDetails;
   return eventDetails;
