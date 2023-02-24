@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -154,6 +155,14 @@ export const Tab2: React.FC<{
           <FormErrorMessage>Enter your email for contact purposes</FormErrorMessage>
         )}
       </FormControl>
+
+      <FormControl w="100%" isInvalid={data.WalletAddress == ''}>
+        <FormLabel>Wallet Address:</FormLabel>
+        <Button disabled={true}>{data.WalletAddress?data.WalletAddress:"No wallet connected"}</Button>
+        {data.WalletAddress == '' && (
+          <FormErrorMessage>Connect your wallet to create event!</FormErrorMessage>
+        )}
+      </FormControl>
     </VStack>
   );
 };
@@ -217,6 +226,7 @@ export const Tab4: React.FC<{
           />
         </VStack>
       </GridItem>
+
     </SimpleGrid>
   );
 };

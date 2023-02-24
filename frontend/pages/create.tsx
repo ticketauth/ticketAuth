@@ -74,6 +74,7 @@ const CreateEvent: React.FC = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
+    console.log(wallet.publicKey?.toString())
     if (!wallet.publicKey) return;
     getUser(wallet.publicKey?.toString()).then(res => {
       setData({
@@ -83,11 +84,11 @@ const CreateEvent: React.FC = () => {
         Organizer: res.FirstName + " " + res.LastName
       })
     })
-  }, [])
+  }, [wallet])
   //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.TicketFile = ticketFile;
-  }, [ticketFile]);
+  }, [candyMachineData,ticketFile]);
 
 
   const handleData = (type: string, value: any) => {
@@ -102,16 +103,17 @@ const CreateEvent: React.FC = () => {
   };
 
   const createEvent = async () => {
-    setLoading(true);
-    createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
-      createNewEvent({
-        ...data,
-        CandyMachineId: candyMachineID,
-        CollectionId: collectionAddress,
-        Active: true
-      });
-      router.push('/');
-    });
+    console.log(data)
+    // setLoading(true);
+    // createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
+    //   createNewEvent({
+    //     ...data,
+    //     CandyMachineId: candyMachineID,
+    //     CollectionId: collectionAddress,
+    //     Active: true
+    //   });
+    //   router.push('/');
+    // });
   };
 
   return (
@@ -253,6 +255,7 @@ const CreateEvent: React.FC = () => {
                     onClick={() => createEvent()}
                     bg="brand.3"
                     color="white"
+                    isDisabled={!data.WalletAddress}
                   >
                     Create Your Event
                   </Button>

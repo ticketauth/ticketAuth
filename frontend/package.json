@@ -10,7 +10,6 @@
     "patch": "next"
   },
   "dependencies": {
-    "@bedrock-foundation/react-sdk": "^0.0.15",
     "@chakra-ui/icons": "^2.0.13",
     "@chakra-ui/react": "^2.4.3",
     "@civic/solana-gateway-react": "^0.11.0",
