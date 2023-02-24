@@ -124,7 +124,12 @@ const CreateEvent: React.FC = () => {
     )
     
     const signature = await sendTransaction(transaction, connection);
-    await connection.confirmTransaction(signature, 'processed');
+    const latestBlockhash = await connection.getLatestBlockhash();
+    await connection.confirmTransaction({
+      blockhash: latestBlockhash.blockhash,
+      lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+      signature: signature
+    });
     console.log(data)
     // createNewEvent({
     //   ...data,
