@@ -264,7 +264,7 @@ const Event = () => {
                         h="120px"
                         onClick={() => setImgSelected('Ticket Image')}
                         border={
-                          imgSelected == 'Ticket Image' ? '4px solid rgba(0,180,216,0.96)' : ''
+                          imgSelected == 'TicketImage' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
                       >
                         <Image
@@ -279,7 +279,7 @@ const Event = () => {
                         h="120px"
                         onClick={() => setImgSelected('Background Image')}
                         border={
-                          imgSelected == 'Background Image' ? '4px solid rgba(0,180,216,0.96)' : ''
+                          imgSelected == 'BackgroundImage' ? '4px solid rgba(0,180,216,0.96)' : ''
                         }
                       >
                         <Image alt="ticket" boxSize="100px" src={eventDets.BackgroundImage} />

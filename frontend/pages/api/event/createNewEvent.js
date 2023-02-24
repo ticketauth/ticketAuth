@@ -9,14 +9,14 @@ export default async function handler(req, res) {
     await dbConnect();
 
     // const data = .data;
-    const data = req.body.eventDetails;
+    const data = req.body.createEventDetails;
     console.log('DATA', data);
 
     const files = await event.find({
-      walletAddress: data.walletAddress,
+      WalletAddress: data.WalletAddress,
     });
 
-    data.EventId = data.walletAddress + files.length;
+    data.EventId = data.WalletAddress + files.length;
     data.active = true;
 
     // console.log(data);

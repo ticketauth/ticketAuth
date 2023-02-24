@@ -62,6 +62,7 @@ export async function createNewEvent(createEventDetails: EventData) {
       createEventDetails,
     })
   ).data.status;
+  return status
 }
 
 // Write --------------------------------------------

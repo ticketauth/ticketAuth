@@ -104,16 +104,22 @@ const CreateEvent: React.FC = () => {
 
   const createEvent = async () => {
     console.log(data)
-    // setLoading(true);
-    // createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
-    //   createNewEvent({
-    //     ...data,
-    //     CandyMachineId: candyMachineID,
-    //     CollectionId: collectionAddress,
-    //     Active: true
-    //   });
-    //   router.push('/');
+    // createNewEvent({
+    //   ...data,
+    //   CandyMachineId: "12",
+    //   CollectionId: "12",
+    //   Active: true
     // });
+    setLoading(true);
+    createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
+      createNewEvent({
+        ...data,
+        CandyMachineId: candyMachineID,
+        CollectionId: collectionAddress,
+        Active: true
+      });
+      router.push('/');
+    });
   };
 
   return (
