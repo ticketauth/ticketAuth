@@ -13,6 +13,7 @@ import {
   insertCandyMachineItemsBuilder,
   InsertCandyMachineItemsInput,
   TransactionBuilder,
+  keypairIdentity,
 } from '@metaplex-foundation/js';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import {
@@ -21,7 +22,7 @@ import {
   useWallet,
   WalletContextState,
 } from '@solana/wallet-adapter-react';
-import { clusterApiUrl, Connection, Transaction } from '@solana/web3.js';
+import { clusterApiUrl, Connection, Keypair, Transaction } from '@solana/web3.js';
 import { bundlrAddress, network, rpcHost } from '../config';
 import { CandyMachineData } from './dataInterfaces/candyMachineInterfaces';
 import React from 'react';
@@ -133,21 +134,57 @@ async function generateCandyMachine(
   return candyMachine;
   //candymachine address = "BN7Kje2n24325EqDZDUt2SgDDqF43Z6RQAEyhmEx9Nt1" //mainnet-beta
 }
+
+async function addItems(candyMachineID: PublicKey, uri : string, totalTickets : number, metaplex : Metaplex) {
+    const candyMachine = await metaplex
+    .candyMachines()
+    .findByAddress({ address: candyMachineID });
+    const items = [];
+    for (let i = 0; i < 9; i++) {
+        //Adding max of 10 items per instruction
+        items.push({
+        name: "",
+        uri: uri,
+    });
+    }
+    let response: InsertCandyMachineItemsOutput;
+
+    for(let j = 0; j < totalTickets/10; j++){
+        let index = j == 0 ? 0 :  (j*10 - 1 );
+        response = await metaplex.candyMachines().insertItems(
+            {
+            candyMachine,
+            index: index , //just to set the index of the items to be added into the candy machine 
+            items: items,
+            },
+        );
+
+        console.log(response);
+    }
+
+
+    console.log(
+    `✅ - Items added to Candy Machine: ${candyMachineID.toString()}`
+    );
+    console.log(
+    `https://explorer.solana.com/tx/${response.response.signature}?cluster=${network}`
+    );
+    return response.response.signature
+}
+
 async function createInstruction(
   candyMachineID: PublicKey,
   uri: string,
   totalTickets: number,
   metaplex: Metaplex,
-  wallet: WalletContextState,
   connection: Connection,
+  wallet: WalletContextState
 ) {
   const candyMachine = await metaplex.candyMachines().findByAddress({ address: candyMachineID });
-
   let input: InsertCandyMachineItemsInput;
   let itemsToAdd: number;
   const transactionBuilder: TransactionBuilder[] = [];
   const totalLoop = Math.ceil(totalTickets / 10);
-
   for (let j = 0; j < totalLoop; j++) {
     totalTickets >= 10 ? (itemsToAdd = 10) : (itemsToAdd = totalTickets);
     totalTickets -= 10;
@@ -196,6 +233,7 @@ async function createNFT(
   metaplex: Metaplex,
   wallet: WalletContextState,
   connection: Connection,
+  
 ): Promise<[string, string]> {
   //Step 1 - Upload Image
   const imgUri = await uploadImage(ticketImage, metaplex);
@@ -220,19 +258,19 @@ async function createNFT(
   const candyMachineID = candyMachine.address;
   //Step 5 - Adding items to Candy Machine
   const uriData = metadataUri.split('/');
-  await createInstruction(candyMachineID, uriData[3], eventCapacity, metaplex, wallet, connection);
-
+  const response = await addItems(candyMachineID, uriData[3], eventCapacity, metaplex);
+  //await createInstruction(candyMachineID, uriData[3], eventCapacity, metaplex, connection, wallet);
   return [collectionAddress.toBase58(), candyMachineID.toBase58()];
   //return ["5PAAUq7tiwsLEQwbG3YLvzzmemWeWGkcwHZAd2Zb7djA", "BdYtP59ZqLK8YGDM2d6fJwHZtWyYcjP2w78UxaUiLWhX", transactionSignature];
 }
 
-export default async function createCandyMachine(candyMachineData: CandyMachineData) {
+export default async function createCandyMachine(candyMachineData: CandyMachineData, payer: Keypair) {
   const connection = candyMachineData.Connection;
-
   const metaplex = Metaplex.make(connection);
-
+  
+  console.log(payer);
   metaplex
-    .use(walletAdapterIdentity(candyMachineData.Wallet)) // Will prompt the user
+    .use(keypairIdentity(payer)) // Will automatically use the wallet created on the fly
     .use(
       bundlrStorage({
         address: bundlrAddress,
