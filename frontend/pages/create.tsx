@@ -96,7 +96,6 @@ const CreateEvent: React.FC = () => {
   }, [publicKey])
   
   
-  //Not sure how ticketFile is being set, so i just created an useEffect here. Ask Ryan what is going on with setTicketFile
   useEffect(() => {
     candyMachineData.TicketFile = ticketFile;
   }, [candyMachineData,ticketFile]);
@@ -131,12 +130,6 @@ const CreateEvent: React.FC = () => {
       signature: signature
     });
     console.log(data)
-    // createNewEvent({
-    //   ...data,
-    //   CandyMachineId: "12",
-    //   CollectionId: "12",
-    //   Active: true
-    // });
     setLoading(true);
     createCandyMachine(candyMachineData, payer).then(([collectionAddress, candyMachineID]) => {
       createNewEvent({
@@ -147,16 +140,6 @@ const CreateEvent: React.FC = () => {
       });
       router.push('/');
     });
-    // setLoading(true);
-    // createCandyMachine(candyMachineData).then(([collectionAddress, candyMachineID]) => {
-    //   createNewEvent({
-    //     ...data,
-    //     CandyMachineId: candyMachineID,
-    //     CollectionId: collectionAddress,
-    //     Active: true
-    //   });
-    //   router.push('/');
-    // });
   };
 
   return (

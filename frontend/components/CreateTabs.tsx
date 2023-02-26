@@ -210,7 +210,7 @@ export const Tab4: React.FC<{
             data={data}
             setTicketFile={setTicketFile}
             handleData={handleData}
-            imgtype="Background Image"
+            imgtype="BackgroundImage"
           />
         </VStack>
       </GridItem>
@@ -222,7 +222,7 @@ export const Tab4: React.FC<{
             data={data}
             setTicketFile={setTicketFile}
             handleData={handleData}
-            imgtype="Ticket Image"
+            imgtype="TicketImage"
           />
         </VStack>
       </GridItem>
